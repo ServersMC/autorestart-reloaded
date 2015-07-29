@@ -173,32 +173,32 @@ public class Config {
 	 * Reminder messages in minutes
 	 * @return String
 	 */
-	public static String getMessageMinutes() {
-		return convert(config.getString("config.messages.minutes"));
+	public static String getMessageMinutes(String m) {
+		return convert(config.getString("config.messages.minutes").replace("%m", m));
 	}
 
 	/**
 	 * Reminder messages in seconds
 	 * @return String
 	 */
-	public static String getMessageSeconds() {
-		return convert(config.getString("config.messages.seconds"));
+	public static String getMessageSeconds(String s) {
+		return convert(config.getString("config.messages.seconds").replace("%s", s));
 	}
 
 	/**
 	 * Broadcast time message
 	 * @return String
 	 */
-	public static String getMessageTime() {
-		return convert(config.getString("config.messages.time"));
+	public static String getMessageTime(String h, String m, String s) {
+		return convert(config.getString("config.messages.time").replace("%h", h).replace("%m", m).replace("%s", s));
 	}
 
 	/**
 	 * Broadcast time message when time changes
 	 * @return String
 	 */
-	public static String getMessageChange() {
-		return convert(config.getString("config.messages.change"));
+	public static String getMessageChange(String h, String m, String s) {
+		return convert(config.getString("config.messages.change").replace("%h", h).replace("%m", m).replace("%s", s));
 	}
 
 	/**
@@ -221,48 +221,48 @@ public class Config {
 	 * Title message for minute reminders
 	 * @return String
 	 */
-	public static String getPopupMessageMinutesTitle() {
-		return convert(config.getString("config.popup-messages.minutes.title"));
+	public static String getPopupMessageMinutesTitle(String m) {
+		return convert(config.getString("config.popup-messages.minutes.title").replace("%m", m));
 	}
 	
 	/**
 	 * Subtitle message for minute reminders
 	 * @return String
 	 */
-	public static String getPopupMessageMinutesSubTitle() {
-		return convert(config.getString("config.popup-messages.minutes.subtitle"));
+	public static String getPopupMessageMinutesSubTitle(String m) {
+		return convert(config.getString("config.popup-messages.minutes.subtitle").replace("%m", m));
 	}
 	
 	/**
 	 * Title message for second reminders
 	 * @return String
 	 */
-	public static String getPopupMessageSecondsTitle() {
-		return convert(config.getString("config.popup-messages.seconds.title"));
+	public static String getPopupMessageSecondsTitle(String s) {
+		return convert(config.getString("config.popup-messages.seconds.title").replace("%s", s));
 	}
 	
 	/**
 	 * Subtitle message for second reminders
 	 * @return String
 	 */
-	public static String getPopupMessageSecondsSubTitle() {
-		return convert(config.getString("config.popup-messages.seconds.subtitle"));
+	public static String getPopupMessageSecondsSubTitle(String s) {
+		return convert(config.getString("config.popup-messages.seconds.subtitle").replace("%s", s));
 	}
 	
 	/**
 	 * Title message for private time popup
 	 * @return String
 	 */
-	public static String getPopupMessageTimeTitle() {
-		return convert(config.getString("config.popup-messages.time.title"));
+	public static String getPopupMessageTimeTitle(String h, String m, String s) {
+		return convert(config.getString("config.popup-messages.time.title").replace("%h", h).replace("%m", m).replace("%s", s));
 	}
 	
 	/**
 	 * Subtitle message for private time popup
 	 * @return String
 	 */
-	public static String getPopupMessageTimeSubTitle() {
-		return convert(config.getString("config.popup-messages.time.subtitle"));
+	public static String getPopupMessageTimeSubTitle(String h, String m, String s) {
+		return convert(config.getString("config.popup-messages.time.subtitle").replace("%h", h).replace("%m", m).replace("%s", s));
 	}
 	
 	/**
@@ -301,32 +301,32 @@ public class Config {
 	 * Title message for time change
 	 * @return String
 	 */
-	public static String getPopupMessageChangeTitle() {
-		return convert(config.getString("config.popup-messages.change.title"));
+	public static String getPopupMessageChangeTitle(String h, String m, String s) {
+		return convert(config.getString("config.popup-messages.change.title").replace("%h", h).replace("%m", m).replace("%s", s));
 	}
 	
 	/**
 	 * Subtitle message for time change
 	 * @return String
 	 */
-	public static String getPopupMessageChangeSubTitle() {
-		return convert(config.getString("config.popup-messages.change.subtitle"));
+	public static String getPopupMessageChangeSubTitle(String h, String m, String s) {
+		return convert(config.getString("config.popup-messages.change.subtitle").replace("%h", h).replace("%m", m).replace("%s", s));
 	}
 	
 	/**
 	 * The message when the shudown limit is met
 	 * @return String
 	 */
-	public static String getMaxPlayersMessage() {
-		return convert(config.getString("config.max-players.message"));
+	public static String getMaxPlayersMessage(String a) {
+		return convert(config.getString("config.max-players.message").replace("%a", a));
 	}
 	
 	/**
 	 * The message when the server shudowns after player wait
 	 * @return String
 	 */
-	public static String getMaxPlayersShutdownMessage() {
-		return convert(config.getString("config.max-players.shutdown"));
+	public static String getMaxPlayersShutdownMessage(String d) {
+		return convert(config.getString("config.max-players.shutdown").replace("%d", d));
 	}
 	
 }
