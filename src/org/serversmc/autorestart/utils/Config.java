@@ -222,7 +222,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageMinutesTitle() {
-		return config.getString("config.popup-messages.minutes.title");
+		return convert(config.getString("config.popup-messages.minutes.title"));
 	}
 	
 	/**
@@ -230,7 +230,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageMinutesSubTitle() {
-		return config.getString("config.popup-messages.minutes.subtitle");
+		return convert(config.getString("config.popup-messages.minutes.subtitle"));
 	}
 	
 	/**
@@ -238,7 +238,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageSecondsTitle() {
-		return config.getString("config.popup-messages.seconds.title");
+		return convert(config.getString("config.popup-messages.seconds.title"));
 	}
 	
 	/**
@@ -246,7 +246,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageSecondsSubTitle() {
-		return config.getString("config.popup-messages.seconds.subtitle");
+		return convert(config.getString("config.popup-messages.seconds.subtitle"));
 	}
 	
 	/**
@@ -254,7 +254,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageTimeTitle() {
-		return config.getString("config.popup-messages.time.title");
+		return convert(config.getString("config.popup-messages.time.title"));
 	}
 	
 	/**
@@ -262,7 +262,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageTimeSubTitle() {
-		return config.getString("config.popup-messages.time.subtitle");
+		return convert(config.getString("config.popup-messages.time.subtitle"));
 	}
 	
 	/**
@@ -270,7 +270,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageStatusStartTitle() {
-		return config.getString("config.popup-messages.status.start..title");
+		return convert(config.getString("config.popup-messages.status.start..title"));
 	}
 	
 	/**
@@ -278,7 +278,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageStatusStartSubTitle() {
-		return config.getString("config.popup-messages.status.start.subtitle");
+		return convert(config.getString("config.popup-messages.status.start.subtitle"));
 	}
 	
 	/**
@@ -286,7 +286,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageStatusPauseTitle() {
-		return config.getString("config.popup-messages.status.pause.title");
+		return convert(config.getString("config.popup-messages.status.pause.title"));
 	}
 	
 	/**
@@ -294,7 +294,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageStatusPauseSubTitle() {
-		return config.getString("config.popup-messages.status.pause.subtitle");
+		return convert(config.getString("config.popup-messages.status.pause.subtitle"));
 	}
 	
 	/**
@@ -302,7 +302,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageChangeTitle() {
-		return config.getString("config.popup-messages.change.title");
+		return convert(config.getString("config.popup-messages.change.title"));
 	}
 	
 	/**
@@ -310,7 +310,7 @@ public class Config {
 	 * @return String
 	 */
 	public static String getPopupMessageChangeSubTitle() {
-		return config.getString("config.popup-messages.change.subtitle");
+		return convert(config.getString("config.popup-messages.change.subtitle"));
 	}
 	
 	/**
