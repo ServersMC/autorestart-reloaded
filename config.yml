@@ -95,4 +95,5 @@ config:
         ## The delay for the server to restart after restart cancel. In seconds!
         delay: 10
 ## DO NOT CHANGE THIS!!!!
-version: 11
+version: 10
+## I did not change this for the new 1.2  update
