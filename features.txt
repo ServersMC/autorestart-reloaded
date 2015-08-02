@@ -5,18 +5,19 @@ X Editable reminder messages!
 X Editable shut down messages!
 X Editable seconds messages!
 X Option to enable/disable on screen pop ups, on different events!
-* Change restart time in-game.
+X Change restart time in-game.
 * Integrated update check.
-* MultiCraft support!
-* Force saves world when restarts!
-* Able to Start, or Pause the server timer in-game!
+X MultiCraft support!
+X Force saves world when restarts!
+X Able to Start, or Pause the server timer in-game!
+X Reminds you every minute that timer is paused!
 X Automatically updates your old configuration file!
 X Customizable popup messages!
 X Add color codes to shutdown messages!
 X Execute commands before the server restarts on an X amount of seconds.
 X Configurable to enable, and disable commands on last seconds, and
     change the amount of seconds before done so.
-* Added Max Players Exception.
+X Added Max Players Exception.
 EXAMPLE:
    If the server restarts and you have 11 players online
    and you set the max players to 10

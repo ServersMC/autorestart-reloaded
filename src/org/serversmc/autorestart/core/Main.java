@@ -6,18 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import me.dennis.updatecheck.core.UpdateCheck;
+
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.serversmc.autorestart.commands.CmdAutoRestart;
+import org.serversmc.autorestart.events.PlayerKick;
+import org.serversmc.autorestart.events.PlayerQuit;
 import org.serversmc.autorestart.utils.Config;
-import org.serversmc.autorestart.utils.MemoryUtils;
+import org.serversmc.autorestart.utils.Messenger;
 
 public class Main extends JavaPlugin {
 
-	public static final Integer TIMED = 0;
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
 	
+	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
 	
 	@Override
@@ -27,12 +34,15 @@ public class Main extends JavaPlugin {
 		saveConfig();
 		updateConfig();
 		Config.setConfig(getConfig());
-		if (new Config().isMainMulticraft()) {
-			MemoryUtils.setMutlticraft();
-		}
+		UpdateCheck update = new UpdateCheck("https://www.spigotmc.org/resources/autorestart.2538/", this);
+		update.checkSpigot();
+		plugin = this;
 		
-		// Command Setup
+		// Register Setup
+		PluginManager pm = Bukkit.getPluginManager();
 		getCommand("autore").setExecutor(new CmdAutoRestart());
+		pm.registerEvents(new PlayerQuit(), this);
+		pm.registerEvents(new PlayerKick(), this);
 		
 		// Loop Starter
 		new Thread(new TimerThread()).start();
@@ -72,15 +82,29 @@ public class Main extends JavaPlugin {
 	}
 	
 	public static void shutdownServer(Integer action) {
-		if (action == TIMED) {
-			
-		}
-		else if (action == FORCED) {
-			
+		Config config = new Config();
+		if (action == FORCED) {
+			for (World world : Bukkit.getWorlds()) {
+				world.save();
+			}
+			Bukkit.savePlayers();
+			Messenger.popupShutdown();
+			Messenger.broadcastShutdown();
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				player.kickPlayer(config.getMainShutdown());
+			}
 		}
 		else if (action == DELAYED) {
-			
+			try {
+				Thread.sleep(1000 * config.getMaxplayersDelay());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	public static void reloadConfigStatic() {
+		plugin.reloadConfig();
 	}
 	
 }

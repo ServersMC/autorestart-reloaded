@@ -1,6 +1,7 @@
 package org.serversmc.autorestart.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.inventivegames.util.title.TitleManager;
@@ -29,11 +30,14 @@ public class Messenger {
 		}
 	}
 
-	public static void popupTime(Player player, Integer h, Integer m, Integer s) {
+	public static void popupTime(CommandSender sender, Integer h, Integer m, Integer s) {
 		if (config.isPopupsEnabledTime()) {
-			TitleManager.sendTimings(player, 20, 40, 20);
-			TitleManager.sendTitle(player, config.getPopupsMessagesTimeTitle(h, m, s));
-			TitleManager.sendSubTitle(player, config.getPopupsMessagesTimeSubtitle(h, m, s));
+			if (sender instanceof Player) {
+				Player player = (Player) sender;
+				TitleManager.sendTimings(player, 20, 40, 20);
+				TitleManager.sendTitle(player, config.getPopupsMessagesTimeTitle(h, m, s));
+				TitleManager.sendSubTitle(player, config.getPopupsMessagesTimeSubtitle(h, m, s));
+			}
 		}
 	}
 
@@ -66,6 +70,14 @@ public class Messenger {
 			}
 		}
 	}
+	
+	public static void popupShutdown() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			TitleManager.sendTimings(player, 20, 40, 20);
+			TitleManager.sendTitle(player, "Server Is Now");
+			TitleManager.sendSubTitle(player, "Restarting!");
+		}
+	}
 
 	public static void broadcastMinutes(Integer m) {
 		if (config.isBroadcastEnabledMinutes()) {
@@ -81,10 +93,10 @@ public class Messenger {
 		}
 	}
 
-	public static void broadcastTime(Integer h, Integer m, Integer s) {
+	public static void broadcastTime(CommandSender sender, Integer h, Integer m, Integer s) {
 		if (config.isBroadcastEnabledMinutes()) {
 			String prefix = config.getBroadcastMessagesPrefix();
-			Bukkit.broadcastMessage(prefix + config.getBroadcastMessagesTime(h, m, s));
+			sender.sendMessage(prefix + config.getBroadcastMessagesTime(h, m, s));
 		}
 	}
 
@@ -112,6 +124,11 @@ public class Messenger {
 	public static void broadcastMaxplayersCanceled() {
 		String prefix = config.getBroadcastMessagesPrefix();
 		Bukkit.broadcastMessage(prefix + config.getMaxplayersMessagesAlert());
+	}
+	
+	public static void broadcastShutdown() {
+		String prefix = config.getBroadcastMessagesPrefix();
+		Bukkit.broadcastMessage(prefix + config.getMainShutdown());
 	}
 	
 }

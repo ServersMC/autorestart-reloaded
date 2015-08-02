@@ -3,6 +3,7 @@ package org.serversmc.autorestart.utils;
 public class MemoryUtils {
 
 	private static Boolean waiting = false;
+	private static Boolean restarting = false;
 	
 	public static Boolean isWaiting() {
 		return waiting;
@@ -11,15 +12,13 @@ public class MemoryUtils {
 	public static void setWaiting() {
 		waiting = true;
 	}
-	
-	private static Boolean multicraft = false;
-	
-	public static Boolean isMutlicraft() {
-		return multicraft;
+
+	public static Boolean isRestarting() {
+		return restarting;
 	}
 	
-	public static void setMutlticraft() {
-		multicraft = true;
+	public static void setRestarting() {
+		restarting = true;
 	}
 	
 }
