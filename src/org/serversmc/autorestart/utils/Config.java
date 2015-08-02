@@ -7,326 +7,324 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
 
-	private static FileConfiguration config;
+	private FileConfiguration config;
 
-	public static void setConfig(FileConfiguration config) {
-		Config.config = config;
+	private final String MAIN_INVERVALS = "config.main.invervals";
+	private final String MAIN_MULTICRAFT = "config.main.multicraft";
+	private final String MAIN_SHUTDOWN = "config.main.shutdown";
+	
+	private final String REMINDER_ENABLED_MINUTES = "config.reminder.enabled.minutes";
+	private final String REMINDER_ENABLED_SECONDS = "config.reminder.enabled.seconds";
+	private final String REMINDER_TIMER_MINUTES = "config.reminder.timer.minutes";
+	private final String REMINDER_TIMER_SECONDS = "config.reminder.timer.seconds";
+	
+	private final String BROADCAST_ENABLED_MINUTES = "config.broadcast.enabled.minutes";
+	private final String BROADCAST_ENABLED_SECONDS = "config.broadcast.enabled.seconds";
+	private final String BROADCAST_ENABLED_TIME = "config.broadcast.enabled.time";
+	private final String BROADCAST_ENABLED_STATUS = "config.broadcast.enabled.status";
+	private final String BROADCAST_ENABLED_CHANGE = "config.broadcast.change";
+	private final String BROADCAST_MESSAGES_PREFIX = "config.broadcast.messages.prefix";
+	private final String BROADCAST_MESSAGES_MINUTES = "config.broadcast.messages.minutes";
+	private final String BROADCAST_MESSAGES_SECONDS = "config.broadcast.messages.seconds";
+	private final String BROADCAST_MESSAGES_TIME = "config.broadcast.messages.time";
+	private final String BROADCAST_MESSAGES_STATUS_START = "config.broadcast.messages.status.start";
+	private final String BROADCAST_MESSAGES_STATUS_PAUSE = "config.broadcast.messages.status.stop";
+	private final String BROADCAST_MESSAGES_CHANGE = "config.broadcast.messages.change";
+	
+	private final String POPUPS_ENABLED_MINUTES = "config.popups.enabled.minutes";
+	private final String POPUPS_ENABLED_SECONDS = "config.popups.enabled.seconds";
+	private final String POPUPS_ENABLED_TIME = "config.popups.enabled.time";
+	private final String POPUPS_ENABLED_STATUS = "config.popups.enabled.status";
+	private final String POPUPS_ENABLED_CHANGE = "config.popups.enabled.change";
+	private final String POPUPS_MESSAGES_MINUTES_TITLE = "config.popups.messages.minutes.title";
+	private final String POPUPS_MESSAGES_MINUTES_SUBTITLE = "config.popups.messages.minutes.subtitle";
+	private final String POPUPS_MESSAGES_SECONDS_TITLE = "config.popups.messages.seconds.title";
+	private final String POPUPS_MESSAGES_SECONDS_SUBTITLE = "config.popups.messages.seconds.subtitle";
+	private final String POPUPS_MESSAGES_TIME_TITLE = "config.popups.messages.time.title";
+	private final String POPUPS_MESSAGES_TIME_SUBTITLE = "config.popups.messages.time.subtitle";
+	private final String POPUPS_MESSAGES_STATUS_START_TITLE = "config.popups.messages.status.start.title";
+	private final String POPUPS_MESSAGES_STATUS_START_SUBTITLE = "config.popups.messages.status.start.subtitle";
+	private final String POPUPS_MESSAGES_STATUS_PAUSE_TITLE = "config.popups.messages.status.pause.title";
+	private final String POPUPS_MESSAGES_STATUS_PAUSE_SUBTITLE = "config.popups.messages.status.pause.subtitle";
+	private final String POPUPS_MESSAGES_CHANGE_TITLE = "config.popups.messages.change.title";
+	private final String POPUPS_MESSAGES_CHANGE_SUBTITLE = "config.popups.messages.change.subtitle";
+	
+	private final String COMMANDS_ENABLED = "config.commands.enabled";
+	private final String COMMANDS_TIME = "config.commands.time";
+	private final String COMMANDS_COMMANDS = "config.commands.commands";
+	
+	private final String MAXPLAYERS_ENABLED = "config.max-players.enabled";
+	private final String MAXPLAYERS_AMOUNT = "config.max-players.amount";
+	private final String MAXPLAYERS_DELAY = "config.max-players.delay";
+	private final String MAXPLAYERS_MESSAGES_ALERT = "config.max-players.alert";
+	private final String MAXPLAYERS_MESSAGES_SHUTDOWN = "config.max-players.shutdown";
+	
+	private final String VERSION = "version";
+	
+	public void setConfig(FileConfiguration config) {
+		this.config = config;
 	}
 
-	private static String convert(String in) {
+	private String convert(String in) {
 		return ChatColor.translateAlternateColorCodes('&', in);
 	}
-
-	// ============================== //
-	// =========== INTEGER ========== //
-	// ============================== //
 	
-	/**
-	 * Config version
-	 * @return
-	 */
-	public static Integer getConfigVersion() {
-		return config.getInt("version");
+	private String getString(String node) {
+		return convert(config.getString(node));
 	}
 	
-	/**
-	 * Time set by hours
-	 * @return Integer
-	 */
-	public static Integer getTime() {
-		return config.getInt("config.time");
-	}
-
-	/**
-	 * Last second reminders
-	 * @return Integer
-	 */
-	public static Integer getSecondCountdown() {
-		return config.getInt("config.seconds-countdown");
+	private Integer getInteger(String node) {
+		return config.getInt(node);
 	}
 	
-	/**
-	 * The time in seconds when the commands should be called
-	 * @return Integer
-	 */
-	public static Integer getCommandsTime() {
-		return config.getInt("config.commands-time");
+	private Double getDouble(String node) {
+		return config.getDouble(node);
 	}
 	
-	/**
-	 * The limit on when the shutdown should be delayed
-	 * @return Integer
-	 */
-	public static Integer getMaxPlayersAmount() {
-		return config.getInt("config.max-players.amount");
+	private Boolean getBoolean(String node) {
+		return config.getBoolean(node);
 	}
 	
-	/**
-	 * Shutdown delay after server is wait for players to leave
-	 * @return Integer
-	 */
-	public static Integer getMaxPlayersDelay() {
-		return config.getInt("config.max-players.amount");
+	private List<Integer> getListInteger(String node) {
+		return config.getIntegerList(node);
+	}
+	
+	private List<String> getListString(String node) {
+		return config.getStringList(node);
 	}
 
 	// ============================== //
-	// =========== BOOLEAN ========== //
+	// ============ MAIN ============ //
 	// ============================== //
-
-	/**
-	 * If is using online hosting
-	 * @return Boolean
-	 */
-	public static Boolean isMulticraftEnabled() {
-		return config.getBoolean("config.multicraft");
-	}
-
-	/**
-	 * If last second reminders is enabled
-	 * @return Boolean
-	 */
-	public static Boolean isRemindingSeconds() {
-		return config.getBoolean("config.remind-seconds");
-	}
-
-	/**
-	 * If popups for minute broadcasts are enabled
-	 * @return Boolean
-	 */
-	public static Boolean isPopupMinutesEnabled() {
-		return config.getBoolean("config.popup-enabled.minutes");
-	}
-
-	/**
-	 * If popups for seconds broadcasts are enabled
-	 * @return Boolean
-	 */
-	public static Boolean isPopupSecondsEnabled() {
-		return config.getBoolean("config.popup-enabled.seconds");
-	}
-
-	/**
-	 * If popups for private time broadcasts are enabled
-	 * @return Boolean
-	 */
-	public static Boolean isPopupTimeEnabled() {
-		return config.getBoolean("config.popup-enabled.time");
-	}
-
-	/**
-	 * If popups for time changed broadcasts are enabled
-	 * @return Boolean
-	 */
-	public static Boolean isPopupChangeEnabled() {
-		return config.getBoolean("config.popup-enabled.change");
+	
+	public Double getMainIntervals() {
+		return getDouble(MAIN_INVERVALS);
 	}
 	
-	/**
-	 * If last second command execution is enabled
-	 * @return
-	 */
-	public static Boolean isCommandsEnabled() {
-		return config.getBoolean("config.commands-enabled");
+	public Boolean getMainMulticraft() {
+		return getBoolean(MAIN_MULTICRAFT);
 	}
 	
-	/**
-	 * If maxplayers limit enabled
-	 * @return
-	 */
-	public static Boolean isMaxPlayeresEnabled() {
-		return config.getBoolean("config.max-players.enabled");
+	public String getMainShutdown() {
+		return getString(MAIN_SHUTDOWN);
 	}
 
 	// ============================== //
-	// ============ LIST ============ //
+	// ========== REMINDER ========== //
+	// ============================== //
+	
+	public Boolean isReminderEnabledMinutes() {
+		return getBoolean(REMINDER_ENABLED_MINUTES);
+	}
+	
+	public Boolean isReminderEnabledSeconds() {
+		return getBoolean(REMINDER_ENABLED_SECONDS);
+	}
+	
+	public List<Integer> getReminderTimerMintues() {
+		return getListInteger(REMINDER_TIMER_MINUTES);
+	}
+	
+	public Integer isReminderTimerSeconds() {
+		return getInteger(REMINDER_TIMER_SECONDS);
+	}
+
+	// ============================== //
+	// ========= BROADCAST  ========= //
+	// ============================== //
+	
+	public Boolean isBroadcastEnabledMinutes() {
+		return getBoolean(BROADCAST_ENABLED_MINUTES);
+	}
+	
+	public Boolean isBroadcastEnabledSeconds() {
+		return getBoolean(BROADCAST_ENABLED_SECONDS);
+	}
+	
+	public Boolean isBroadcastEnabledTime() {
+		return getBoolean(BROADCAST_ENABLED_TIME);
+	}
+	
+	public Boolean isBroadcastEnabledStatus() {
+		return getBoolean(BROADCAST_ENABLED_STATUS);
+	}
+	
+	public Boolean isBroadcastEnabledChange() {
+		return getBoolean(BROADCAST_ENABLED_CHANGE);
+	}
+	
+	public String getBroadcastMessagesPrefix() {
+		return getString(BROADCAST_MESSAGES_PREFIX);
+	}
+	
+	public String getBroadcastMessagesMinutes(Integer m) {
+		return getString(BROADCAST_MESSAGES_MINUTES)
+				.replace("%m", m.toString());
+	}
+	
+	public String getBroadcastMessagesSeconds(Integer s) {
+		return getString(BROADCAST_MESSAGES_SECONDS)
+				.replace("%s", s.toString());
+	}
+	
+	public String getBroadcastMessagesTime(Integer h, Integer m, Integer s) {
+		return getString(BROADCAST_MESSAGES_TIME)
+				.replace("%h", h.toString())
+				.replace("%m", m.toString())
+				.replace("%s", s.toString());
+	}
+	
+	public String getBroadcastMessagesStatusStart() {
+		return getString(BROADCAST_MESSAGES_STATUS_START);
+	}
+	
+	public String getBroadcastMessagesStatusPause() {
+		return getString(BROADCAST_MESSAGES_STATUS_PAUSE);
+	}
+	
+	public String getBroadcastMessagesChange(Integer h, Integer m, Integer s) {
+		return getString(BROADCAST_MESSAGES_CHANGE)
+				.replace("%h", h.toString())
+				.replace("%m", m.toString())
+				.replace("%s", s.toString());
+	}
+
+	// ============================== //
+	// =========== POPUPS =========== //
+	// ============================== //
+	
+	public Boolean isPopupsEnabledMinutes() {
+		return getBoolean(POPUPS_ENABLED_MINUTES);
+	}
+	
+	public Boolean isPopupsEnabledSeconds() {
+		return getBoolean(POPUPS_ENABLED_SECONDS);
+	}
+	
+	public Boolean isPopupsEnabledTime() {
+		return getBoolean(POPUPS_ENABLED_TIME);
+	}
+	
+	public Boolean isPopupsEnabledStatus() {
+		return getBoolean(POPUPS_ENABLED_STATUS);
+	}
+	
+	public Boolean isPopupsEnabledChange() {
+		return getBoolean(POPUPS_ENABLED_CHANGE);
+	}
+
+	public String getPopupsMessagesMinutesTitle(Integer m) {
+		return getString(POPUPS_MESSAGES_MINUTES_TITLE)
+				.replace("%m", m.toString());
+	}
+	
+	public String getPopupsMessagesMinutesSubtitle(Integer m) {
+		return getString(POPUPS_MESSAGES_MINUTES_SUBTITLE)
+				.replace("%m", m.toString());
+	}
+
+	public String getPopupsMessagesSecondsTitle(Integer s) {
+		return getString(POPUPS_MESSAGES_SECONDS_TITLE)
+				.replace("%s", s.toString());
+	}
+	
+	public String getPopupsMessagesSecondsSubtitle(Integer s) {
+		return getString(POPUPS_MESSAGES_SECONDS_SUBTITLE)
+				.replace("%s", s.toString());
+	}
+
+	public String getPopupsMessagesTimeTitle(Integer h, Integer m, Integer s) {
+		return getString(POPUPS_MESSAGES_TIME_TITLE)
+				.replace("%h", h.toString())
+				.replace("%m", m.toString())
+				.replace("%s", s.toString());
+	}
+	
+	public String getPopupsMessagesTimeSubtitle(Integer h, Integer m, Integer s) {
+		return getString(POPUPS_MESSAGES_TIME_SUBTITLE)
+				.replace("%h", h.toString())
+				.replace("%m", m.toString())
+				.replace("%s", s.toString());
+	}
+
+	public String getPopupsMessagesStatusStartTitle() {
+		return getString(POPUPS_MESSAGES_STATUS_START_TITLE);
+	}
+	
+	public String getPopupsMessagesStatusStartSubtitle() {
+		return getString(POPUPS_MESSAGES_STATUS_START_SUBTITLE);
+	}
+
+	public String getPopupsMessagesStatusPauseTitle() {
+		return getString(POPUPS_MESSAGES_STATUS_PAUSE_TITLE);
+	}
+	
+	public String getPopupsMessagesStatusPauseSubtitle() {
+		return getString(POPUPS_MESSAGES_STATUS_PAUSE_SUBTITLE);
+	}
+
+	public String getPopupsMessagesChangeTitle(Integer h, Integer m, Integer s) {
+		return getString(POPUPS_MESSAGES_CHANGE_TITLE)
+				.replace("%h", h.toString())
+				.replace("%m", m.toString())
+				.replace("%s", s.toString());
+	}
+	
+	public String getPopupsMessagesChangeSubtitle(Integer h, Integer m, Integer s) {
+		return getString(POPUPS_MESSAGES_CHANGE_SUBTITLE)
+				.replace("%h", h.toString())
+				.replace("%m", m.toString())
+				.replace("%s", s.toString());
+	}
+
+	// ============================== //
+	// ========== COMMANDS ========== //
+	// ============================== //
+	
+	public Boolean isCommandsEnabled() {
+		return getBoolean(COMMANDS_ENABLED);
+	}
+	
+	public Integer getCommandsTime() {
+		return getInteger(COMMANDS_TIME);
+	}
+	
+	public List<String> getCommandsList() {
+		return getListString(COMMANDS_COMMANDS);
+	}
+
+	// ============================== //
+	// ========= MAXPLAYERS ========= //
 	// ============================== //
 
-	/**
-	 * Reminder minute time stamps
-	 * @return List<Integer>
-	 */
-	public static List<Integer> getReminders() {
-		return config.getIntegerList("config.reminder");
+	public Boolean isMaxplayersEnabled() {
+		return getBoolean(MAXPLAYERS_ENABLED);
 	}
 	
-	/**
-	 * Command list for last minute execution
-	 * @return List<String>
-	 */
-	public static List<String> getCommands() {
-		return config.getStringList("config.commands");
+	public Integer getMaxplayersAmount() {
+		return getInteger(MAXPLAYERS_AMOUNT);
+	}
+	
+	public Integer getMaxplayersDelay() {
+		return getInteger(MAXPLAYERS_DELAY);
+	}
+	
+	public String getMaxplayersMessagesAlert() {
+		return getString(MAXPLAYERS_MESSAGES_ALERT)
+				.replace("%a", getMaxplayersAmount().toString());
+	}
+	
+	public String getMaxplayersMessagesShutdown() {
+		return getString(MAXPLAYERS_MESSAGES_SHUTDOWN)
+				.replace("%d", getMaxplayersDelay().toString());
 	}
 
 	// ============================== //
-	// =========== STRING =========== //
+	// ========== VERSION  ========== //
 	// ============================== //
-
-	/**
-	 * Plugins broadcast prefix
-	 * @return String
-	 */
-	public static String getMessagePrefix() {
-		return convert(config.getString("config.messages.prefix"));
-	}
-
-	/**
-	 * Reminder messages in minutes
-	 * @return String
-	 */
-	public static String getMessageMinutes(String m) {
-		return convert(config.getString("config.messages.minutes").replace("%m", m));
-	}
-
-	/**
-	 * Reminder messages in seconds
-	 * @return String
-	 */
-	public static String getMessageSeconds(String s) {
-		return convert(config.getString("config.messages.seconds").replace("%s", s));
-	}
-
-	/**
-	 * Broadcast time message
-	 * @return String
-	 */
-	public static String getMessageTime(String h, String m, String s) {
-		return convert(config.getString("config.messages.time").replace("%h", h).replace("%m", m).replace("%s", s));
-	}
-
-	/**
-	 * Broadcast time message when time changes
-	 * @return String
-	 */
-	public static String getMessageChange(String h, String m, String s) {
-		return convert(config.getString("config.messages.change").replace("%h", h).replace("%m", m).replace("%s", s));
-	}
-
-	/**
-	 * Broadcast message when time starts
-	 * @return String
-	 */
-	public static String getMessageStatusStart() {
-		return convert(config.getString("config.messages.status.start"));
-	}
-
-	/**
-	 * Broadcast message when time pauses
-	 * @return String
-	 */
-	public static String getMessageStatusPause() {
-		return convert(config.getString("config.messages.status.pause"));
-	}
 	
-	/**
-	 * Title message for minute reminders
-	 * @return String
-	 */
-	public static String getPopupMessageMinutesTitle(String m) {
-		return convert(config.getString("config.popup-messages.minutes.title").replace("%m", m));
-	}
-	
-	/**
-	 * Subtitle message for minute reminders
-	 * @return String
-	 */
-	public static String getPopupMessageMinutesSubTitle(String m) {
-		return convert(config.getString("config.popup-messages.minutes.subtitle").replace("%m", m));
-	}
-	
-	/**
-	 * Title message for second reminders
-	 * @return String
-	 */
-	public static String getPopupMessageSecondsTitle(String s) {
-		return convert(config.getString("config.popup-messages.seconds.title").replace("%s", s));
-	}
-	
-	/**
-	 * Subtitle message for second reminders
-	 * @return String
-	 */
-	public static String getPopupMessageSecondsSubTitle(String s) {
-		return convert(config.getString("config.popup-messages.seconds.subtitle").replace("%s", s));
-	}
-	
-	/**
-	 * Title message for private time popup
-	 * @return String
-	 */
-	public static String getPopupMessageTimeTitle(String h, String m, String s) {
-		return convert(config.getString("config.popup-messages.time.title").replace("%h", h).replace("%m", m).replace("%s", s));
-	}
-	
-	/**
-	 * Subtitle message for private time popup
-	 * @return String
-	 */
-	public static String getPopupMessageTimeSubTitle(String h, String m, String s) {
-		return convert(config.getString("config.popup-messages.time.subtitle").replace("%h", h).replace("%m", m).replace("%s", s));
-	}
-	
-	/**
-	 * Title message for time start
-	 * @return String
-	 */
-	public static String getPopupMessageStatusStartTitle() {
-		return convert(config.getString("config.popup-messages.status.start..title"));
-	}
-	
-	/**
-	 * Subtitle message for time start
-	 * @return String
-	 */
-	public static String getPopupMessageStatusStartSubTitle() {
-		return convert(config.getString("config.popup-messages.status.start.subtitle"));
-	}
-	
-	/**
-	 * Title message for time pause
-	 * @return String
-	 */
-	public static String getPopupMessageStatusPauseTitle() {
-		return convert(config.getString("config.popup-messages.status.pause.title"));
-	}
-	
-	/**
-	 * Subitle message for time pause
-	 * @return String
-	 */
-	public static String getPopupMessageStatusPauseSubTitle() {
-		return convert(config.getString("config.popup-messages.status.pause.subtitle"));
-	}
-	
-	/**
-	 * Title message for time change
-	 * @return String
-	 */
-	public static String getPopupMessageChangeTitle(String h, String m, String s) {
-		return convert(config.getString("config.popup-messages.change.title").replace("%h", h).replace("%m", m).replace("%s", s));
-	}
-	
-	/**
-	 * Subtitle message for time change
-	 * @return String
-	 */
-	public static String getPopupMessageChangeSubTitle(String h, String m, String s) {
-		return convert(config.getString("config.popup-messages.change.subtitle").replace("%h", h).replace("%m", m).replace("%s", s));
-	}
-	
-	/**
-	 * The message when the shudown limit is met
-	 * @return String
-	 */
-	public static String getMaxPlayersMessage(String a) {
-		return convert(config.getString("config.max-players.message").replace("%a", a));
-	}
-	
-	/**
-	 * The message when the server shudowns after player wait
-	 * @return String
-	 */
-	public static String getMaxPlayersShutdownMessage(String d) {
-		return convert(config.getString("config.max-players.shutdown").replace("%d", d));
+	public Integer getVersion() {
+		return getInteger(VERSION);
 	}
 	
 }
