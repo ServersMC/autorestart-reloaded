@@ -7,9 +7,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class Config {
 
-	private FileConfiguration config;
+	private static FileConfiguration config;
 
-	private final String MAIN_INVERVALS = "config.main.invervals";
+	private final String MAIN_INVERVAL = "config.main.inverval";
 	private final String MAIN_MULTICRAFT = "config.main.multicraft";
 	private final String MAIN_SHUTDOWN = "config.main.shutdown";
 	
@@ -61,8 +61,8 @@ public class Config {
 	
 	private final String VERSION = "version";
 	
-	public void setConfig(FileConfiguration config) {
-		this.config = config;
+	public static void setConfig(FileConfiguration config) {
+		Config.config = config;
 	}
 
 	private String convert(String in) {
@@ -97,11 +97,11 @@ public class Config {
 	// ============ MAIN ============ //
 	// ============================== //
 	
-	public Double getMainIntervals() {
-		return getDouble(MAIN_INVERVALS);
+	public Double getMainInterval() {
+		return getDouble(MAIN_INVERVAL);
 	}
 	
-	public Boolean getMainMulticraft() {
+	public Boolean isMainMulticraft() {
 		return getBoolean(MAIN_MULTICRAFT);
 	}
 	
@@ -125,7 +125,7 @@ public class Config {
 		return getListInteger(REMINDER_TIMER_MINUTES);
 	}
 	
-	public Integer isReminderTimerSeconds() {
+	public Integer getReminderTimerSeconds() {
 		return getInteger(REMINDER_TIMER_SECONDS);
 	}
 
