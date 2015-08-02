@@ -2,7 +2,7 @@ config:
     ## Main plugin configurations
     main:
         ## The time is set by hours (DECIMALS ALLOWED)
-        invervals: 6
+        inverval: 6
         ## !!!! IMPORTANT !!!!
         ## If your server is running under MultiCraft, set this to true!
         ## Go into "Scheduled Tasks", and configure MultiCraft to restart the server, the same time your server will restart.

@@ -2,3 +2,7 @@ name: AutoRestart
 version: 2.0
 main: org.serversmc.autorestart.core.Main
 author: ServersMC, DennisLysenko
+commands:
+    autore:
+        description: 'Main AutoRestart command.'
+        usage: '/autore help'

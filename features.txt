@@ -12,7 +12,7 @@ X Option to enable/disable on screen pop ups, on different events!
 * Able to Start, or Pause the server timer in-game!
 X Automatically updates your old configuration file!
 X Customizable popup messages!
-* Add color codes to shutdown messages!
+X Add color codes to shutdown messages!
 X Execute commands before the server restarts on an X amount of seconds.
 X Configurable to enable, and disable commands on last seconds, and
     change the amount of seconds before done so.
