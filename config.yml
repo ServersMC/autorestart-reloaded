@@ -57,11 +57,12 @@ config:
             seconds: 'Server is restarting in %s Seconds!'
             ## %h - hours, %m - minutes, %s - seconds
             time: '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
-            change: '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
             ## There are no tags for this section.
             status:
                 start: '&cAutoRestart timer has been started!'
                 pause: '&cAutoRestart timer has been paused'
+            ## %h - hours, %m - minutes, %s - seconds
+            change: '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
 
     popups:
         ## Enable or Disable the 1.8 Popups!
