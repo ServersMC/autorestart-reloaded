@@ -1,0 +1,40 @@
+X Restarts on hour interval, able to use decimals on config!
+X Broadcasts reminders, customizable in minutes on config!
+X Broadcasts final reminders on last 5 seconds!
+X Editable reminder messages!
+X Editable shut down messages!
+X Editable seconds messages!
+X Option to enable/disable on screen pop ups, on different events!
+* Change restart time in-game.
+* Integrated update check.
+* MultiCraft support!
+* Force saves world when restarts!
+* Able to Start, or Pause the server timer in-game!
+X Automatically updates your old configuration file!
+X Customizable popup messages!
+* Add color codes to shutdown messages!
+X Execute commands before the server restarts on an X amount of seconds.
+X Configurable to enable, and disable commands on last seconds, and
+    change the amount of seconds before done so.
+* Added Max Players Exception.
+EXAMPLE:
+   If the server restarts and you have 11 players online
+   and you set the max players to 10
+   your server wont restart until someone leaves
+   and the player amount is equal to or less then 10.
+X Configurable Max Players Exception!
+CONFIGURATIONS:
+  X Change restart delay.
+  X Change amount of max players.
+  X Enable/Disable feature.
+  X Set exception message when too many players online.
+  X Set message before delayed restart when the amount of players have been met.
+  X Shutdown message for Max Players Exception!
+
+/autore help    Shows help screen
+/autore time    Shows exactly when is the next server restart
+/autore now     Restarts the server now!
+/autore reload  Reloads the config file (This will reset the timer!)
+/autore in      Sets the time the server will restart in.
+/autore pause   Pauses the server AutoRestart timer.
+/autore start   Starts the server AutoRestart timer.
