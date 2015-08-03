@@ -48,6 +48,55 @@ public class Config {
 	private final String POPUPS_MESSAGES_STATUS_PAUSE_SUBTITLE = "config.popups.messages.status.pause.subtitle";
 	private final String POPUPS_MESSAGES_CHANGE_TITLE = "config.popups.messages.change.title";
 	private final String POPUPS_MESSAGES_CHANGE_SUBTITLE = "config.popups.messages.change.subtitle";
+
+	private final String TIMINGS_MINUTES_TITLE_DELAY = "config.timings.minutes.title.delay";
+	private final String TIMINGS_MINUTES_TITLE_FADEIN = "config.timings.minutes.title.fadein";
+	private final String TIMINGS_MINUTES_TITLE_STAY = "config.timings.minutes.title.stay";
+	private final String TIMINGS_MINUTES_TITLE_FADEOUT = "config.timings.minutes.title.fadeout";
+	private final String TIMINGS_MINUTES_SUBTITLE_DELAY = "config.timings.minutes.subtitle.delay";
+	private final String TIMINGS_MINUTES_SUBTITLE_FADEIN = "config.timings.minutes.subtitle.fadein";
+	private final String TIMINGS_MINUTES_SUBTITLE_STAY = "config.timings.minutes.subtitle.stay";
+	private final String TIMINGS_MINUTES_SUBTITLE_FADEOUT = "config.timings.minutes.subtitle.fadeout";
+	private final String TIMINGS_SECONDS_TITLE_DELAY = "config.timings.seconds.title.delay";
+	private final String TIMINGS_SECONDS_TITLE_FADEIN = "config.timings.seconds.title.fadein";
+	private final String TIMINGS_SECONDS_TITLE_STAY = "config.timings.seconds.title.stay";
+	private final String TIMINGS_SECONDS_TITLE_FADEOUT = "config.timings.seconds.title.fadeout";
+	private final String TIMINGS_SECONDS_SUBTITLE_DELAY = "config.timings.seconds.subtitle.delay";
+	private final String TIMINGS_SECONDS_SUBTITLE_FADEIN = "config.timings.seconds.subtitle.fadein";
+	private final String TIMINGS_SECONDS_SUBTITLE_STAY = "config.timings.seconds.subtitle.stay";
+	private final String TIMINGS_SECONDS_SUBTITLE_FADEOUT = "config.timings.seconds.subtitle.fadeout";
+	private final String TIMINGS_TIME_TITLE_DELAY = "config.timings.time.title.delay";
+	private final String TIMINGS_TIME_TITLE_FADEIN = "config.timings.time.title.fadein";
+	private final String TIMINGS_TIME_TITLE_STAY = "config.timings.time.title.stay";
+	private final String TIMINGS_TIME_TITLE_FADEOUT = "config.timings.time.title.fadeout";
+	private final String TIMINGS_TIME_SUBTITLE_DELAY = "config.timings.time.subtitle.delay";
+	private final String TIMINGS_TIME_SUBTITLE_FADEIN = "config.timings.time.subtitle.fadein";
+	private final String TIMINGS_TIME_SUBTITLE_STAY = "config.timings.time.subtitle.stay";
+	private final String TIMINGS_TIME_SUBTITLE_FADEOUT = "config.timings.time.subtitle.fadeout";
+	private final String TIMINGS_STATUS_START_TITLE_DELAY = "config.timings.status-start.title.delay";
+	private final String TIMINGS_STATUS_START_TITLE_FADEIN = "config.timings.status-start.title.fadein";
+	private final String TIMINGS_STATUS_START_TITLE_STAY = "config.timings.status-start.title.stay";
+	private final String TIMINGS_STATUS_START_TITLE_FADEOUT = "config.timings.status-start.title.fadeout";
+	private final String TIMINGS_STATUS_START_SUBTITLE_DELAY = "config.timings.status-start.subtitle.delay";
+	private final String TIMINGS_STATUS_START_SUBTITLE_FADEIN = "config.timings.status-start.subtitle.fadein";
+	private final String TIMINGS_STATUS_START_SUBTITLE_STAY = "config.timings.status-start.subtitle.stay";
+	private final String TIMINGS_STATUS_START_SUBTITLE_FADEOUT = "config.timings.status-start.subtitle.fadeout";
+	private final String TIMINGS_STATUS_PAUSE_TITLE_DELAY = "config.timings.status-pause.title.delay";
+	private final String TIMINGS_STATUS_PAUSE_TITLE_FADEIN = "config.timings.status-pause.title.fadein";
+	private final String TIMINGS_STATUS_PAUSE_TITLE_STAY = "config.timings.status-pause.title.stay";
+	private final String TIMINGS_STATUS_PAUSE_TITLE_FADEOUT = "config.timings.status-pause.title.fadeout";
+	private final String TIMINGS_STATUS_PAUSE_SUBTITLE_DELAY = "config.timings.status-pause.subtitle.delay";
+	private final String TIMINGS_STATUS_PAUSE_SUBTITLE_FADEIN = "config.timings.status-pause.subtitle.fadein";
+	private final String TIMINGS_STATUS_PAUSE_SUBTITLE_STAY = "config.timings.status-pause.subtitle.stay";
+	private final String TIMINGS_STATUS_PAUSE_SUBTITLE_FADEOUT = "config.timings.status-pause.subtitle.fadeout";
+	private final String TIMINGS_CHANGE_TITLE_DELAY = "config.timings.change.title.delay";
+	private final String TIMINGS_CHANGE_TITLE_FADEIN = "config.timings.change.title.fadein";
+	private final String TIMINGS_CHANGE_TITLE_STAY = "config.timings.change.title.stay";
+	private final String TIMINGS_CHANGE_TITLE_FADEOUT = "config.timings.change.title.fadeout";
+	private final String TIMINGS_CHANGE_SUBTITLE_DELAY = "config.timings.change.subtitle.delay";
+	private final String TIMINGS_CHANGE_SUBTITLE_FADEIN = "config.timings.change.subtitle.fadein";
+	private final String TIMINGS_CHANGE_SUBTITLE_STAY = "config.timings.change.subtitle.stay";
+	private final String TIMINGS_CHANGE_SUBTITLE_FADEOUT = "config.timings.change.subtitle.fadeout";
 	
 	private final String COMMANDS_ENABLED = "config.commands.enabled";
 	private final String COMMANDS_TIME = "config.commands.time";
@@ -275,6 +324,202 @@ public class Config {
 				.replace("%h", h.toString())
 				.replace("%m", m.toString())
 				.replace("%s", s.toString());
+	}
+
+	// ============================== //
+	// ========== TIMINGS  ========== //
+	// ============================== //
+
+	public Integer getTimingsMinutesTitleDelay() {
+		return getInteger(TIMINGS_MINUTES_TITLE_DELAY);
+	}
+	
+	public Integer getTimingsMinutesTitleFadein() {
+		return getInteger(TIMINGS_MINUTES_TITLE_FADEIN);
+	}
+	
+	public Integer getTimingsMinutesTitleStay() {
+		return getInteger(TIMINGS_MINUTES_TITLE_STAY);
+	}
+	
+	public Integer getTimingsMinutesTitleFadeout() {
+		return getInteger(TIMINGS_MINUTES_TITLE_FADEOUT);
+	}
+	
+	public Integer getTimingsMinutesSubtitleDelay() {
+		return getInteger(TIMINGS_MINUTES_SUBTITLE_DELAY);
+	}
+	
+	public Integer getTimingsMinutesSubtitleFadein() {
+		return getInteger(TIMINGS_MINUTES_SUBTITLE_FADEIN);
+	}
+	
+	public Integer getTimingsMinutesSubtitleStay() {
+		return getInteger(TIMINGS_MINUTES_SUBTITLE_STAY);
+	}
+	
+	public Integer getTimingsMinutesSubtitleFadeout() {
+		return getInteger(TIMINGS_MINUTES_SUBTITLE_FADEOUT);
+	}
+
+	public Integer getTimingsSecondsTitleDelay() {
+		return getInteger(TIMINGS_SECONDS_TITLE_DELAY);
+	}
+	
+	public Integer getTimingsSecondsTitleFadein() {
+		return getInteger(TIMINGS_SECONDS_TITLE_FADEIN);
+	}
+	
+	public Integer getTimingsSecondsTitleStay() {
+		return getInteger(TIMINGS_SECONDS_TITLE_STAY);
+	}
+	
+	public Integer getTimingsSecondsTitleFadeout() {
+		return getInteger(TIMINGS_SECONDS_TITLE_FADEOUT);
+	}
+	
+	public Integer getTimingsSecondsSubtitleDelay() {
+		return getInteger(TIMINGS_SECONDS_SUBTITLE_DELAY);
+	}
+	
+	public Integer getTimingsSecondsSubtitleFadein() {
+		return getInteger(TIMINGS_SECONDS_SUBTITLE_FADEIN);
+	}
+	
+	public Integer getTimingsSecondsSubtitleStay() {
+		return getInteger(TIMINGS_SECONDS_SUBTITLE_STAY);
+	}
+	
+	public Integer getTimingsSecondsSubtitleFadeout() {
+		return getInteger(TIMINGS_SECONDS_SUBTITLE_FADEOUT);
+	}
+
+	public Integer getTimingsTimeTitleDelay() {
+		return getInteger(TIMINGS_TIME_TITLE_DELAY);
+	}
+	
+	public Integer getTimingsTimeTitleFadein() {
+		return getInteger(TIMINGS_TIME_TITLE_FADEIN);
+	}
+	
+	public Integer getTimingsTimeTitleStay() {
+		return getInteger(TIMINGS_TIME_TITLE_STAY);
+	}
+	
+	public Integer getTimingsTimeTitleFadeout() {
+		return getInteger(TIMINGS_TIME_TITLE_FADEOUT);
+	}
+	
+	public Integer getTimingsTimeSubtitleDelay() {
+		return getInteger(TIMINGS_TIME_SUBTITLE_DELAY);
+	}
+	
+	public Integer getTimingsTimeSubtitleFadein() {
+		return getInteger(TIMINGS_TIME_SUBTITLE_FADEIN);
+	}
+	
+	public Integer getTimingsTimeSubtitleStay() {
+		return getInteger(TIMINGS_TIME_SUBTITLE_STAY);
+	}
+	
+	public Integer getTimingsTimeSubtitleFadeout() {
+		return getInteger(TIMINGS_TIME_SUBTITLE_FADEOUT);
+	}
+
+	public Integer getTimingsStatusStartTitleDelay() {
+		return getInteger(TIMINGS_STATUS_START_TITLE_DELAY);
+	}
+	
+	public Integer getTimingsStatusStartTitleFadein() {
+		return getInteger(TIMINGS_STATUS_START_TITLE_FADEIN);
+	}
+	
+	public Integer getTimingsStatusStartTitleStay() {
+		return getInteger(TIMINGS_STATUS_START_TITLE_STAY);
+	}
+	
+	public Integer getTimingsStatusStartTitleFadeout() {
+		return getInteger(TIMINGS_STATUS_START_TITLE_FADEOUT);
+	}
+	
+	public Integer getTimingsStatusStartSubtitleDelay() {
+		return getInteger(TIMINGS_STATUS_START_SUBTITLE_DELAY);
+	}
+	
+	public Integer getTimingsStatusStartSubtitleFadein() {
+		return getInteger(TIMINGS_STATUS_START_SUBTITLE_FADEIN);
+	}
+	
+	public Integer getTimingsStatusStartSubtitleStay() {
+		return getInteger(TIMINGS_STATUS_START_SUBTITLE_STAY);
+	}
+	
+	public Integer getTimingsStatusStartSubtitleFadeout() {
+		return getInteger(TIMINGS_STATUS_START_SUBTITLE_FADEOUT);
+	}
+
+	public Integer getTimingsStatusPauseTitleDelay() {
+		return getInteger(TIMINGS_STATUS_PAUSE_TITLE_DELAY);
+	}
+	
+	public Integer getTimingsStatusPauseTitleFadein() {
+		return getInteger(TIMINGS_STATUS_PAUSE_TITLE_FADEIN);
+	}
+	
+	public Integer getTimingsStatusPauseTitleStay() {
+		return getInteger(TIMINGS_STATUS_PAUSE_TITLE_STAY);
+	}
+	
+	public Integer getTimingsStatusPauseTitleFadeout() {
+		return getInteger(TIMINGS_STATUS_PAUSE_TITLE_FADEOUT);
+	}
+	
+	public Integer getTimingsStatusPauseSubtitleDelay() {
+		return getInteger(TIMINGS_STATUS_PAUSE_SUBTITLE_DELAY);
+	}
+	
+	public Integer getTimingsStatusPauseSubtitleFadein() {
+		return getInteger(TIMINGS_STATUS_PAUSE_SUBTITLE_FADEIN);
+	}
+	
+	public Integer getTimingsStatusPauseSubtitleStay() {
+		return getInteger(TIMINGS_STATUS_PAUSE_SUBTITLE_STAY);
+	}
+	
+	public Integer getTimingsStatusPauseSubtitleFadeout() {
+		return getInteger(TIMINGS_STATUS_PAUSE_SUBTITLE_FADEOUT);
+	}
+
+	public Integer getTimingsChangeTitleDelay() {
+		return getInteger(TIMINGS_CHANGE_TITLE_DELAY);
+	}
+	
+	public Integer getTimingsChangeTitleFadein() {
+		return getInteger(TIMINGS_CHANGE_TITLE_FADEIN);
+	}
+	
+	public Integer getTimingsChangeTitleStay() {
+		return getInteger(TIMINGS_CHANGE_TITLE_STAY);
+	}
+	
+	public Integer getTimingsChangeTitleFadeout() {
+		return getInteger(TIMINGS_CHANGE_TITLE_FADEOUT);
+	}
+	
+	public Integer getTimingsChangeSubtitleDelay() {
+		return getInteger(TIMINGS_CHANGE_SUBTITLE_DELAY);
+	}
+	
+	public Integer getTimingsChangeSubtitleFadein() {
+		return getInteger(TIMINGS_CHANGE_SUBTITLE_FADEIN);
+	}
+	
+	public Integer getTimingsChangeSubtitleStay() {
+		return getInteger(TIMINGS_CHANGE_SUBTITLE_STAY);
+	}
+	
+	public Integer getTimingsChangeSubtitleFadeout() {
+		return getInteger(TIMINGS_CHANGE_SUBTITLE_FADEOUT);
 	}
 
 	// ============================== //

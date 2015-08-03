@@ -98,6 +98,13 @@ config:
             change: ## %h - hours, %m - minutes, %s - seconds
                 title: '&cServer Restarting In'
                 subtitle: '&f%h&cH &f%m&cM &f%s&cS!'
+    
+    ## This section is to edit the timing for the popups, these are set in seconds!
+    ## Fadein, stay, fadeout are the 3 arguments. You can edit how long it takes to fadein, fadeout etc.
+    ## You can also put the fade numbers to 0, and then the popup's will be instant!
+    timings:
+        
+    
 
     ## This section will allow you to run Console Commands before a given amount of seconds
     commands:
