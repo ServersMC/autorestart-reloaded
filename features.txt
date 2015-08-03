@@ -1,36 +1,37 @@
-X Restarts on hour interval, able to use decimals on config!
-X Broadcasts reminders, customizable in minutes on config!
-X Broadcasts final reminders on last 5 seconds!
-X Editable reminder messages!
-X Editable shut down messages!
-X Editable seconds messages!
-X Option to enable/disable on screen pop ups, on different events!
-X Change restart time in-game.
+* Restarts on hour interval, able to use decimals on config!
+* Broadcasts reminders, customizable in minutes on config!
+* Broadcasts final reminders on last 5 seconds!
+* Editable reminder messages!
+* Editable shut down messages!
+* Editable seconds messages!
+* Option to enable/disable on screen pop ups, on different events!
+* Change restart time in-game.
 * Integrated update check.
-X MultiCraft support!
-X Force saves world when restarts!
-X Able to Start, or Pause the server timer in-game!
-X Reminds you every minute that timer is paused!
-X Automatically updates your old configuration file!
-X Customizable popup messages!
-X Add color codes to shutdown messages!
-X Execute commands before the server restarts on an X amount of seconds.
-X Configurable to enable, and disable commands on last seconds, and
+* MultiCraft support!
+* Force saves world when restarts!
+* Able to Start, or Pause the server timer in-game!
+* Reminds you every minute that timer is paused!
+* Automatically updates your old configuration file!
+* Customizable popup messages!
+* Customizable popup timings!
+* Add color codes to shutdown messages!
+* Execute commands before the server restarts on an X amount of seconds.
+* Configurable to enable, and disable commands on last seconds, and
     change the amount of seconds before done so.
-X Added Max Players Exception.
+* Added Max Players Exception.
 EXAMPLE:
    If the server restarts and you have 11 players online
    and you set the max players to 10
    your server wont restart until someone leaves
    and the player amount is equal to or less then 10.
-X Configurable Max Players Exception!
+* Configurable Max Players Exception!
 CONFIGURATIONS:
-  X Change restart delay.
-  X Change amount of max players.
-  X Enable/Disable feature.
-  X Set exception message when too many players online.
-  X Set message before delayed restart when the amount of players have been met.
-  X Shutdown message for Max Players Exception!
+  * Change restart delay.
+  * Change amount of max players.
+  * Enable/Disable feature.
+  * Set exception message when too many players online.
+  * Set message before delayed restart when the amount of players have been met.
+  * Shutdown message for Max Players Exception!
 
 /autore help    Shows help screen
 /autore time    Shows exactly when is the next server restart
