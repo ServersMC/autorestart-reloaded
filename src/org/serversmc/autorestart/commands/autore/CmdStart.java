@@ -18,6 +18,7 @@ public class CmdStart extends AutoCommand {
 			else {
 				Messenger.popupStatusStart();
 				Messenger.broadcastStatusStart();
+				TimerThread.startRunning();
 			}
 		}
 		else {

@@ -10,6 +10,8 @@ public class Config {
 	private static FileConfiguration config;
 
 	private final String MAIN_INVERVAL = "config.main.inverval";
+	private final String MAIN_TIMESTAMP_ENABLED = "config.main.timestamp.enabled";
+	private final String MAIN_TIMESTAMP_TIME = "config.main.timestamp.time";
 	private final String MAIN_MULTICRAFT = "config.main.multicraft";
 	private final String MAIN_SHUTDOWN = "config.main.shutdown";
 	
@@ -28,7 +30,7 @@ public class Config {
 	private final String BROADCAST_MESSAGES_SECONDS = "config.broadcast.messages.seconds";
 	private final String BROADCAST_MESSAGES_TIME = "config.broadcast.messages.time";
 	private final String BROADCAST_MESSAGES_STATUS_START = "config.broadcast.messages.status.start";
-	private final String BROADCAST_MESSAGES_STATUS_PAUSE = "config.broadcast.messages.status.stop";
+	private final String BROADCAST_MESSAGES_STATUS_PAUSE = "config.broadcast.messages.status.pause";
 	private final String BROADCAST_MESSAGES_CHANGE = "config.broadcast.messages.change";
 	
 	private final String POPUPS_ENABLED_MINUTES = "config.popups.enabled.minutes";
@@ -152,6 +154,14 @@ public class Config {
 	
 	public Boolean isMainMulticraft() {
 		return getBoolean(MAIN_MULTICRAFT);
+	}
+	
+	public Boolean isMainTimestampEnabled() {
+		return getBoolean(MAIN_TIMESTAMP_ENABLED);
+	}
+	
+	public String getMainTimestampTime() {
+		return getString(MAIN_TIMESTAMP_TIME);
 	}
 	
 	public String getMainShutdown() {

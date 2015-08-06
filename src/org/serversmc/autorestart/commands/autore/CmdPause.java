@@ -15,6 +15,7 @@ public class CmdPause extends AutoCommand {
 			if (TimerThread.isRunning()) {
 				Messenger.popupStatusPause();
 				Messenger.broadcastStatusPause();
+				TimerThread.stopRunning();
 			}
 			else {
 				sender.sendMessage(ChatColor.RED + "Timer is already paused!");

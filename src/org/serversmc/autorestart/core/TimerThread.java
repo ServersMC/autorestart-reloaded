@@ -15,7 +15,7 @@ public class TimerThread implements Runnable {
 	private static Config config = new Config();
 	private static Integer time = 0;
 	private static Boolean running = true;
-	
+
 	private Integer paused = 60;
 
 	@Override
@@ -34,7 +34,7 @@ public class TimerThread implements Runnable {
 					}
 
 					// Second Reminders
-					if (time == config.getReminderTimerSeconds()) {
+					if (time <= config.getReminderTimerSeconds()) {
 						Messenger.popupSeconds(time);
 						Messenger.broadcastSeconds(time);
 					}
@@ -50,7 +50,7 @@ public class TimerThread implements Runnable {
 							}
 						}
 					}
-
+					
 					time--;
 					paused = 60;
 				}
@@ -79,6 +79,7 @@ public class TimerThread implements Runnable {
 						}
 					}
 					Main.shutdownServer(Main.FORCED);
+					break;
 				}
 			}
 			try {
@@ -88,21 +89,25 @@ public class TimerThread implements Runnable {
 			}
 		}
 	}
-	
+
 	public static Integer getCurrentTime() {
 		return time;
 	}
-	
+
 	public static Boolean isRunning() {
 		return running;
 	}
-	
+
 	public static void startRunning() {
 		running = true;
 	}
-	
+
 	public static void stopRunning() {
 		running = false;
+	}
+
+	public static void setTime(Integer time) {
+		TimerThread.time = time;
 	}
 
 }

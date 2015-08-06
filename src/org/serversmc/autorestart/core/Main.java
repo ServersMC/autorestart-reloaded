@@ -23,31 +23,34 @@ public class Main extends JavaPlugin {
 
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
-	
+
 	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
-	
+
 	@Override
 	public void onEnable() {
 		// Pre Startup Stuff
 		setupFiles();
 		saveConfig();
-		updateConfig();
 		Config.setConfig(getConfig());
+		updateConfig();
 		UpdateCheck update = new UpdateCheck("https://www.spigotmc.org/resources/autorestart.2538/", this);
 		update.checkSpigot();
 		plugin = this;
-		
+
 		// Register Setup
 		PluginManager pm = Bukkit.getPluginManager();
 		getCommand("autore").setExecutor(new CmdAutoRestart());
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new PlayerKick(), this);
-		
+
+		// Subcommands Setup
+		CmdAutoRestart.setupSubCommands();
+
 		// Loop Starter
 		new Thread(new TimerThread()).start();
 	}
-	
+
 	public void setupFiles() {
 		List<File> folders = new ArrayList<File>();
 		folders.add(getDataFolder());
@@ -59,10 +62,12 @@ public class Main extends JavaPlugin {
 		List<String> resources = new ArrayList<String>();
 		resources.add("config.yml");
 		for (String resource : resources) {
-			saveResource(resource, false);
+			if (!new File(resource).exists()) {
+				saveResource(resource, false);
+			}
 		}
 	}
-	
+
 	public void updateConfig() {
 		Integer configVersion = getConfig().getDefaults().getInt("version");
 		Integer configVersionLoaded = new Config().getVersion();
@@ -80,31 +85,30 @@ public class Main extends JavaPlugin {
 			}
 		}
 	}
-	
+
 	public static void shutdownServer(Integer action) {
 		Config config = new Config();
-		if (action == FORCED) {
-			for (World world : Bukkit.getWorlds()) {
-				world.save();
-			}
-			Bukkit.savePlayers();
-			Messenger.popupShutdown();
-			Messenger.broadcastShutdown();
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.kickPlayer(config.getMainShutdown());
-			}
-		}
-		else if (action == DELAYED) {
+		if (action == DELAYED) {
 			try {
 				Thread.sleep(1000 * config.getMaxplayersDelay());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+		for (World world : Bukkit.getWorlds()) {
+			world.save();
+		}
+		Bukkit.savePlayers();
+		Messenger.popupShutdown();
+		Messenger.broadcastShutdown();
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			player.kickPlayer(config.getMainShutdown());
+		}
+		Bukkit.shutdown();
 	}
 
 	public static void reloadConfigStatic() {
 		plugin.reloadConfig();
 	}
-	
+
 }

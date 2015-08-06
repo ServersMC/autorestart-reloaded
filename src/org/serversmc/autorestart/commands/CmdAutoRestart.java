@@ -21,16 +21,16 @@ public class CmdAutoRestart implements CommandExecutor {
 	public static List<AutoCommand> commands = new ArrayList<AutoCommand>();
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String args3, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			new CmdHelp().execute(sender, args);
 		}
 		else {
-			String label = args[0];
 			AutoCommand target = null;
 			for (AutoCommand command : commands) {
-				if (command.getLabel().equalsIgnoreCase(label)) {
+				if (command.getLabel().equalsIgnoreCase(args[0])) {
 					target = command;
+					break;
 				}
 			}
 			if (target != null) {
@@ -49,7 +49,7 @@ public class CmdAutoRestart implements CommandExecutor {
 		return true;
 	}
 	
-	public void setupSubCommands() {
+	public static void setupSubCommands() {
 		commands.add(new CmdHelp());
 		commands.add(new CmdTime());
 		commands.add(new CmdNow());
