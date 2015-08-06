@@ -30,6 +30,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// Pre Startup Stuff
+		setupScripts();
 		setupFiles();
 		saveConfig();
 		Config.setConfig(getConfig());
@@ -49,6 +50,15 @@ public class Main extends JavaPlugin {
 
 		// Loop Starter
 		new Thread(new TimerThread()).start();
+	}
+	
+	public void setupScripts() {
+		if (System.getProperty("os.name").contains("Win")) {
+			saveResource("start_server.bat", false);
+		}
+		else {
+			saveResource("start_server.sh", false);
+		}
 	}
 
 	public void setupFiles() {
