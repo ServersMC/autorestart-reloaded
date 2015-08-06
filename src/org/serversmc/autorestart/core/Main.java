@@ -30,13 +30,11 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		// Pre Startup Stuff
-		setupScripts();
 		setupFiles();
 		saveConfig();
 		Config.setConfig(getConfig());
 		updateConfig();
-		UpdateCheck update = new UpdateCheck("https://www.spigotmc.org/resources/autorestart.2538/", this);
-		update.checkSpigot();
+		checkUpdate();
 		plugin = this;
 
 		// Register Setup
@@ -52,15 +50,6 @@ public class Main extends JavaPlugin {
 		new Thread(new TimerThread()).start();
 	}
 	
-	public void setupScripts() {
-		if (System.getProperty("os.name").contains("Win")) {
-			saveResource("start_server.bat", false);
-		}
-		else {
-			saveResource("start_server.sh", false);
-		}
-	}
-
 	public void setupFiles() {
 		List<File> folders = new ArrayList<File>();
 		folders.add(getDataFolder());
@@ -71,8 +60,14 @@ public class Main extends JavaPlugin {
 		}
 		List<String> resources = new ArrayList<String>();
 		resources.add("config.yml");
+		if (System.getProperty("os.name").contains("Win")) {
+			resources.add("start_server.bat");
+		}
+		else {
+			resources.add("start_server.sh");
+		}
 		for (String resource : resources) {
-			if (!new File(resource).exists()) {
+			if (!new File(getDataFolder(), resource).exists()) {
 				saveResource(resource, false);
 			}
 		}
@@ -93,6 +88,25 @@ public class Main extends JavaPlugin {
 				}
 				log.warning("[AutoRestart] config file has been backed up to " + rename.getName() + "!");
 			}
+		}
+	}
+	
+	public void checkUpdate() {
+		UpdateCheck update = new UpdateCheck("https://gitlab.com/dennislysenko/AutoRestart-Reloaded/tags");
+		String version = getDescription().getVersion();
+		log.warning("[AutoRestart] checking for update!");
+		Boolean b = update.needsUpdate(version);
+		if (b != null) {
+			if (b) {
+				String url = "https://www.spigotmc.org/resources/autorestart.2538/";
+				log.severe("[AutoRestart] please go to \"" + url + "\" to get the latest update! New version " + update.getVersion());
+			}
+			else {
+				log.info("[AutoRestart] is up to date!");
+			}
+		}
+		else {
+			log.warning("[AutoRestart] we cannot check your update right now. Please check your firewall, and/or your internet connection. If this problem is still continuing, then there is a problem with the update server.");
 		}
 	}
 
