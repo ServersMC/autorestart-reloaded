@@ -19,7 +19,7 @@ import org.serversmc.autorestart.events.PlayerQuit;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Messenger;
 
-public class Main extends JavaPlugin {
+public class Main extends JavaPlugin implements Runnable {
 
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
@@ -33,8 +33,7 @@ public class Main extends JavaPlugin {
 		setupFiles();
 		saveConfig();
 		Config.setConfig(getConfig());
-		updateConfig();
-		checkUpdate();
+		new Thread(this).start();
 		plugin = this;
 
 		// Register Setup
@@ -89,6 +88,11 @@ public class Main extends JavaPlugin {
 				log.warning("[AutoRestart] config file has been backed up to " + rename.getName() + "!");
 			}
 		}
+	}
+	
+	@Override
+	public void run() {
+		checkUpdate();
 	}
 	
 	public void checkUpdate() {
