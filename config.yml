@@ -8,7 +8,7 @@ config:
         ## Go into "Scheduled Tasks", and configure MultiCraft to restart the server, the same time your server will restart.
         ## /autore pause, /autore start, /autore now, /autore reload, /autore in, and max-players feature will be disabled with MutliCraft.
         ## Since these commands, and features alters the timer in AutoRestart, MultiCraft timer is still running.
-        mutlicraft: true
+        mutlicraft: false
         ## The shutdown message on when the server restarts.
         ## Color codes now enabled! Use regular chat colors!
         shutdown: '&cServer Restarting! We will be back up any minute!'
