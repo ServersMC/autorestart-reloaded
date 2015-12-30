@@ -1,429 +1,274 @@
 package de.inventivegames.util.title;
 
+import de.inventivegames.util.tellraw.TellrawConverterLite;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-/**
- * Minecraft 1.8 Title
- * 
- * @version 1.0.4
- * @author Maxim Van de Wynckel
- */
-public class Title {
-	/* Title packet */
-	private static Class<?> packetTitle;
-	/* Title packet actions ENUM */
-	private static Class<?> packetActions;
-	/* Chat serializer */
-	private static Class<?> nmsChatSerializer;
-	private static Class<?> chatBaseComponent;
-	
-	static {
-		loadClasses();
-	}
-	
-	/* Title text and color */
-	private String title = "";
-	private ChatColor titleColor = ChatColor.WHITE;
-	/* Subtitle text and color */
-	private String subtitle = "";
-	private ChatColor subtitleColor = ChatColor.WHITE;
-	/* Title timings */
-	private int fadeInTime = -1;
-	private int stayTime = -1;
-	private int fadeOutTime = -1;
-	private boolean ticks = true;
-
-	private static final Map<Class<?>, Class<?>> CORRESPONDING_TYPES = new HashMap<Class<?>, Class<?>>();
-
-	/**
-	 * Create a new 1.8 title
-	 * 
-	 * @param title
-	 *            Title
-	 */
-	public Title(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * Create a new 1.8 title
-	 * 
-	 * @param title
-	 *            Title text
-	 * @param subtitle
-	 *            Subtitle text
-	 */
-	public Title(String title, String subtitle) {
-		this.title = title;
-		this.subtitle = subtitle;
-	}
-
-	/**
-	 * Copy 1.8 title
-	 * 
-	 * @param title
-	 *            Title
-	 */
-	public Title(Title title) {
-		// Copy title
-		this.title = title.title;
-		this.subtitle = title.subtitle;
-		this.titleColor = title.titleColor;
-		this.subtitleColor = title.subtitleColor;
-		this.fadeInTime = title.fadeInTime;
-		this.fadeOutTime = title.fadeOutTime;
-		this.stayTime = title.stayTime;
-		this.ticks = title.ticks;
-	}
-
-	/**
-	 * Create a new 1.8 title
-	 * 
-	 * @param title
-	 *            Title text
-	 * @param subtitle
-	 *            Subtitle text
-	 * @param fadeInTime
-	 *            Fade in time
-	 * @param stayTime
-	 *            Stay on screen time
-	 * @param fadeOutTime
-	 *            Fade out time
-	 */
-	public Title(String title, String subtitle, int fadeInTime, int stayTime,
-			int fadeOutTime) {
-		this.title = title;
-		this.subtitle = subtitle;
-		this.fadeInTime = fadeInTime;
-		this.stayTime = stayTime;
-		this.fadeOutTime = fadeOutTime;
-	}
-
-	/**
-	 * Load spigot and NMS classes
-	 */
-	private static void loadClasses() {
-		if (packetTitle == null){
-			packetTitle = ReflectionUtils.getCraftClass("PacketPlayOutTitle");
-			packetActions = ReflectionUtils.getCraftClass("PacketPlayOutTitle$EnumTitleAction");
-			chatBaseComponent = ReflectionUtils.getCraftClass("IChatBaseComponent");
-			nmsChatSerializer = ReflectionUtils.getCraftClass("IChatBaseComponent$ChatSerializer");
-		}
-	}
-
-	/**
-	 * Set title text
-	 * 
-	 * @param title
-	 *            Title
-	 */
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	/**
-	 * Get title text
-	 * 
-	 * @return Title text
-	 */
-	public String getTitle() {
-		return this.title;
-	}
-
-	/**
-	 * Set subtitle text
-	 * 
-	 * @param subtitle
-	 *            Subtitle text
-	 */
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
-	}
-
-	/**
-	 * Get subtitle text
-	 * 
-	 * @return Subtitle text
-	 */
-	public String getSubtitle() {
-		return this.subtitle;
-	}
-
-	/**
-	 * Set the title color
-	 * 
-	 * @param color
-	 *            Chat color
-	 */
-	public void setTitleColor(ChatColor color) {
-		this.titleColor = color;
-	}
-
-	/**
-	 * Set the subtitle color
-	 * 
-	 * @param color
-	 *            Chat color
-	 */
-	public void setSubtitleColor(ChatColor color) {
-		this.subtitleColor = color;
-	}
-
-	/**
-	 * Set title fade in time
-	 * 
-	 * @param time
-	 *            Time
-	 */
-	public void setFadeInTime(int time) {
-		this.fadeInTime = time;
-	}
-
-	/**
-	 * Set title fade out time
-	 * 
-	 * @param time
-	 *            Time
-	 */
-	public void setFadeOutTime(int time) {
-		this.fadeOutTime = time;
-	}
-
-	/**
-	 * Set title stay time
-	 * 
-	 * @param time
-	 *            Time
-	 */
-	public void setStayTime(int time) {
-		this.stayTime = time;
-	}
-
-	/**
-	 * Set timings to ticks
-	 */
-	public void setTimingsToTicks() {
-		ticks = true;
-	}
-
-	/**
-	 * Set timings to seconds
-	 */
-	public void setTimingsToSeconds() {
-		ticks = false;
-	}
-
-	/**
-	 * Send the title to a player
-	 * 
-	 * @param player
-	 *            Player
-	 */
-	public void send(Player player) {
-		if (packetTitle != null) {
-			// First reset previous settings
-			resetTitle(player);
-			try {
-				// Send timings first
-				Object handle = getHandle(player);
-				Object connection = getField(handle.getClass(),
-						"playerConnection").get(handle);
-				Object[] actions = packetActions.getEnumConstants();
-				Method sendPacket = getMethod(connection.getClass(),
-						"sendPacket");
-				Object packet = packetTitle.getConstructor(packetActions,
-						chatBaseComponent, Integer.TYPE, Integer.TYPE,
-						Integer.TYPE).newInstance(actions[2], null,
-						fadeInTime * (ticks ? 1 : 20),
-						stayTime * (ticks ? 1 : 20),
-						fadeOutTime * (ticks ? 1 : 20));
-				// Send if set
-				if (fadeInTime != -1 && fadeOutTime != -1 && stayTime != -1)
-					sendPacket.invoke(connection, packet);
-
-				// Send title
-				Object serialized = getMethod(nmsChatSerializer, "a",
-						String.class).invoke(
-						null,
-						"{text:\""
-								+ ChatColor.translateAlternateColorCodes('&',
-										title) + "\",color:"
-								+ titleColor.name().toLowerCase() + "}");
-				packet = packetTitle.getConstructor(packetActions,
-						chatBaseComponent).newInstance(actions[0], serialized);
-				sendPacket.invoke(connection, packet);
-				if (subtitle != "") {
-					// Send subtitle if present
-					serialized = getMethod(nmsChatSerializer, "a", String.class)
-							.invoke(null,
-									"{text:\""
-											+ ChatColor
-													.translateAlternateColorCodes(
-															'&', subtitle)
-											+ "\",color:"
-											+ subtitleColor.name()
-													.toLowerCase() + "}");
-					packet = packetTitle.getConstructor(packetActions,
-							chatBaseComponent).newInstance(actions[1],
-							serialized);
-					sendPacket.invoke(connection, packet);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	/**
-	 * Broadcast the title to all players
-	 */
-	public void broadcast() {
-		for (Player p : Bukkit.getOnlinePlayers()) {
-			send(p);
-		}
-	}
-
-	/**
-	 * Clear the title
-	 * 
-	 * @param player
-	 *            Player
-	 */
-	public static void clearTitle(Player player) {
-		try {
-			// Send timings first
-			Object handle = ReflectionUtils.getHandle(player);
-			Object connection = ReflectionUtils.getField(handle.getClass(), "playerConnection")
-					.get(handle);
-			Object[] actions = packetActions.getEnumConstants();
-			Method sendPacket = ReflectionUtils.getMethod(connection.getClass(), "sendPacket");
-			Object packet = packetTitle.getConstructor(packetActions,
-					chatBaseComponent).newInstance(actions[3], null);
-			sendPacket.invoke(connection, packet);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Reset the title settings
-	 * 
-	 * @param player
-	 *            Player
-	 */
-	public static void resetTitle(Player player) {
-		try {
-			// Send timings first
-			Object handle = ReflectionUtils.getHandle(player);
-			Object connection = ReflectionUtils.getField(handle.getClass(), "playerConnection")
-					.get(handle);
-			Object[] actions = packetActions.getEnumConstants();
-			Method sendPacket = ReflectionUtils.getMethod(connection.getClass(), "sendPacket");
-			Object packet = packetTitle.getConstructor(packetActions,
-					chatBaseComponent).newInstance(actions[4], null);
-			sendPacket.invoke(connection, packet);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private Class<?> getPrimitiveType(Class<?> clazz) {
-		return CORRESPONDING_TYPES.containsKey(clazz) ? CORRESPONDING_TYPES
-				.get(clazz) : clazz;
-	}
-
-	private Class<?>[] toPrimitiveTypeArray(Class<?>[] classes) {
-		int a = classes != null ? classes.length : 0;
-		Class<?>[] types = new Class<?>[a];
-		for (int i = 0; i < a; i++)
-			types[i] = getPrimitiveType(classes[i]);
-		return types;
-	}
-
-	private static boolean equalsTypeArray(Class<?>[] a, Class<?>[] o) {
-		if (a.length != o.length)
-			return false;
-		for (int i = 0; i < a.length; i++)
-			if (!a[i].equals(o[i]) && !a[i].isAssignableFrom(o[i]))
-				return false;
-		return true;
-	}
-
-	private Object getHandle(Object obj) {
-		try {
-			return getMethod("getHandle", obj.getClass()).invoke(obj);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private Method getMethod(String name, Class<?> clazz,
-			Class<?>... paramTypes) {
-		Class<?>[] t = toPrimitiveTypeArray(paramTypes);
-		for (Method m : clazz.getMethods()) {
-			Class<?>[] types = toPrimitiveTypeArray(m.getParameterTypes());
-			if (m.getName().equals(name) && equalsTypeArray(types, t))
-				return m;
-		}
-		return null;
-	}
-
-	private String getVersion() {
-		String name = Bukkit.getServer().getClass().getPackage().getName();
-		String version = name.substring(name.lastIndexOf('.') + 1) + ".";
-		return version;
-	}
-
-	public Class<?> getNMSClass(String className) {
-		String fullName = "net.minecraft.server." + getVersion() + className;
-		Class<?> clazz = null;
-		try {
-			clazz = Class.forName(fullName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return clazz;
-	}
-
-	private Field getField(Class<?> clazz, String name) {
-		try {
-			Field field = clazz.getDeclaredField(name);
-			field.setAccessible(true);
-			return field;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private Method getMethod(Class<?> clazz, String name, Class<?>... args) {
-		for (Method m : clazz.getMethods())
-			if (m.getName().equals(name)
-					&& (args.length == 0 || ClassListEqual(args,
-							m.getParameterTypes()))) {
-				m.setAccessible(true);
-				return m;
-			}
-		return null;
-	}
-
-	private boolean ClassListEqual(Class<?>[] l1, Class<?>[] l2) {
-		boolean equal = true;
-		if (l1.length != l2.length)
-			return false;
-		for (int i = 0; i < l1.length; i++)
-			if (l1[i] != l2[i]) {
-				equal = false;
-				break;
-			}
-		return equal;
-	}
+public class Title
+{
+  private static boolean initialized;
+  private static Class<?> nmsChatSerializer;
+  private static Class<?> nmsPacketTitle;
+  private static Class<?> nmsTitleAction;
+  private static Class<?> nmsPlayerConnection;
+  private static Class<?> nmsEntityPlayer;
+  private static Class<?> nmsChatBaseComponent;
+  private static Class<?> ioNettyChannel;
+  private static Class<?> packetTitle;
+  private static Class<?> packetTitleAction;
+  private static Method nmsSendPacket;
+  private static Method nmsChatSerializerA;
+  private static Method nmsNetworkGetVersion;
+  private static Field nmsFieldPlayerConnection;
+  private static Field nmsFieldNetworkManager;
+  private static Field nmsFieldNetworkManagerI;
+  private static Field nmsFieldNetworkManagerM;
+  private static double serverVersion = 1.7D;
+  private static int VERSION = 47;
+  
+  public static void sendTitle(Player p, String title)
+  {
+    if ((p == null) || (title == null)) {
+      throw new NullPointerException();
+    }
+    if (getVersion(p) < VERSION) {
+      return;
+    }
+    if ((!title.startsWith("{")) || (!title.endsWith("}"))) {
+      title = TellrawConverterLite.convertToJSON(title);
+    }
+    try
+    {
+      Object handle = Reflection.getHandle(p);
+      Object connection = nmsFieldPlayerConnection.get(handle);
+      Object serialized = nmsChatSerializerA.invoke(null, new Object[] { title });
+      Object packet;
+      if (serverVersion == 1.7D) {
+        packet = packetTitle.getConstructor(new Class[] { packetTitleAction, nmsChatBaseComponent }).newInstance(new Object[] { packetTitleAction.getEnumConstants()[0], serialized });
+      } else {
+        packet = nmsPacketTitle.getConstructor(new Class[] { nmsTitleAction, nmsChatBaseComponent }).newInstance(new Object[] { nmsTitleAction.getEnumConstants()[0], serialized });
+      }
+      nmsSendPacket.invoke(connection, new Object[] { packet });
+    }
+    catch (Exception e)
+    {
+      System.err.println("[TitleManager] Error while sending title to Player " + p.getName() + ": " + e.getMessage());
+      e.printStackTrace(System.err);
+    }
+  }
+  
+  public static void sendTitle(Player p, int fadeIn, int stay, int fadeOut, String title)
+  {
+    sendTimings(p, fadeIn, stay, fadeOut);
+    sendTitle(p, title);
+  }
+  
+  public static void sendSubTitle(Player p, String subtitle)
+  {
+    if ((p == null) || (subtitle == null)) {
+      throw new NullPointerException();
+    }
+    if (getVersion(p) < VERSION) {
+      return;
+    }
+    if ((!subtitle.startsWith("{")) || (!subtitle.endsWith("}"))) {
+      subtitle = TellrawConverterLite.convertToJSON(subtitle);
+    }
+    try
+    {
+      Object handle = Reflection.getHandle(p);
+      Object connection = nmsFieldPlayerConnection.get(handle);
+      Object serialized = nmsChatSerializerA.invoke(null, new Object[] { subtitle });
+      Object packet;
+      if (serverVersion == 1.7D) {
+        packet = packetTitle.getConstructor(new Class[] { packetTitleAction, nmsChatBaseComponent }).newInstance(new Object[] { packetTitleAction.getEnumConstants()[1], serialized });
+      } else {
+        packet = nmsPacketTitle.getConstructor(new Class[] { nmsTitleAction, nmsChatBaseComponent }).newInstance(new Object[] { nmsTitleAction.getEnumConstants()[1], serialized });
+      }
+      nmsSendPacket.invoke(connection, new Object[] { packet });
+    }
+    catch (Exception e)
+    {
+      System.err.println("[TitleManager] Error while sending subtitle to Player " + p.getName() + ": " + e.getMessage());
+      e.printStackTrace(System.err);
+    }
+  }
+  
+  public static void sendSubTitle(Player p, int fadeIn, int stay, int fadeOut, String subtitle)
+  {
+    sendTimings(p, fadeIn, stay, fadeOut);
+    sendSubTitle(p, subtitle);
+  }
+  
+  public static void sendTimings(Player p, int fadeIn, int stay, int fadeOut)
+  {
+    if (p == null) {
+      throw new NullPointerException();
+    }
+    if (getVersion(p) < VERSION) {
+      return;
+    }
+    try
+    {
+      Object handle = Reflection.getHandle(p);
+      Object connection = nmsFieldPlayerConnection.get(handle);
+      Object packet;
+      if (serverVersion == 1.7D) {
+        packet = packetTitle.getConstructor(new Class[] { packetTitleAction, Integer.TYPE, Integer.TYPE, Integer.TYPE }).newInstance(new Object[] { packetTitleAction.getEnumConstants()[2], Integer.valueOf(fadeIn), Integer.valueOf(stay), Integer.valueOf(fadeOut) });
+      } else {
+        packet = nmsPacketTitle.getConstructor(new Class[] { Integer.TYPE, Integer.TYPE, Integer.TYPE }).newInstance(new Object[] { Integer.valueOf(fadeIn), Integer.valueOf(stay), Integer.valueOf(fadeOut) });
+      }
+      nmsSendPacket.invoke(connection, new Object[] { packet });
+    }
+    catch (Exception e)
+    {
+      System.err.println("[TitleManager] Error while sending timings to Player " + p.getName() + ": " + e.getMessage());
+      e.printStackTrace(System.err);
+    }
+  }
+  
+  public static void clear(Player p)
+  {
+    if (p == null) {
+      throw new NullPointerException();
+    }
+    if (getVersion(p) < VERSION) {
+      return;
+    }
+    try
+    {
+      Object handle = Reflection.getHandle(p);
+      Object connection = nmsFieldPlayerConnection.get(handle);
+      Object packet;
+      if (serverVersion == 1.7D) {
+        packet = packetTitle.getConstructor(new Class[] { packetTitleAction }).newInstance(new Object[] { packetTitleAction.getEnumConstants()[3] });
+      } else {
+        packet = nmsPacketTitle.getConstructor(new Class[] { nmsTitleAction, nmsChatBaseComponent }).newInstance(new Object[] { nmsTitleAction.getEnumConstants()[3], null });
+      }
+      nmsSendPacket.invoke(connection, new Object[] { packet });
+    }
+    catch (Exception e)
+    {
+      System.err.println("[TitleManager] Error while sending clear to Player " + p.getName() + ": " + e.getMessage());
+      e.printStackTrace(System.err);
+    }
+  }
+  
+  public static void reset(Player p)
+  {
+    if (p == null) {
+      throw new NullPointerException();
+    }
+    if (getVersion(p) < VERSION) {
+      return;
+    }
+    try
+    {
+      Object handle = Reflection.getHandle(p);
+      Object connection = nmsFieldPlayerConnection.get(handle);
+      Object packet;
+      if (serverVersion == 1.7D) {
+        packet = packetTitle.getConstructor(new Class[] { packetTitleAction }).newInstance(new Object[] { packetTitleAction.getEnumConstants()[4] });
+      } else {
+        packet = nmsPacketTitle.getConstructor(new Class[] { nmsTitleAction, nmsChatBaseComponent }).newInstance(new Object[] { nmsTitleAction.getEnumConstants()[4], null });
+      }
+      nmsSendPacket.invoke(connection, new Object[] { packet });
+    }
+    catch (Exception e)
+    {
+      System.err.println("[TitleManager] Error while sending reset to Player " + p.getName() + ": " + e.getMessage());
+      e.printStackTrace(System.err);
+    }
+  }
+  
+  public static int getVersion(Player p)
+  {
+    try
+    {
+      Object handle = Reflection.getHandle(p);
+      Object connection = nmsFieldPlayerConnection.get(handle);
+      Object network = nmsFieldNetworkManager.get(connection);
+      Object channel;
+      if (serverVersion == 1.7D) {
+        channel = nmsFieldNetworkManagerM.get(network);
+      } else {
+        channel = nmsFieldNetworkManagerI.get(network);
+      }
+      Object version = serverVersion == 1.7D ? nmsNetworkGetVersion.invoke(network, new Object[] { channel }) : Integer.valueOf(47);
+      return ((Integer)version).intValue();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    return 180;
+  }
+  
+  static
+  {
+    if (!initialized)
+    {
+      String ver = Reflection.getVersion();
+      if (ver.contains("1_7")) {
+        serverVersion = 1.7D;
+      }
+      if (ver.contains("1_8")) {
+        serverVersion = 1.8D;
+      }
+      if (ver.contains("1_8_R2")) {
+        serverVersion = 1.83D;
+      }
+      if (ver.contains("1_8_R3")) {
+        serverVersion = 1.85D;
+      }
+      try
+      {
+        nmsChatBaseComponent = Reflection.getNMSClass("IChatBaseComponent");
+        nmsChatSerializer = Reflection.getNMSClass((Reflection.getVersion().contains("1_7")) || (Reflection.getVersion().contains("1_8_R1")) ? "ChatSerializer" : "IChatBaseComponent$ChatSerializer");
+        if (serverVersion >= 1.8D)
+        {
+          nmsPacketTitle = Reflection.getNMSClass("PacketPlayOutTitle");
+          if (serverVersion >= 1.83D) {
+            nmsTitleAction = Reflection.getNMSClass("PacketPlayOutTitle$EnumTitleAction");
+          } else {
+            nmsTitleAction = Reflection.getNMSClass("EnumTitleAction");
+          }
+        }
+        else
+        {
+          try
+          {
+            packetTitle = Class.forName("org.spigotmc.ProtocolInjector$PacketTitle");
+            packetTitleAction = Class.forName("org.spigotmc.ProtocolInjector$PacketTitle$Action");
+          }
+          catch (Exception e)
+          {
+            e.printStackTrace();
+          }
+        }
+        nmsPlayerConnection = Reflection.getNMSClass("PlayerConnection");
+        nmsEntityPlayer = Reflection.getNMSClass("EntityPlayer");
+        ioNettyChannel = serverVersion == 1.7D ? Class.forName("net.minecraft.util.io.netty.channel.Channel") : Class.forName("io.netty.channel.Channel");
+        
+        nmsFieldPlayerConnection = Reflection.getField(nmsEntityPlayer, "playerConnection");
+        nmsFieldNetworkManager = Reflection.getField(nmsPlayerConnection, "networkManager");
+        nmsFieldNetworkManagerI = Reflection.getField(nmsFieldNetworkManager.getType(), "i");
+        nmsFieldNetworkManagerM = Reflection.getField(nmsFieldNetworkManager.getType(), "m");
+        
+        nmsSendPacket = Reflection.getMethod(nmsPlayerConnection, "sendPacket", new Class[0]);
+        nmsChatSerializerA = Reflection.getMethod(nmsChatSerializer, "a", new Class[] { String.class });
+        nmsNetworkGetVersion = Reflection.getMethod(nmsFieldNetworkManager.getType(), "getVersion", new Class[] { ioNettyChannel });
+        
+        initialized = true;
+      }
+      catch (Exception e)
+      {
+        System.err.println("[TitleManager] Error while loading: " + e.getMessage());
+        e.printStackTrace(System.err);
+        Bukkit.getPluginManager().disablePlugin(Bukkit.getPluginManager().getPlugin("TitleManager"));
+      }
+    }
+  }
 }

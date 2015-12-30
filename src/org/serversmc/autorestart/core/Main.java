@@ -26,10 +26,10 @@ public class Main extends JavaPlugin implements Runnable {
 
 	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
-
+	
 	@Override
 	public void onEnable() {
-		// Pre Startup Stuff
+		// Pre-Startup Stuff
 		setupFiles();
 		saveConfig();
 		Config.setConfig(getConfig());
