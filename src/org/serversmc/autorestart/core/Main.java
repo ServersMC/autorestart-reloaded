@@ -42,7 +42,7 @@ public class Main extends JavaPlugin implements Runnable {
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new PlayerKick(), this);
 
-		// Subcommands Setup
+		// Sub-Commands Setup
 		CmdAutoRestart.setupSubCommands();
 
 		// Loop Starter
