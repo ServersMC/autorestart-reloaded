@@ -5,9 +5,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
-import me.dennis.updatecheck.core.UpdateCheck;
-
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -18,6 +15,7 @@ import org.serversmc.autorestart.events.PlayerKick;
 import org.serversmc.autorestart.events.PlayerQuit;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Messenger;
+import me.dennis.updatecheck.core.UpdateCheck;
 
 public class Main extends JavaPlugin implements Runnable {
 

@@ -1,10 +1,8 @@
 package org.serversmc.autorestart.core;
 
 import java.util.List;
-
-import net.md_5.bungee.api.ChatColor;
-
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.MemoryUtils;
