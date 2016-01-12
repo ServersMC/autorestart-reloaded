@@ -4,54 +4,32 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.inventivegames.util.title.TitleManager;
-
 public class Messenger {
 
 	public static Config config = new Config();
 
 	private static void sendTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String title) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000 * delay);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				TitleManager.sendTitle(player, fadein, stay, fadeout, title);
-			}
-		}).start();
+		TitleManager.sendTitle(player, fadein * 20, stay * 20, fadeout * 20, "{text:\"" + title + "\"}");
 	}
 
 	private static void sendSubTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String title) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(1000 * delay);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				TitleManager.sendSubTitle(player, fadein, stay, fadeout, title);
-			}
-		}).start();
+		TitleManager.sendSubTitle(player, fadein * 20, stay * 20, fadeout * 20, "{text:\"" + title + "\"}");
 	}
-
+	
 	public static void popupMinutes(Integer m) {
 		if (config.isPopupsEnabledMinutes()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				sendTitle(player,
 						config.getTimingsMinutesTitleDelay(),
-						config.getTimingsMinutesTitleDelay(),
-						config.getTimingsMinutesTitleDelay(),
-						config.getTimingsMinutesTitleDelay(),
+						config.getTimingsMinutesTitleFadein(),
+						config.getTimingsMinutesTitleStay(),
+						config.getTimingsMinutesTitleFadeout(),
 						config.getPopupsMessagesMinutesTitle(m));
 				sendSubTitle(player,
 						config.getTimingsMinutesSubtitleDelay(),
-						config.getTimingsMinutesSubtitleDelay(),
-						config.getTimingsMinutesSubtitleDelay(),
-						config.getTimingsMinutesSubtitleDelay(),
+						config.getTimingsMinutesSubtitleFadein(),
+						config.getTimingsMinutesSubtitleStay(),
+						config.getTimingsMinutesSubtitleFadeout(),
 						config.getPopupsMessagesMinutesSubtitle(m));
 			}
 		}
@@ -62,15 +40,15 @@ public class Messenger {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				sendTitle(player,
 						config.getTimingsSecondsTitleDelay(),
-						config.getTimingsSecondsTitleDelay(),
-						config.getTimingsSecondsTitleDelay(),
-						config.getTimingsSecondsTitleDelay(),
+						config.getTimingsSecondsTitleFadein(),
+						config.getTimingsSecondsTitleStay(),
+						config.getTimingsSecondsTitleFadeout(),
 						config.getPopupsMessagesSecondsTitle(s));
 				sendSubTitle(player,
 						config.getTimingsSecondsSubtitleDelay(),
-						config.getTimingsSecondsSubtitleDelay(),
-						config.getTimingsSecondsSubtitleDelay(),
-						config.getTimingsSecondsSubtitleDelay(),
+						config.getTimingsSecondsSubtitleFadein(),
+						config.getTimingsSecondsSubtitleStay(),
+						config.getTimingsSecondsSubtitleFadeout(),
 						config.getPopupsMessagesSecondsSubtitle(s));
 			}
 		}
@@ -82,15 +60,15 @@ public class Messenger {
 				Player player = (Player) sender;
 				sendTitle(player,
 						config.getTimingsTimeTitleDelay(),
-						config.getTimingsTimeTitleDelay(),
-						config.getTimingsTimeTitleDelay(),
-						config.getTimingsTimeTitleDelay(),
+						config.getTimingsTimeTitleFadein(),
+						config.getTimingsTimeTitleStay(),
+						config.getTimingsTimeTitleFadeout(),
 						config.getPopupsMessagesTimeTitle(h, m, s));
 				sendSubTitle(player,
 						config.getTimingsTimeSubtitleDelay(),
-						config.getTimingsTimeSubtitleDelay(),
-						config.getTimingsTimeSubtitleDelay(),
-						config.getTimingsTimeSubtitleDelay(),
+						config.getTimingsTimeSubtitleFadein(),
+						config.getTimingsTimeSubtitleStay(),
+						config.getTimingsTimeSubtitleFadeout(),
 						config.getPopupsMessagesTimeSubtitle(h, m, s));
 			}
 		}
@@ -101,15 +79,15 @@ public class Messenger {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				sendTitle(player,
 						config.getTimingsStatusStartTitleDelay(),
-						config.getTimingsStatusStartTitleDelay(),
-						config.getTimingsStatusStartTitleDelay(),
-						config.getTimingsStatusStartTitleDelay(),
+						config.getTimingsStatusStartTitleFadein(),
+						config.getTimingsStatusStartTitleStay(),
+						config.getTimingsStatusStartTitleFadeout(),
 						config.getPopupsMessagesStatusStartTitle());
 				sendSubTitle(player,
 						config.getTimingsStatusStartSubtitleDelay(),
-						config.getTimingsStatusStartSubtitleDelay(),
-						config.getTimingsStatusStartSubtitleDelay(),
-						config.getTimingsStatusStartSubtitleDelay(),
+						config.getTimingsStatusStartSubtitleFadein(),
+						config.getTimingsStatusStartSubtitleStay(),
+						config.getTimingsStatusStartSubtitleFadeout(),
 						config.getPopupsMessagesStatusStartSubtitle());
 			}
 		}
@@ -120,15 +98,15 @@ public class Messenger {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				sendTitle(player,
 						config.getTimingsStatusPauseTitleDelay(),
-						config.getTimingsStatusPauseTitleDelay(),
-						config.getTimingsStatusPauseTitleDelay(),
-						config.getTimingsStatusPauseTitleDelay(),
+						config.getTimingsStatusPauseTitleFadein(),
+						config.getTimingsStatusPauseTitleStay(),
+						config.getTimingsStatusPauseTitleFadeout(),
 						config.getPopupsMessagesStatusPauseTitle());
 				sendSubTitle(player,
 						config.getTimingsStatusPauseSubtitleDelay(),
-						config.getTimingsStatusPauseSubtitleDelay(),
-						config.getTimingsStatusPauseSubtitleDelay(),
-						config.getTimingsStatusPauseSubtitleDelay(),
+						config.getTimingsStatusPauseSubtitleFadein(),
+						config.getTimingsStatusPauseSubtitleStay(),
+						config.getTimingsStatusPauseSubtitleFadeout(),
 						config.getPopupsMessagesStatusPauseSubtitle());
 			}
 		}
@@ -139,15 +117,15 @@ public class Messenger {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				sendTitle(player,
 						config.getTimingsChangeTitleDelay(),
-						config.getTimingsChangeTitleDelay(),
-						config.getTimingsChangeTitleDelay(),
-						config.getTimingsChangeTitleDelay(),
+						config.getTimingsChangeTitleFadein(),
+						config.getTimingsChangeTitleStay(),
+						config.getTimingsChangeTitleFadeout(),
 						config.getPopupsMessagesChangeTitle(h, m, s));
 				sendSubTitle(player,
 						config.getTimingsChangeSubtitleDelay(),
-						config.getTimingsChangeSubtitleDelay(),
-						config.getTimingsChangeSubtitleDelay(),
-						config.getTimingsChangeSubtitleDelay(),
+						config.getTimingsChangeSubtitleFadein(),
+						config.getTimingsChangeSubtitleStay(),
+						config.getTimingsChangeSubtitleFadeout(),
 						config.getPopupsMessagesChangeSubtitle(h, m, s));
 			}
 		}

@@ -1,5 +1,5 @@
 name: AutoRestart
-version: 2.2
+version: 2.3
 main: org.serversmc.autorestart.core.Main
 author: ServersMC, DennisLysenko
 commands:
