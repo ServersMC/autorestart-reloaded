@@ -36,7 +36,7 @@ public class TitleManager {
 		try {
 			Object handle = Reflection.getHandle(p);
 			Object connection = nmsFieldPlayerConnection.get(handle);
-			Object serialized = nmsChatSerializerA.invoke(null, title);
+			Object serialized = nmsChatSerializerA.invoke(null, "{text:\"" + title + "\"}");
 			Object packet = nmsPacketTitle.getConstructor(nmsTitleAction, nmsChatBaseComponent).newInstance(nmsTitleAction.getEnumConstants()[0], serialized);
 			nmsSendPacket.invoke(connection, packet);
 		}
@@ -61,7 +61,7 @@ public class TitleManager {
 		try {
 			Object handle = Reflection.getHandle(p);
 			Object connection = nmsFieldPlayerConnection.get(handle);
-			Object serialized = nmsChatSerializerA.invoke(null, subtitle);
+			Object serialized = nmsChatSerializerA.invoke(null, "{text:\"" + subtitle + "\"}");
 			Object packet = nmsPacketTitle.getConstructor(nmsTitleAction, nmsChatBaseComponent).newInstance(nmsTitleAction.getEnumConstants()[1], serialized);
 			nmsSendPacket.invoke(connection, packet);
 		}
