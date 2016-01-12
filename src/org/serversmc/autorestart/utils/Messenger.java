@@ -9,11 +9,11 @@ public class Messenger {
 	public static Config config = new Config();
 
 	private static void sendTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String title) {
-		TitleManager.sendTitle(player, fadein * 20, stay * 20, fadeout * 20, "{text:\"" + title + "\"}");
+		TitleManager.sendTitle(player, fadein, stay, fadeout, "{text:\"" + title + "\"}");
 	}
 
 	private static void sendSubTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String title) {
-		TitleManager.sendSubTitle(player, fadein * 20, stay * 20, fadeout * 20, "{text:\"" + title + "\"}");
+		TitleManager.sendSubTitle(player, fadein, stay, fadeout, "{text:\"" + title + "\"}");
 	}
 	
 	public static void popupMinutes(Integer m) {

@@ -108,69 +108,69 @@ config:
         minutes:
             title:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
             subtitle:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
         seconds:
             title:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
             subtitle:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
         time:
             title:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
             subtitle:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
         status-start:
             title:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
             subtitle:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
         status-pause:
             title:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
             subtitle:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
         change:
             title:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
             subtitle:
                 delay: 0
-                fadein: 1
-                stay: 2
-                fadeout: 1
+                fadein: 20
+                stay: 40
+                fadeout: 20
 
     ## This section will allow you to run Console Commands before a given amount of seconds
     commands:
