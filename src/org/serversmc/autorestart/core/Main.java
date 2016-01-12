@@ -32,6 +32,7 @@ public class Main extends JavaPlugin implements Runnable {
 		saveConfig();
 		Config.setConfig(getConfig());
 		new Thread(this).start();
+		updateConfig();
 		plugin = this;
 
 		// Register Setup
