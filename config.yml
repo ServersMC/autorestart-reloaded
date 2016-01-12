@@ -203,4 +203,4 @@ config:
             shutdown: '&aServer now restarting in &f%d&a seconds!'
         
 ## DO NOT CHANGE THIS!!!!
-version: 11
+version: 12
