@@ -123,13 +123,23 @@ public class Main extends JavaPlugin implements Runnable {
 			}
 		}
 		for (World world : Bukkit.getWorlds()) {
-			world.save();
+			if (!world.isAutoSave()) {
+				world.save();
+			}
 		}
 		Bukkit.savePlayers();
 		Messenger.popupShutdown();
 		Messenger.broadcastShutdown();
 		for (Player player : Bukkit.getOnlinePlayers()) {
+			Boolean wasOp = false;
+			if (player.isOp()) {
+				player.setOp(false);
+				wasOp = true;
+			}
 			player.kickPlayer(config.getMainShutdown());
+			if (wasOp) {
+				player.setOp(true);
+			}
 		}
 		Bukkit.shutdown();
 	}
