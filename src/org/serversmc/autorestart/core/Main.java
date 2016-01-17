@@ -131,15 +131,17 @@ public class Main extends JavaPlugin implements Runnable {
 		Messenger.popupShutdown();
 		Messenger.broadcastShutdown();
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			Boolean wasOp = false;
-			if (player.isOp()) {
-				player.setOp(false);
-				wasOp = true;
-			}
-			player.kickPlayer(config.getMainShutdown());
-			if (wasOp) {
-				player.setOp(true);
-			}
+			try {
+				Boolean wasOp = false;
+				if (player.isOp()) {
+					player.setOp(false);
+					wasOp = true;
+				}
+				player.kickPlayer(config.getMainShutdown());
+				if (wasOp) {
+					player.setOp(true);
+				}
+			} catch (IllegalStateException ex) {}
 		}
 		Bukkit.shutdown();
 	}
