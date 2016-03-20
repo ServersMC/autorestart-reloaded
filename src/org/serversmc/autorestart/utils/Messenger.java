@@ -3,17 +3,20 @@ package org.serversmc.autorestart.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.inventivetalent.title.TitleAPI;
 
 public class Messenger {
 
 	public static Config config = new Config();
 
 	private static void sendTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String title) {
-		TitleManager.sendTitle(player, fadein, stay, fadeout, title);
+		TitleAPI.sendTimings(player, fadein, stay, fadeout);
+		TitleAPI.sendTitle(player, title);
 	}
 
 	private static void sendSubTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String subtitle) {
-		TitleManager.sendSubTitle(player, fadein, stay, fadeout, subtitle);
+		TitleAPI.sendTimings(player, fadein, stay, fadeout);
+		TitleAPI.sendTitle(player, subtitle);
 	}
 	
 	public static void popupMinutes(Integer m) {
@@ -133,9 +136,8 @@ public class Messenger {
 
 	public static void popupShutdown() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			TitleManager.sendTimings(player, 20, 40, 20);
-			TitleManager.sendTitle(player, "Server Is Now");
-			TitleManager.sendSubTitle(player, "Restarting!");
+			sendTitle(player, 0, 20, 40, 20, "Server Is Now");
+			sendSubTitle(player, 0, 20, 40, 20, "Restarting!");
 		}
 	}
 

@@ -1,0 +1,40 @@
+Introduction:
+	AutoRestart-Reloaded plugin is just a "Messenger". It tells the players, when the server will
+restart, or it is estimating when the server will restart. The server restarting functions are done by a
+third party process such as the Batch file, Bash (.sh) file, or  MultiCraft. The plugin is just the
+messenger.
+
+
+Installation: (Without MultiCraft)
+	Inside the folder is a config.yml file, a instuctions.txt, the startup file (Windows)
+start_server.bat file, or (Other Unix OS) start_server.sh file, and a plugin (TitleAPI.jar) used to run
+the popups. The plugin will not run without this plugin.
+	First, move the startup file to the same folder of your Minecraft Server jar file. This could be
+Spigot.jar, Bukkit.jar, CraftBukkit.jar, or whatever you have decided to name that file. Right click the
+startup file you have moved, and edit it. Inside the file make sure to change FILENAME to the EXACT same
+file that your server uses. (Example: Spigot.jar). You have to add the (.jar) extension.
+
+
+
+Installation: (With MutliCraft)
+	Go into your Scheduled Tasks inside your MultiCraft panel, and add a command where the server will
+restart every certain amount of minutes/hours. (Make sure the interval is the same as your config.yml).
+	Please note that I do not have MutliCraft to test this feature. If you have MultiCraft please message
+me what you did for this plugin to work so I can refine these instructions.
+
+
+Installation (Continued): (With or Without MultiCraft)
+	Next, move your TitleAPI.jar file from the AutoRestart folder to your plugins folder. This plugin is
+essential for AutoRestart to properly function.
+	Finally, edit the config.yml file, have fun, and make your server more convenient and faster by
+saving RAM, and/or adding this cool feature to make your server look more professional than before!
+
+
+Conclusion:
+	I want to apologize for all of those having trouble installing AutoRestart, also I'm sorry for not
+updating the plugin as regularly, I have been busy with work, and school so I'm never on my computer,
+even for gaming, searching, or purchasing. The only reason I have used my PC is for school. Thank all
+for using my plugin, and I love to visit a server seeing them use my plugin. Enjoy this unique up-to-date
+plugin.
+
+Thank you.
