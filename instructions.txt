@@ -1,8 +1,7 @@
 Introduction:
 	AutoRestart-Reloaded plugin is just a "Messenger". It tells the players, when the server will
 restart, or it is estimating when the server will restart. The server restarting functions are done by a
-third party process such as the Batch file, Bash (.sh) file, or  MultiCraft. The plugin is just the
-messenger.
+third party process such as the Batch file, Bash (.sh) file, or  MultiCraft.
 
 
 Installation: (Without MultiCraft)
@@ -16,7 +15,7 @@ file that your server uses. (Example: Spigot.jar). You have to add the (.jar) ex
 
 
 
-Installation: (With MutliCraft)
+Installation (Continued): (With MutliCraft)
 	Go into your Scheduled Tasks inside your MultiCraft panel, and add a command where the server will
 restart every certain amount of minutes/hours. (Make sure the interval is the same as your config.yml).
 	Please note that I do not have MutliCraft to test this feature. If you have MultiCraft please message
@@ -32,9 +31,9 @@ saving RAM, and/or adding this cool feature to make your server look more profes
 
 Conclusion:
 	I want to apologize for all of those having trouble installing AutoRestart, also I'm sorry for not
-updating the plugin as regularly, I have been busy with work, and school so I'm never on my computer,
-even for gaming, searching, or purchasing. The only reason I have used my PC is for school. Thank all
-for using my plugin, and I love to visit a server seeing them use my plugin. Enjoy this unique up-to-date
-plugin.
+updating the plugin as regularly, I have been busy with work, and school so I'm never on my computer
+even for gaming, searching, or purchasing. The only reason I have used my PC is for school. Thank you all
+for using my plugin, and I would love to visit your server seeing you use my plugin. Enjoy this unique
+up-to-date plugin, and happy gaming.
 
 Thank you.
