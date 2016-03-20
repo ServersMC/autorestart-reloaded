@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -103,19 +104,19 @@ public class Main extends JavaPlugin implements Runnable {
 	public void checkUpdate() {
 		UpdateCheck update = new UpdateCheck("https://gitlab.com/dennislysenko/AutoRestart-Reloaded/tags");
 		String version = getDescription().getVersion();
-		log.warning("[AutoRestart] checking for update!");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "[AutoRestart] checking for update!");
 		Boolean b = update.needsUpdate(version);
 		if (b != null) {
 			if (b) {
 				String url = "https://www.spigotmc.org/resources/autorestart.2538/";
-				log.severe("[AutoRestart] please go to \"" + url + "\" to get the latest update! New version " + update.getVersion());
+				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] please go to \"" + url + "\" to get the latest update! New version " + update.getVersion());
 			}
 			else {
-				log.info("[AutoRestart] is up to date!");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[AutoRestart] is up to date!");
 			}
 		}
 		else {
-			log.warning("[AutoRestart] we cannot check your update right now. Please check your firewall, and/or your internet connection. If this problem is still continuing, then there is a problem with the update server.");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[AutoRestart] we cannot check your update right now. Please check your firewall, and/or your internet connection. If this problem is still continuing, then there is a problem with the update server.");
 		}
 	}
 
