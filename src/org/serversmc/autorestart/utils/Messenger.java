@@ -3,20 +3,18 @@ package org.serversmc.autorestart.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.inventivetalent.title.TitleAPI;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class Messenger {
 
 	public static Config config = new Config();
 
-	private static void sendTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String title) {
-		TitleAPI.sendTimings(player, fadein, stay, fadeout);
-		TitleAPI.sendTitle(player, title);
+	private static void sendTitle(Player player, int delay, int fadein, int stay, int fadeout, String title) {
+		TitleAPI.sendTitle(player, new TextComponent(title), fadein, stay, fadeout);
 	}
 
 	private static void sendSubTitle(Player player, Integer delay, Integer fadein, Integer stay, Integer fadeout, String subtitle) {
-		TitleAPI.sendTimings(player, fadein, stay, fadeout);
-		TitleAPI.sendTitle(player, subtitle);
+		TitleAPI.sendSubTitle(player, new TextComponent(subtitle), fadein, stay, fadeout);
 	}
 	
 	public static void popupMinutes(Integer m) {

@@ -1,7 +1,6 @@
 package org.serversmc.autorestart.utils;
 
 import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
