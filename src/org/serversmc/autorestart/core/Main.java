@@ -21,6 +21,8 @@ public class Main extends JavaPlugin implements Runnable {
 
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
+	
+	public static String VERSION;
 
 	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
@@ -34,6 +36,7 @@ public class Main extends JavaPlugin implements Runnable {
 		new Thread(this).start();
 		updateConfig();
 		plugin = this;
+		VERSION = getDescription().getVersion();
 
 		// Register Setup
 		PluginManager pm = Bukkit.getPluginManager();

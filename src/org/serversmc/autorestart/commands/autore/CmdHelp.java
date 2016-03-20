@@ -19,7 +19,7 @@ public class CmdHelp extends AutoCommand {
 		}
 		if (!commands.isEmpty()) {
 			for (AutoCommand command : commands) {
-				sender.sendMessage(command.getUsage() + " - " + command.getDescription());
+				sender.sendMessage(ChatColor.GRAY + command.getUsage() + " - " + ChatColor.RED + command.getDescription());
 			}
 		}
 		else {

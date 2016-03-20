@@ -13,6 +13,7 @@ import org.serversmc.autorestart.commands.autore.CmdPause;
 import org.serversmc.autorestart.commands.autore.CmdReload;
 import org.serversmc.autorestart.commands.autore.CmdStart;
 import org.serversmc.autorestart.commands.autore.CmdTime;
+import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.types.AutoCommand;
 
 public class CmdAutoRestart implements CommandExecutor {
@@ -21,6 +22,7 @@ public class CmdAutoRestart implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		sender.sendMessage(ChatColor.RED + "AutoRestart " + ChatColor.GRAY + "- v" + Main.VERSION);
 		if (args.length == 0) {
 			new CmdHelp().execute(sender, args);
 		}
