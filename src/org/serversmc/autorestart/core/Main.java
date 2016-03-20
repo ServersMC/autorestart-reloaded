@@ -59,6 +59,7 @@ public class Main extends JavaPlugin implements Runnable {
 		List<String> resources = new ArrayList<String>();
 		resources.add("config.yml");
 		resources.add("TitleAPI.jar");
+		resources.add("PacketListenerAPI.jar");
 		resources.add("instructions.txt");
 		if (System.getProperty("os.name").contains("Win")) {
 			resources.add("start_server.bat");

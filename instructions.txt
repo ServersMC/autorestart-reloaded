@@ -6,8 +6,8 @@ third party process such as the Batch file, Bash (.sh) file, or  MultiCraft.
 
 Installation: (Without MultiCraft)
 	Inside the folder is a config.yml file, a instuctions.txt, the startup file (Windows)
-start_server.bat file, or (Other Unix OS) start_server.sh file, and a plugin (TitleAPI.jar) used to run
-the popups. The plugin will not run without this plugin.
+start_server.bat file, or (Other Unix OS) start_server.sh file, and two plugins (TitleAPI.jar, and
+PacketListenerAPI.jar) used to run the popups. The plugins will not run without these plugin.
 	First, move the startup file to the same folder of your Minecraft Server jar file. This could be
 Spigot.jar, Bukkit.jar, CraftBukkit.jar, or whatever you have decided to name that file. Right click the
 startup file you have moved, and edit it. Inside the file make sure to change FILENAME to the EXACT same
@@ -23,8 +23,8 @@ me what you did for this plugin to work so I can refine these instructions.
 
 
 Installation (Continued): (With or Without MultiCraft)
-	Next, move your TitleAPI.jar file from the AutoRestart folder to your plugins folder. This plugin is
-essential for AutoRestart to properly function.
+	Next, move your TitleAPI.jar, and PacketListenerAPI.jar file from the AutoRestart folder to your
+plugins folder. These plugins is essential for AutoRestart to properly function.
 	Finally, edit the config.yml file, have fun, and make your server more convenient and faster by
 saving RAM, and/or adding this cool feature to make your server look more professional than before!
 
