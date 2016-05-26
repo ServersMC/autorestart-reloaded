@@ -64,6 +64,7 @@ public class Main extends JavaPlugin implements Runnable {
 		resources.add("config.yml");
 		resources.add("TitleAPI.jar");
 		resources.add("PacketListenerAPI.jar");
+		resources.add("PlayerVersion.jar");
 		resources.add("instructions.txt");
 		if (System.getProperty("os.name").contains("Win")) {
 			resources.add("start_server.bat");
@@ -75,6 +76,28 @@ public class Main extends JavaPlugin implements Runnable {
 			if (!new File(getDataFolder(), resource).exists()) {
 				saveResource(resource, false);
 			}
+		}
+		// Installation for Dependencies
+		File title = new File(getDataFolder(), "TitleAPI.jar");
+		File packet = new File(getDataFolder(), "PacketListenerAPI.jar");
+		File player = new File(getDataFolder(), "PlayerVersion.jar");
+		// Installation Check
+		try {
+			Bukkit.getPluginManager().getPlugin("TitleAPI").isEnabled();
+			Bukkit.getPluginManager().getPlugin("PacketListenerApi").isEnabled();
+			Bukkit.getPluginManager().getPlugin("PlayerVersion").isEnabled();
+		} catch(NullPointerException ex) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				@Override
+				public void run() {
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] PLEASE RESTART SERVER TO FINISH INSTALLATION FOR AUTORESTART!!!");
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
+					title.renameTo(new File(title.getAbsoluteFile(), "../../TitleAPI.jar"));
+					packet.renameTo(new File(packet.getAbsoluteFile(), "../../PacketListenerAPI.jar"));
+					player.renameTo(new File(player.getAbsoluteFile(), "../../PlayerVersion.jar"));
+				}
+			}, 0);
 		}
 	}
 
