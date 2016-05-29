@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.serversmc.autorestart.commands.CmdAutoRestart;
@@ -22,6 +23,10 @@ public class Main extends JavaPlugin implements Runnable {
 
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
+	
+	public static final String TITLEAPI_V = "2.1.2";
+	public static final String PACKETLISTENERAPI_V = "3.4.1";
+	public static final String PLAYERVERSION_V = "1.2.3";
 	
 	public static String VERSION;
 
@@ -81,11 +86,29 @@ public class Main extends JavaPlugin implements Runnable {
 		File title = new File(getDataFolder(), "TitleAPI.jar");
 		File packet = new File(getDataFolder(), "PacketListenerAPI.jar");
 		File player = new File(getDataFolder(), "PlayerVersion.jar");
+		
+		Plugin pluginTitle = null;
+		Plugin pluginPacket = null;
+		Plugin pluginPlayer = null;
+		Boolean updateRestart = false;
 		// Installation Check
 		try {
-			Bukkit.getPluginManager().getPlugin("TitleAPI").isEnabled();
-			Bukkit.getPluginManager().getPlugin("PacketListenerApi").isEnabled();
-			Bukkit.getPluginManager().getPlugin("PlayerVersion").isEnabled();
+			(pluginTitle = Bukkit.getPluginManager().getPlugin("TitleAPI")).isEnabled();
+			(pluginPacket = Bukkit.getPluginManager().getPlugin("PacketListenerApi")).isEnabled();
+			(pluginPlayer = Bukkit.getPluginManager().getPlugin("PlayerVersion")).isEnabled();
+			// Update Check
+			if (!pluginTitle.getDescription().getVersion().equals(TITLEAPI_V)) {
+				title.renameTo(new File(title.getAbsoluteFile(), "../../TitleAPI.jar"));
+				updateRestart = true;
+			}
+			if (!pluginPacket.getDescription().getVersion().equals(PACKETLISTENERAPI_V)) {
+				packet.renameTo(new File(packet.getAbsoluteFile(), "../../PacketListenerAPI.jar"));
+				updateRestart = true;
+			}
+			if (!pluginPlayer.getDescription().getVersion().equals(PLAYERVERSION_V)) {
+				player.renameTo(new File(player.getAbsoluteFile(), "../../PlayerVersion.jar"));
+				updateRestart = true;
+			}
 		} catch(NullPointerException ex) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 				@Override
@@ -96,6 +119,16 @@ public class Main extends JavaPlugin implements Runnable {
 					title.renameTo(new File(title.getAbsoluteFile(), "../../TitleAPI.jar"));
 					packet.renameTo(new File(packet.getAbsoluteFile(), "../../PacketListenerAPI.jar"));
 					player.renameTo(new File(player.getAbsoluteFile(), "../../PlayerVersion.jar"));
+				}
+			}, 0);
+		}
+		if (updateRestart) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				@Override
+				public void run() {
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart]    PLEASE RESTART SERVER TO FINISH UPDATE FOR AUTORESTART!!!");
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
 				}
 			}, 0);
 		}
