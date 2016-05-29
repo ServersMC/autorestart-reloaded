@@ -36,45 +36,9 @@ public class Main extends JavaPlugin implements Runnable {
 	public Logger log = Bukkit.getLogger();
 
 	@Override
-	public void onLoad() {
-		plugin = this;
-		
-		List<String> versions = new ArrayList<String>();
-		versions.add(PACKETLISTENERAPI_V);
-		versions.add(PLAYERVERSION_V);
-		versions.add(TITLEAPI_V);
-		List<String> dependies = new ArrayList<String>();
-		dependies.add("PacketListenerApi.jar");
-		dependies.add("PlayerVersion.jar");
-		dependies.add("TitleAPI.jar");
-		Boolean disable = false;
-		for (int i = 0; i < dependies.size(); i++) {
-			String dependy = dependies.get(i);
-			saveResource(dependy, true);
-			File file = new File(getDataFolder(), dependy);
-			Plugin plugin = Bukkit.getPluginManager().getPlugin(dependy.replaceFirst(".jar", ""));
-			if (file.exists()) {
-				System.out.println("TRUE");
-			}
-			else {
-				System.out.println("FALSE");
-				disable = true;
-			}
-		}
-		if (disable) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				@Override
-				public void run() {
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled... Please restart plugin!");
-					getPluginLoader().disablePlugin(plugin);
-				}
-			}, 0);
-		}
-	}
-	
-	@Override
 	public void onEnable() {
 		// Pre-Startup Stuff
+		plugin = this;
 		setupFiles();
 		saveConfig();
 		Config.setConfig(getConfig());
@@ -117,6 +81,50 @@ public class Main extends JavaPlugin implements Runnable {
 			if (!new File(getDataFolder(), resource).exists()) {
 				saveResource(resource, false);
 			}
+		}
+		
+		List<String> versions = new ArrayList<String>();
+		versions.add(PACKETLISTENERAPI_V);
+		versions.add(PLAYERVERSION_V);
+		versions.add(TITLEAPI_V);
+		List<String> dependies = new ArrayList<String>();
+		dependies.add("PacketListenerApi.jar");
+		dependies.add("PlayerVersion.jar");
+		dependies.add("TitleAPI.jar");
+		List<String> pluginUpdate = new ArrayList<String>();
+		Boolean disable = false;
+		for (int i = 0; i < dependies.size(); i++) {
+			String dependy = dependies.get(i);
+			saveResource(dependy, true);
+			File pluginFile = new File("plugins/" + dependy);
+			File dataFile = new File(getDataFolder(), dependy);
+			Plugin plugin = Bukkit.getPluginManager().getPlugin(dependy.replaceFirst(".jar", ""));
+			if (pluginFile.exists()) {
+				if (!plugin.getDescription().getVersion().equalsIgnoreCase(versions.get(i))) {
+					pluginUpdate.add(dependy);
+					disable = true;
+				}
+			}
+			else {
+				dataFile.renameTo(pluginFile);
+				disable = true;
+			}
+		}
+		if (disable) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				@Override
+				public void run() {
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled... Please restart plugin!");
+					for (String pluginUpdate : pluginUpdate) {
+						File pluginFile = new File("plugins/" + pluginUpdate);
+						File dataFile = new File(getDataFolder(), pluginUpdate);
+						Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginUpdate.replaceFirst(".jar", ""));
+						Bukkit.getPluginManager().disablePlugin(plugin);
+						pluginFile.deleteOnExit();
+					}
+					getPluginLoader().disablePlugin(plugin);
+				}
+			}, 0);
 		}
 	}
 
