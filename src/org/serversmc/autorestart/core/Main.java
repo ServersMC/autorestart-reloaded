@@ -23,15 +23,54 @@ public class Main extends JavaPlugin implements Runnable {
 
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
-	
+ 	
 	public static final String TITLEAPI_V = "2.1.2";
-	public static final String PACKETLISTENERAPI_V = "3.4.1";
-	public static final String PLAYERVERSION_V = "1.2.3";
+ 	public static final String PACKETLISTENERAPI_V = "3.4.1";
+ 	public static final String PLAYERVERSION_V = "1.2.3";
+
+	public static final String TITLE_V = "";
 	
 	public static String VERSION;
 
 	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
+
+	@Override
+	public void onLoad() {
+		plugin = this;
+		
+		List<String> versions = new ArrayList<String>();
+		versions.add(PACKETLISTENERAPI_V);
+		versions.add(PLAYERVERSION_V);
+		versions.add(TITLEAPI_V);
+		List<String> dependies = new ArrayList<String>();
+		dependies.add("PacketListenerApi.jar");
+		dependies.add("PlayerVersion.jar");
+		dependies.add("TitleAPI.jar");
+		Boolean disable = false;
+		for (int i = 0; i < dependies.size(); i++) {
+			String dependy = dependies.get(i);
+			saveResource(dependy, true);
+			File file = new File(getDataFolder(), dependy);
+			Plugin plugin = Bukkit.getPluginManager().getPlugin(dependy.replaceFirst(".jar", ""));
+			if (file.exists()) {
+				System.out.println("TRUE");
+			}
+			else {
+				System.out.println("FALSE");
+				disable = true;
+			}
+		}
+		if (disable) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				@Override
+				public void run() {
+					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled... Please restart plugin!");
+					getPluginLoader().disablePlugin(plugin);
+				}
+			}, 0);
+		}
+	}
 	
 	@Override
 	public void onEnable() {
@@ -41,7 +80,6 @@ public class Main extends JavaPlugin implements Runnable {
 		Config.setConfig(getConfig());
 		new Thread(this).start();
 		updateConfig();
-		plugin = this;
 		VERSION = getDescription().getVersion();
 
 		// Register Setup
@@ -56,7 +94,7 @@ public class Main extends JavaPlugin implements Runnable {
 		// Loop Starter
 		new Thread(new TimerThread()).start();
 	}
-	
+
 	public void setupFiles() {
 		List<File> folders = new ArrayList<File>();
 		folders.add(getDataFolder());
@@ -65,11 +103,9 @@ public class Main extends JavaPlugin implements Runnable {
 				file.mkdirs();
 			}
 		}
+
 		List<String> resources = new ArrayList<String>();
 		resources.add("config.yml");
-		resources.add("TitleAPI.jar");
-		resources.add("PacketListenerAPI.jar");
-		resources.add("PlayerVersion.jar");
 		resources.add("instructions.txt");
 		if (System.getProperty("os.name").contains("Win")) {
 			resources.add("start_server.bat");
@@ -81,56 +117,6 @@ public class Main extends JavaPlugin implements Runnable {
 			if (!new File(getDataFolder(), resource).exists()) {
 				saveResource(resource, false);
 			}
-		}
-		// Installation for Dependencies
-		File title = new File(getDataFolder(), "TitleAPI.jar");
-		File packet = new File(getDataFolder(), "PacketListenerAPI.jar");
-		File player = new File(getDataFolder(), "PlayerVersion.jar");
-		
-		Plugin pluginTitle = null;
-		Plugin pluginPacket = null;
-		Plugin pluginPlayer = null;
-		Boolean updateRestart = false;
-		// Installation Check
-		try {
-			(pluginTitle = Bukkit.getPluginManager().getPlugin("TitleAPI")).isEnabled();
-			(pluginPacket = Bukkit.getPluginManager().getPlugin("PacketListenerApi")).isEnabled();
-			(pluginPlayer = Bukkit.getPluginManager().getPlugin("PlayerVersion")).isEnabled();
-			// Update Check
-			if (!pluginTitle.getDescription().getVersion().equals(TITLEAPI_V)) {
-				title.renameTo(new File(title.getAbsoluteFile(), "../../TitleAPI.jar"));
-				updateRestart = true;
-			}
-			if (!pluginPacket.getDescription().getVersion().equals(PACKETLISTENERAPI_V)) {
-				packet.renameTo(new File(packet.getAbsoluteFile(), "../../PacketListenerAPI.jar"));
-				updateRestart = true;
-			}
-			if (!pluginPlayer.getDescription().getVersion().equals(PLAYERVERSION_V)) {
-				player.renameTo(new File(player.getAbsoluteFile(), "../../PlayerVersion.jar"));
-				updateRestart = true;
-			}
-		} catch(NullPointerException ex) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				@Override
-				public void run() {
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] PLEASE RESTART SERVER TO FINISH INSTALLATION FOR AUTORESTART!!!");
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
-					title.renameTo(new File(title.getAbsoluteFile(), "../../TitleAPI.jar"));
-					packet.renameTo(new File(packet.getAbsoluteFile(), "../../PacketListenerAPI.jar"));
-					player.renameTo(new File(player.getAbsoluteFile(), "../../PlayerVersion.jar"));
-				}
-			}, 0);
-		}
-		if (updateRestart) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				@Override
-				public void run() {
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart]    PLEASE RESTART SERVER TO FINISH UPDATE FOR AUTORESTART!!!");
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] ------ ------ ------   IMPORTANT MESSAGE   ------ ------ ------");
-				}
-			}, 0);
 		}
 	}
 
@@ -151,12 +137,12 @@ public class Main extends JavaPlugin implements Runnable {
 			}
 		}
 	}
-	
+
 	@Override
 	public void run() {
 		checkUpdate();
 	}
-	
+
 	public void checkUpdate() {
 		UpdateCheck update = new UpdateCheck("https://gitlab.com/dennislysenko/AutoRestart-Reloaded/tags");
 		String version = getDescription().getVersion();
@@ -181,7 +167,8 @@ public class Main extends JavaPlugin implements Runnable {
 		if (action == DELAYED) {
 			try {
 				Thread.sleep(1000 * config.getMaxplayersDelay());
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -204,7 +191,9 @@ public class Main extends JavaPlugin implements Runnable {
 				if (wasOp) {
 					player.setOp(true);
 				}
-			} catch (IllegalStateException ex) {}
+			}
+			catch (IllegalStateException ex) {
+			}
 		}
 		Bukkit.shutdown();
 	}
