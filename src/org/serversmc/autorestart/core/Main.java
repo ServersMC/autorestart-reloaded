@@ -99,11 +99,14 @@ public class Main extends JavaPlugin implements Runnable {
 			File pluginFile = new File("plugins/" + dependy);
 			File dataFile = new File(getDataFolder(), dependy);
 			Plugin plugin = Bukkit.getPluginManager().getPlugin(dependy.replaceFirst(".jar", ""));
+			System.out.println(dependy + " " + pluginFile.exists());
 			if (pluginFile.exists()) {
-				if (!plugin.getDescription().getVersion().equalsIgnoreCase(versions.get(i))) {
-					pluginUpdate.add(dependy);
-					disable = true;
-				}
+				try {
+					if (!plugin.getDescription().getVersion().equalsIgnoreCase(versions.get(i))) {
+						pluginUpdate.add(dependy);
+						disable = true;
+					}
+				} catch (NullPointerException ex) {}
 			}
 			else {
 				dataFile.renameTo(pluginFile);
@@ -116,11 +119,9 @@ public class Main extends JavaPlugin implements Runnable {
 				public void run() {
 					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled... Please restart plugin!");
 					for (String pluginUpdate : pluginUpdate) {
-						File pluginFile = new File("plugins/" + pluginUpdate);
-						File dataFile = new File(getDataFolder(), pluginUpdate);
 						Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginUpdate.replaceFirst(".jar", ""));
 						Bukkit.getPluginManager().disablePlugin(plugin);
-						pluginFile.deleteOnExit();
+						Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Please Delete " + pluginUpdate + " to Update File!");
 					}
 					getPluginLoader().disablePlugin(plugin);
 				}
