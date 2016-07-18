@@ -37,7 +37,7 @@ public class TimerThread implements Runnable {
 						Messenger.broadcastSeconds(time);
 					}
 
-					// Commands Exector
+					// Commands Executor
 					if (config.isCommandsEnabled()) {
 						if (time == config.getCommandsTime()) {
 							Bukkit.getScheduler().scheduleSyncDelayedTask(null, new Runnable() {
