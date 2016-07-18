@@ -40,15 +40,19 @@ public class TimerThread implements Runnable {
 					// Commands Exector
 					if (config.isCommandsEnabled()) {
 						if (time == config.getCommandsTime()) {
-							for (String command : config.getCommandsList()) {
-								if (command.startsWith("/")) {
-									command = command.replaceFirst("/", "");
+							Bukkit.getScheduler().scheduleSyncDelayedTask(null, new Runnable() {
+								@Override
+								public void run() {
+									for (String command : config.getCommandsList()) {
+										if (command.startsWith("/")) {
+											command = command.replaceFirst("/", "");
+										}
+										Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+									}
 								}
-								Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-							}
+							}, 1L);
 						}
 					}
-					
 					time--;
 					paused = 60;
 				}
