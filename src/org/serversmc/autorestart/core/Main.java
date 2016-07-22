@@ -93,7 +93,7 @@ public class Main extends JavaPlugin implements Runnable {
 		Boolean disable = false;
 		for (int i = 0; i < dependies.size(); i++) {
 			String dependy = dependies.get(i);
-			saveResource(dependy, true);
+			saveResource("/jars/" + dependy, true);
 			File pluginFile = new File("plugins/" + dependy);
 			File dataFile = new File(getDataFolder(), dependy);
 			Plugin plugin = Bukkit.getPluginManager().getPlugin(dependy.replaceFirst(".jar", ""));
