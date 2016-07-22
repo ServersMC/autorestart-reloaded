@@ -3,7 +3,9 @@ package org.serversmc.autorestart.core;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,21 +25,36 @@ public class Main extends JavaPlugin implements Runnable {
 
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
- 	
+
 	public static final String TITLEAPI_V = "2.1.3";
- 	public static final String PACKETLISTENERAPI_V = "3.4.4";
- 	public static final String PLAYERVERSION_V = "1.2.3";
+	public static final String PACKETLISTENERAPI_V = "3.4.4";
+	public static final String PLAYERVERSION_V = "1.2.3";
 
 	public static String VERSION;
 
 	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
+	private ArrayList<String> delayMessages = new ArrayList<String>();
 
 	@Override
 	public void onEnable() {
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[AutoRestart] Enabled!");
+		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				for (String string : delayMessages) {
+					Bukkit.getConsoleSender().sendMessage(string);
+				}
+				delayMessages.clear();
+				Bukkit.getPluginManager().disablePlugin(plugin);
+			}
+		}, 0L);
 		// Pre-Startup Stuff
 		plugin = this;
 		setupFiles();
+		if (!checkDependencies()) {
+			return;
+		}
 		saveConfig();
 		Config.setConfig(getConfig());
 		new Thread(this).start();
@@ -57,6 +74,11 @@ public class Main extends JavaPlugin implements Runnable {
 		new Thread(new TimerThread()).start();
 	}
 
+	@Override
+	public void onDisable() {
+		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled!");
+	}
+
 	public void setupFiles() {
 		List<File> folders = new ArrayList<File>();
 		folders.add(getDataFolder());
@@ -69,6 +91,9 @@ public class Main extends JavaPlugin implements Runnable {
 		List<String> resources = new ArrayList<String>();
 		resources.add("config.yml");
 		resources.add("instructions.txt");
+		resources.add("PacketListenerApi.jar");
+		resources.add("PlayerVersion.jar");
+		resources.add("TitleAPI.jar");
 		if (System.getProperty("os.name").contains("Win")) {
 			resources.add("start_server.bat");
 		}
@@ -76,55 +101,42 @@ public class Main extends JavaPlugin implements Runnable {
 			resources.add("start_server.sh");
 		}
 		for (String resource : resources) {
-			if (!new File(getDataFolder(), resource).exists()) {
-				saveResource(resource, false);
+			Boolean b = true;
+			if (resource.equals("config.yml")) {
+				b = false;
 			}
+			saveResource(resource, b);
 		}
-		
-		List<String> versions = new ArrayList<String>();
-		versions.add(PACKETLISTENERAPI_V);
-		versions.add(PLAYERVERSION_V);
-		versions.add(TITLEAPI_V);
-		List<String> dependies = new ArrayList<String>();
-		dependies.add("PacketListenerApi.jar");
-		dependies.add("PlayerVersion.jar");
-		dependies.add("TitleAPI.jar");
-		List<String> pluginUpdate = new ArrayList<String>();
-		Boolean disable = false;
-		for (int i = 0; i < dependies.size(); i++) {
-			String dependy = dependies.get(i);
-			saveResource(dependy, true);
-			File pluginFile = new File("plugins/" + dependy);
-			File dataFile = new File(getDataFolder(), dependy);
-			Plugin plugin = Bukkit.getPluginManager().getPlugin(dependy.replaceFirst(".jar", ""));
-			System.out.println(dependy + " " + pluginFile.exists());
-			if (pluginFile.exists()) {
-				try {
-					if (!plugin.getDescription().getVersion().equalsIgnoreCase(versions.get(i))) {
-						pluginUpdate.add(dependy);
-						disable = true;
-					}
-				} catch (NullPointerException ex) {}
-			}
-			else {
-				dataFile.renameTo(pluginFile);
-				disable = true;
-			}
-		}
-		if (disable) {
-			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-				@Override
-				public void run() {
-					Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled... Please restart plugin!");
-					for (String pluginUpdate : pluginUpdate) {
-						Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginUpdate.replaceFirst(".jar", ""));
-						Bukkit.getPluginManager().disablePlugin(plugin);
-						Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Please Delete " + pluginUpdate + " to Update File!");
-					}
-					getPluginLoader().disablePlugin(plugin);
+	}
+
+	private boolean checkDependencies() {
+		Boolean output = true;
+		HashMap<String, String> dependies = new HashMap<String, String>();
+		dependies.put("PacketListenerApi", PACKETLISTENERAPI_V);
+		dependies.put("PlayerVersion", PLAYERVERSION_V);
+		dependies.put("TitleAPI", TITLEAPI_V);
+		Integer count = 0;
+		for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+			if (dependies.containsKey(plugin.getName())) {
+				count++;
+				if (plugin.getDescription().getVersion().trim().equals(dependies.get(plugin.getName()))) {
+					delayMessage(ChatColor.RED + plugin.getName() + " has to be updated! Stop server, and copy " + plugin.getName() + ".jar from /plugins/AutoRestart/ folder to your /plugins/ folder!");
+					output = false;
 				}
-			}, 0);
+				dependies.remove(plugin.getName());
+			}
 		}
+		for (Entry<String, String> entry : dependies.entrySet()) {
+			delayMessage(ChatColor.RED + entry.getKey() + ".jar is not installed in your plugins folder! Stop server and install dependent jars from /plugins/AutoRestart/ folder to your /plugins/ folder!");
+		}
+		if (!dependies.isEmpty()) {
+			output = false;
+		}
+		return output;
+	}
+
+	private void delayMessage(String string) {
+		delayMessages.add(string);
 	}
 
 	public void updateConfig() {
