@@ -28,8 +28,6 @@ public class Main extends JavaPlugin implements Runnable {
  	public static final String PACKETLISTENERAPI_V = "3.4.4";
  	public static final String PLAYERVERSION_V = "1.2.3";
 
-	public static final String TITLE_V = "";
-	
 	public static String VERSION;
 
 	private static Main plugin;
