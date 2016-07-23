@@ -2,17 +2,20 @@ package org.serversmc.autorestart.commands.autore;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.types.AutoCommand;
+import org.serversmc.autorestart.types.TimeDeserializer;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Messenger;
-import org.serversmc.autorestart.utils.TimeDeserializer;
 
 public class CmdIn extends AutoCommand {
 
+    private TimerThread timerThread = Main.timerThread;
+    
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!new Config().isMainMulticraft()) {
+		if (!Config.MAIN.MULTICRAFT()) {
 			if (args.length == 2) {
 				Integer time = 0;
 				try {
@@ -27,7 +30,7 @@ public class CmdIn extends AutoCommand {
 				Integer s = td.getS();
 				Messenger.popupChange(h, m, s);
 				Messenger.broadcastChange(h, m, s);
-				TimerThread.setTime(time);
+				timerThread.setTime(time);
 			}
 			else {
 				sender.sendMessage(ChatColor.RED + "Invalid Arguments! /autore in <minutes>");

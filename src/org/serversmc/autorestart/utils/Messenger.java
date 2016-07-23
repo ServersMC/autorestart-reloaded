@@ -3,10 +3,9 @@ package org.serversmc.autorestart.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import net.md_5.bungee.api.ChatColor;
 
 public class Messenger {
-
-	public static Config config = new Config();
 
 	private static void sendTitle(Player player, int delay, int fadein, int stay, int fadeout, String title) {
 		TitleAPI.sendTitle(player, fadein, stay, fadeout, title);
@@ -17,177 +16,187 @@ public class Messenger {
 	}
 	
 	public static void popupMinutes(Integer m) {
-		if (config.isPopupsEnabledMinutes()) {
+		if (Config.POPUPS.ENABLED.MINUTES()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				sendTitle(player,
-						config.getTimingsMinutesTitleDelay(),
-						config.getTimingsMinutesTitleFadein(),
-						config.getTimingsMinutesTitleStay(),
-						config.getTimingsMinutesTitleFadeout(),
-						config.getPopupsMessagesMinutesTitle(m));
+						Config.POPUPS.MESSAGES.MINUTES.TITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.MINUTES.TITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.MINUTES.TITLE.STAY(),
+                        Config.POPUPS.MESSAGES.MINUTES.TITLE.FADEOUT(),
+						Config.POPUPS.MESSAGES.MINUTES.TITLE.TEXT());
 				sendSubTitle(player,
-						config.getTimingsMinutesSubtitleDelay(),
-						config.getTimingsMinutesSubtitleFadein(),
-						config.getTimingsMinutesSubtitleStay(),
-						config.getTimingsMinutesSubtitleFadeout(),
-						config.getPopupsMessagesMinutesSubtitle(m));
+                        Config.POPUPS.MESSAGES.MINUTES.SUBTITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.MINUTES.SUBTITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.MINUTES.SUBTITLE.STAY(),
+                        Config.POPUPS.MESSAGES.MINUTES.SUBTITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.MINUTES.SUBTITLE.TEXT());
 			}
 		}
 	}
 
 	public static void popupSeconds(Integer s) {
-		if (config.isPopupsEnabledSeconds()) {
+		if (Config.POPUPS.ENABLED.SECONDS()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				sendTitle(player,
-						config.getTimingsSecondsTitleDelay(),
-						config.getTimingsSecondsTitleFadein(),
-						config.getTimingsSecondsTitleStay(),
-						config.getTimingsSecondsTitleFadeout(),
-						config.getPopupsMessagesSecondsTitle(s));
-				sendSubTitle(player,
-						config.getTimingsSecondsSubtitleDelay(),
-						config.getTimingsSecondsSubtitleFadein(),
-						config.getTimingsSecondsSubtitleStay(),
-						config.getTimingsSecondsSubtitleFadeout(),
-						config.getPopupsMessagesSecondsSubtitle(s));
+                sendTitle(player,
+                        Config.POPUPS.MESSAGES.SECONDS.TITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.SECONDS.TITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.SECONDS.TITLE.STAY(),
+                        Config.POPUPS.MESSAGES.SECONDS.TITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.SECONDS.TITLE.TEXT());
+                sendSubTitle(player,
+                        Config.POPUPS.MESSAGES.SECONDS.SUBTITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.SECONDS.SUBTITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.SECONDS.SUBTITLE.STAY(),
+                        Config.POPUPS.MESSAGES.SECONDS.SUBTITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.SECONDS.SUBTITLE.TEXT());
 			}
 		}
 	}
 
 	public static void popupTime(CommandSender sender, Integer h, Integer m, Integer s) {
-		if (config.isPopupsEnabledTime()) {
+		if (Config.POPUPS.ENABLED.TIME()) {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				sendTitle(player,
-						config.getTimingsTimeTitleDelay(),
-						config.getTimingsTimeTitleFadein(),
-						config.getTimingsTimeTitleStay(),
-						config.getTimingsTimeTitleFadeout(),
-						config.getPopupsMessagesTimeTitle(h, m, s));
-				sendSubTitle(player,
-						config.getTimingsTimeSubtitleDelay(),
-						config.getTimingsTimeSubtitleFadein(),
-						config.getTimingsTimeSubtitleStay(),
-						config.getTimingsTimeSubtitleFadeout(),
-						config.getPopupsMessagesTimeSubtitle(h, m, s));
+                sendTitle(player,
+                        Config.POPUPS.MESSAGES.TIME.TITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.TIME.TITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.TIME.TITLE.STAY(),
+                        Config.POPUPS.MESSAGES.TIME.TITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.TIME.TITLE.TEXT());
+                sendSubTitle(player,
+                        Config.POPUPS.MESSAGES.TIME.SUBTITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.TIME.SUBTITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.TIME.SUBTITLE.STAY(),
+                        Config.POPUPS.MESSAGES.TIME.SUBTITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.TIME.SUBTITLE.TEXT());
 			}
 		}
 	}
 
 	public static void popupStatusStart() {
-		if (config.isPopupsEnabledTime()) {
+		if (Config.POPUPS.ENABLED.STATUS()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				sendTitle(player,
-						config.getTimingsStatusStartTitleDelay(),
-						config.getTimingsStatusStartTitleFadein(),
-						config.getTimingsStatusStartTitleStay(),
-						config.getTimingsStatusStartTitleFadeout(),
-						config.getPopupsMessagesStatusStartTitle());
-				sendSubTitle(player,
-						config.getTimingsStatusStartSubtitleDelay(),
-						config.getTimingsStatusStartSubtitleFadein(),
-						config.getTimingsStatusStartSubtitleStay(),
-						config.getTimingsStatusStartSubtitleFadeout(),
-						config.getPopupsMessagesStatusStartSubtitle());
+                sendTitle(player,
+                        Config.POPUPS.MESSAGES.STATUS.START.TITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.STATUS.START.TITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.STATUS.START.TITLE.STAY(),
+                        Config.POPUPS.MESSAGES.STATUS.START.TITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.STATUS.START.TITLE.TEXT());
+                sendSubTitle(player,
+                        Config.POPUPS.MESSAGES.STATUS.START.SUBTITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.STATUS.START.SUBTITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.STATUS.START.SUBTITLE.STAY(),
+                        Config.POPUPS.MESSAGES.STATUS.START.SUBTITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.STATUS.START.SUBTITLE.TEXT());
 			}
 		}
 	}
 
 	public static void popupStatusPause() {
-		if (config.isPopupsEnabledTime()) {
+		if (Config.POPUPS.ENABLED.STATUS()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				sendTitle(player,
-						config.getTimingsStatusPauseTitleDelay(),
-						config.getTimingsStatusPauseTitleFadein(),
-						config.getTimingsStatusPauseTitleStay(),
-						config.getTimingsStatusPauseTitleFadeout(),
-						config.getPopupsMessagesStatusPauseTitle());
-				sendSubTitle(player,
-						config.getTimingsStatusPauseSubtitleDelay(),
-						config.getTimingsStatusPauseSubtitleFadein(),
-						config.getTimingsStatusPauseSubtitleStay(),
-						config.getTimingsStatusPauseSubtitleFadeout(),
-						config.getPopupsMessagesStatusPauseSubtitle());
+                sendTitle(player,
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.TITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.TITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.TITLE.STAY(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.TITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.TITLE.TEXT());
+                sendSubTitle(player,
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.SUBTITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.SUBTITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.SUBTITLE.STAY(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.SUBTITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.STATUS.PAUSE.SUBTITLE.TEXT());
 			}
 		}
 	}
 
 	public static void popupChange(Integer h, Integer m, Integer s) {
-		if (config.isPopupsEnabledTime()) {
+		if (Config.POPUPS.ENABLED.CHANGE()) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				sendTitle(player,
-						config.getTimingsChangeTitleDelay(),
-						config.getTimingsChangeTitleFadein(),
-						config.getTimingsChangeTitleStay(),
-						config.getTimingsChangeTitleFadeout(),
-						config.getPopupsMessagesChangeTitle(h, m, s));
-				sendSubTitle(player,
-						config.getTimingsChangeSubtitleDelay(),
-						config.getTimingsChangeSubtitleFadein(),
-						config.getTimingsChangeSubtitleStay(),
-						config.getTimingsChangeSubtitleFadeout(),
-						config.getPopupsMessagesChangeSubtitle(h, m, s));
+                sendTitle(player,
+                        Config.POPUPS.MESSAGES.CHANGE.TITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.CHANGE.TITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.CHANGE.TITLE.STAY(),
+                        Config.POPUPS.MESSAGES.CHANGE.TITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.CHANGE.TITLE.TEXT());
+                sendSubTitle(player,
+                        Config.POPUPS.MESSAGES.CHANGE.SUBTITLE.DELAY(),
+                        Config.POPUPS.MESSAGES.CHANGE.SUBTITLE.FADEIN(),
+                        Config.POPUPS.MESSAGES.CHANGE.SUBTITLE.STAY(),
+                        Config.POPUPS.MESSAGES.CHANGE.SUBTITLE.FADEOUT(),
+                        Config.POPUPS.MESSAGES.CHANGE.SUBTITLE.TEXT());
 			}
 		}
 	}
 
 	public static void popupShutdown() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			sendTitle(player, 0, 20, 40, 20, "Server Is Now");
-			sendSubTitle(player, 0, 20, 40, 20, "Restarting!");
+            sendTitle(player,
+                    Config.POPUPS.MESSAGES.SHUTDOWN.TITLE.DELAY(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.TITLE.FADEIN(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.TITLE.STAY(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.TITLE.FADEOUT(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.TITLE.TEXT());
+            sendSubTitle(player,
+                    Config.POPUPS.MESSAGES.SHUTDOWN.SUBTITLE.DELAY(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.SUBTITLE.FADEIN(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.SUBTITLE.STAY(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.SUBTITLE.FADEOUT(),
+                    Config.POPUPS.MESSAGES.SHUTDOWN.SUBTITLE.TEXT());
 		}
 	}
 
 	public static void broadcastMinutes(Integer m) {
-		if (config.isBroadcastEnabledMinutes()) {
-			String prefix = config.getBroadcastMessagesPrefix();
-			Bukkit.broadcastMessage(prefix + config.getBroadcastMessagesMinutes(m));
+		if (Config.BROADCAST.ENABLED.MINUTES()) {
+			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.MINUTES()));
 		}
 	}
 
 	public static void broadcastSeconds(Integer s) {
-		if (config.isBroadcastEnabledMinutes()) {
-			String prefix = config.getBroadcastMessagesPrefix();
-			Bukkit.broadcastMessage(prefix + config.getBroadcastMessagesSeconds(s));
+		if (Config.BROADCAST.ENABLED.SECONDS()) {
+            String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.SECONDS()));
 		}
 	}
 
 	public static void broadcastTime(CommandSender sender, Integer h, Integer m, Integer s) {
-		if (config.isBroadcastEnabledMinutes()) {
-			String prefix = config.getBroadcastMessagesPrefix();
-			sender.sendMessage(prefix + config.getBroadcastMessagesTime(h, m, s));
+		if (Config.BROADCAST.ENABLED.TIME()) {
+            String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.TIME()));
 		}
 	}
 
 	public static void broadcastStatusStart() {
-		if (config.isBroadcastEnabledMinutes()) {
-			String prefix = config.getBroadcastMessagesPrefix();
-			Bukkit.broadcastMessage(prefix + config.getBroadcastMessagesStatusStart());
+		if (Config.BROADCAST.ENABLED.STATUS()) {
+            String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.STATUS.START()));
 		}
 	}
 
 	public static void broadcastStatusPause() {
-		if (config.isBroadcastEnabledMinutes()) {
-			String prefix = config.getBroadcastMessagesPrefix();
-			Bukkit.broadcastMessage(prefix + config.getBroadcastMessagesStatusPause());
+		if (Config.BROADCAST.ENABLED.STATUS()) {
+            String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.STATUS.PAUSE()));
 		}
 	}
 
 	public static void broadcastChange(Integer h, Integer m, Integer s) {
-		if (config.isBroadcastEnabledMinutes()) {
-			String prefix = config.getBroadcastMessagesPrefix();
-			Bukkit.broadcastMessage(prefix + config.getBroadcastMessagesChange(h, m, s));
+		if (Config.BROADCAST.ENABLED.CHANGE()) {
+            String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.CHANGE()));
 		}
 	}
 
 	public static void broadcastMaxplayersCanceled() {
-		String prefix = config.getBroadcastMessagesPrefix();
-		Bukkit.broadcastMessage(prefix + config.getMaxplayersMessagesAlert());
+        String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAXPLAYERS.MESSAGES.ALERT()));
 	}
 
 	public static void broadcastShutdown() {
-		String prefix = config.getBroadcastMessagesPrefix();
-		Bukkit.broadcastMessage(prefix + config.getMainShutdown());
+        String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAIN.INTERVAL()));
 	}
 
 }

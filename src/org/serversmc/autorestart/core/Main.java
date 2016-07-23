@@ -1,7 +1,6 @@
 package org.serversmc.autorestart.core;
 
 import java.io.File;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,18 +14,22 @@ import org.serversmc.autorestart.commands.CmdAutoRestart;
 import org.serversmc.autorestart.events.PlayerKick;
 import org.serversmc.autorestart.events.PlayerQuit;
 import org.serversmc.autorestart.utils.Config;
+import org.serversmc.autorestart.utils.MemoryUtils;
 import org.serversmc.autorestart.utils.Messenger;
 import me.dennis.updatecheck.core.UpdateCheck;
 
 public class Main extends JavaPlugin implements Runnable {
 
+    private static Main plugin;
+    
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
 
-	public static String VERSION;
+    public static String VERSION;
 
-	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
+	
+	public static TimerThread timerThread = new TimerThread();
 
 	@Override
 	public void onEnable() {
@@ -34,7 +37,6 @@ public class Main extends JavaPlugin implements Runnable {
 		// Pre-Startup Stuff
 		plugin = this;
 		setupFiles();
-		saveConfig();
 		Config.setConfig(getConfig());
 		new Thread(this).start();
 		updateConfig();
@@ -50,12 +52,13 @@ public class Main extends JavaPlugin implements Runnable {
 		CmdAutoRestart.setupSubCommands();
 
 		// Loop Starter
-		new Thread(new TimerThread()).start();
+		new Thread(timerThread).start();
 	}
 
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[AutoRestart] Disabled!");
+		MemoryUtils.setRestarting();
 	}
 
 	public void setupFiles() {
@@ -87,15 +90,15 @@ public class Main extends JavaPlugin implements Runnable {
 
 	public void updateConfig() {
 		Integer configVersion = getConfig().getDefaults().getInt("version");
-		Integer configVersionLoaded = new Config().getVersion();
+		Integer configVersionLoaded = Config.VERSION;
 		if (configVersion != configVersionLoaded) {
 			log.warning("[AutoRestart] the config has updated since the last update!");
 			while (true) {
-				File config = new File(getDataFolder(), "config.yml");
-				Integer r = new SecureRandom().nextInt(100);
-				File rename = new File(getDataFolder(), "config_bkp" + r + ".yml");
+				File config = new File(getDataFolder(), "Config.yml");
+				File rename = new File(getDataFolder(), "config_bkp" + configVersionLoaded + ".yml");
 				if (!rename.exists()) {
 					config.renameTo(rename);
+					saveResource(config.toString(), true);
 					break;
 				}
 				log.warning("[AutoRestart] config file has been backed up to " + rename.getName() + "!");
@@ -128,10 +131,9 @@ public class Main extends JavaPlugin implements Runnable {
 	}
 
 	public static void shutdownServer(Integer action) {
-		Config config = new Config();
 		if (action == DELAYED) {
 			try {
-				Thread.sleep(1000 * config.getMaxplayersDelay());
+				Thread.sleep(1000 * Config.MAXPLAYERS.DELAY());
 			}
 			catch (InterruptedException e) {
 				e.printStackTrace();
@@ -142,6 +144,7 @@ public class Main extends JavaPlugin implements Runnable {
 				world.save();
 			}
 		}
+		MemoryUtils.setRestarting();
 		Bukkit.savePlayers();
 		Messenger.popupShutdown();
 		Messenger.broadcastShutdown();
@@ -152,7 +155,7 @@ public class Main extends JavaPlugin implements Runnable {
 					player.setOp(false);
 					wasOp = true;
 				}
-				player.kickPlayer(config.getMainShutdown());
+				player.kickPlayer(Config.MAIN.SHUTDOWN());
 				if (wasOp) {
 					player.setOp(true);
 				}

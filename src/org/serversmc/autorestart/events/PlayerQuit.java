@@ -12,12 +12,11 @@ public class PlayerQuit implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		Config config = new Config();
 		if (MemoryUtils.isRestarting()) {
-			event.setQuitMessage(config.getMainShutdown());
+			event.setQuitMessage(null);
 		}
 		else if (MemoryUtils.isWaiting()) {
-			if (Bukkit.getOnlinePlayers().size() <= config.getMaxplayersAmount()) {
+			if (Bukkit.getOnlinePlayers().size() <= Config.MAXPLAYERS.AMOUNT()) {
 				Main.shutdownServer(Main.DELAYED);
 			}
 		}

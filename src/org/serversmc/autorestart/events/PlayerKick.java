@@ -14,9 +14,8 @@ public class PlayerKick implements Listener {
 			if (event.isCancelled()) {
 				event.setCancelled(false);
 			}
-			Config config = new Config();
-			event.setLeaveMessage(config.getMainShutdown());
-			event.setReason(config.getMainShutdown());
+			event.setLeaveMessage(null);
+			event.setReason(Config.MAIN.SHUTDOWN());
 		}
 	}
 	

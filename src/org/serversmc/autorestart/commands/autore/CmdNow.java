@@ -7,10 +7,10 @@ import org.serversmc.autorestart.types.AutoCommand;
 import org.serversmc.autorestart.utils.Config;
 
 public class CmdNow extends AutoCommand {
-
+	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!new Config().isMainMulticraft()) {
+		if (!Config.MAIN.MULTICRAFT()) {
 			Main.shutdownServer(Main.FORCED);
 		}
 		else {

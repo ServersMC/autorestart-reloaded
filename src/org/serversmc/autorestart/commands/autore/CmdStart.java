@@ -9,16 +9,18 @@ import org.serversmc.autorestart.utils.Messenger;
 
 public class CmdStart extends AutoCommand {
 
+    private TimerThread timerThread = new TimerThread();
+    
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!new Config().isMainMulticraft()) {
-			if (TimerThread.isRunning()) {
+		if (!Config.MAIN.MULTICRAFT()) {
+			if (timerThread.isRunning()) {
 				sender.sendMessage(ChatColor.RED + "Timer is already running!");
 			}
 			else {
 				Messenger.popupStatusStart();
 				Messenger.broadcastStatusStart();
-				TimerThread.startRunning();
+				timerThread.startRunning();
 			}
 		}
 		else {

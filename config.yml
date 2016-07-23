@@ -1,8 +1,15 @@
+## Change Log
+## Version: 14
+##   Fixed Type for "config.main.interval"
+##   Merged "config.popups" and "config.timings"
+##   Added "config.popups.messages.shutdown" popup configuration
+##   Changed "config.commands.commands" to "config.commands.commands-list"
+
 config:
     ## Main plugin configurations
     main:
         ## The time is set by hours (DECIMALS ALLOWED)
-        inverval: 6
+        interval: 6
         ## !!!! IMPORTANT !!!!
         ## If your server is running under MultiCraft, set this to true!
         ## Go into "Scheduled Tasks", and configure MultiCraft to restart the server, the same time your server will restart.
@@ -59,11 +66,16 @@ config:
             time: '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
             ## There are no tags for this section.
             status:
-                start: '&cAutoRestart timer has been started!'
+                start: '&cAutoRestart timer has started!'
                 pause: '&cAutoRestart timer has been paused'
             ## %h - hours, %m - minutes, %s - seconds
             change: '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
 
+    ## To understand ticks. 1 second is relevent to 20 ticks! So a second and a half (1.5s) is 30 ticks!
+    ## Fadein, stay, fadeout are the 3 arguments. You can edit how long it takes to fadein, fadeout etc.
+    ## You can also put the fade numbers to 0, and then the popup's will be instant!
+    ## Also you can edit the delay, to make the title popup, and then the subtitle half a second later.
+    ## Get creative!
     popups:
         ## Enable or Disable the 1.8 Popups!
         enabled:
@@ -80,98 +92,97 @@ config:
         ## This section is for the customization of the popup messages!
         messages:
             minutes: ## %m - minutes
-                title: '&cServer Restarting In'
-                subtitle: '&f%m &cMinutes!'
+                title:
+                    text: '&cServer Restarting In'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
+                subtitle:
+                    text: '&f%m &cMinutes!'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
             seconds: ## %s - seconds
-                title: '&cServer Restarting In'
-                subtitle: '&f%s &cSeconds!'
+                title:
+                    text: '&cServer Restarting In'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
+                subtitle:
+                    text: '&f%s &cSeconds!'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
             time: ## %h - hours, %m - minutes, %s - seconds
-                title: '&cServer Restarting In'
-                subtitle: '&f%h&cH &f%m&cM &f%s&cS!'
+                title:
+                    text: '&cServer Restarting In'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
+                subtitle:
+                    text: '&f%h&cH &f%m&cM &f%s&cS!'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
             status: ## There are no tags for this section
                 start:
-                    title: '&cAutoRestart has been started!'
-                    subtitle: ''
+                    title:
+                        text: '&cAutoRestart has started!'
+                        delay: 0
+                        fadein: 20
+                        stay: 40
+                        fadeout: 20
+                    subtitle:
+                        text: ''
+                        delay: 0
+                        fadein: 20
+                        stay: 40
+                        fadeout: 20
                 pause:
-                    title: '&cAutoRestart has been paused!'
-                    subtitle: ''
+                    title:
+                        text: '&cAutoRestart has been paused!'
+                        delay: 0
+                        fadein: 20
+                        stay: 40
+                        fadeout: 20
+                    subtitle:
+                        text: ''
+                        delay: 0
+                        fadein: 20
+                        stay: 40
+                        fadeout: 20
             change: ## %h - hours, %m - minutes, %s - seconds
-                title: '&cServer Restarting In'
-                subtitle: '&f%h&cH &f%m&cM &f%s&cS!'
-    
-    ## This section is to edit the timing for the popups, these are set in ticks!
-    ## To understand ticks. 1 second is relevent to 20 ticks! So a second and a half (1.5s) is 30 ticks!
-    ## Fadein, stay, fadeout are the 3 arguments. You can edit how long it takes to fadein, fadeout etc.
-    ## You can also put the fade numbers to 0, and then the popup's will be instant!
-    ## Also you can edit the delay, to make the title popup, and then the subtitle half a second later.
-    ## Get creative!
-    timings:
-        minutes:
-            title:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-        seconds:
-            title:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-        time:
-            title:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-        status-start:
-            title:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-        status-pause:
-            title:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-        change:
-            title:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
-            subtitle:
-                delay: 0
-                fadein: 20
-                stay: 40
-                fadeout: 20
+                title:
+                    text: '&cServer Restarting In'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
+                subtitle:
+                    text: '&f%h&cH &f%m&cM &f%s&cS!'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
+            shutdown:
+                title:
+                    text: '&cServer is now'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
+                subtitle:
+                    text: '&cRestarting!'
+                    delay: 0
+                    fadein: 20
+                    stay: 40
+                    fadeout: 20
 
     ## This section will allow you to run Console Commands before a given amount of seconds
     commands:
@@ -180,7 +191,7 @@ config:
         ## This is when the commands will be executed. IN SECONDS
         time: 5
         ## List of commands to execute
-        commands:
+        commands-list:
         - '/place your commands'
         - '/in this fasion'
 
@@ -197,10 +208,10 @@ config:
         messages:
             ## The message broadcasted when too many players are online on restart!
             ## %a - amount
-            alert: '&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting people leave!'
+            alert: '&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!'
             ## This message appears when the amount of players are met after restart cancel!
             ## %d - delay
             shutdown: '&aServer now restarting in &f%d&a seconds!'
         
 ## DO NOT CHANGE THIS!!!!
-version: 13
+version: 14

@@ -1,16 +1,19 @@
 package org.serversmc.autorestart.commands.autore;
 
 import org.bukkit.command.CommandSender;
+import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.types.AutoCommand;
+import org.serversmc.autorestart.types.TimeDeserializer;
 import org.serversmc.autorestart.utils.Messenger;
-import org.serversmc.autorestart.utils.TimeDeserializer;
 
 public class CmdTime extends AutoCommand {
-
+	
+	private TimerThread timerThread = Main.timerThread;
+	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		Integer time = TimerThread.getCurrentTime();
+		Integer time = timerThread.getCurrentTime();
 		TimeDeserializer td = new TimeDeserializer(time);
 		Integer h = td.getH();
 		Integer m = td.getM();

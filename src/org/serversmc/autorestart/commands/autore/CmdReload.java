@@ -10,7 +10,7 @@ public class CmdReload extends AutoCommand {
 
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!new Config().isMainMulticraft()) {
+		if (!Config.MAIN.MULTICRAFT()) {
 			Main.reloadConfigStatic();
 			sender.sendMessage(ChatColor.GRAY + "Config has been reloaded!");
 		}

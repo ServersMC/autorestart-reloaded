@@ -10,17 +10,16 @@ import org.serversmc.autorestart.utils.Messenger;
 
 public class TimerThread implements Runnable {
 
-	private static Config config = new Config();
-	private static Integer time = 0;
-	private static Boolean running = true;
-
-	private Integer paused = 60;
+    private Boolean running = true;
+    private Integer paused = 60;
+	public Integer time = 0;
 
 	@Override
 	public void run() {
-		List<Integer> reminders = config.getReminderTimerMintues();
-		time = (int) (config.getMainInterval() * 3600);
-		while (true) {
+		List<Integer> reminders = Config.REMINDER.TIMER.MINUTES();
+		time = (int) (Config.MAIN.INTERVAL() * 3600);
+		while (!MemoryUtils.isRestarting()) {
+		    Config.setTime(time);
 			if (time > 0) {
 				if (running) {
 					// Minute Reminders
@@ -32,18 +31,18 @@ public class TimerThread implements Runnable {
 					}
 
 					// Second Reminders
-					if (time <= config.getReminderTimerSeconds()) {
+					if (time <= Config.REMINDER.TIMER.SECONDS()) {
 						Messenger.popupSeconds(time);
 						Messenger.broadcastSeconds(time);
 					}
 
 					// Commands Executor
-					if (config.isCommandsEnabled()) {
-						if (time == config.getCommandsTime()) {
+					if (Config.COMMANDS.ENABLED()) {
+						if (time == Config.COMMANDS.TIME()) {
 							Bukkit.getScheduler().scheduleSyncDelayedTask(null, new Runnable() {
 								@Override
 								public void run() {
-									for (String command : config.getCommandsList()) {
+									for (String command : Config.COMMANDS.COMMANDSLIST()) {
 										if (command.startsWith("/")) {
 											command = command.replaceFirst("/", "");
 										}
@@ -63,7 +62,7 @@ public class TimerThread implements Runnable {
 					else {
 						for (Player player : Bukkit.getOnlinePlayers()) {
 							if (player.isOp()) {
-								String prefix = config.getBroadcastMessagesPrefix();
+								String prefix = Config.BROADCAST.MESSAGES.PREFIX();
 								player.sendMessage(prefix + ChatColor.RED + "Timer is still paused!");
 							}
 						}
@@ -73,9 +72,10 @@ public class TimerThread implements Runnable {
 			}
 			else {
 				while (true) {
-					if (Bukkit.getOnlinePlayers().size() > config.getMaxplayersAmount()) {
-						if (config.isMaxplayersEnabled() && config.isMainMulticraft()) {
+					if (Bukkit.getOnlinePlayers().size() > Config.MAXPLAYERS.AMOUNT()) {
+						if (Config.MAXPLAYERS.ENABLED() && Config.MAIN.MULTICRAFT()) {
 							MemoryUtils.setWaiting();
+							Messenger.popupStatusPause();
 							Messenger.broadcastMaxplayersCanceled();
 							break;
 						}
@@ -92,24 +92,24 @@ public class TimerThread implements Runnable {
 		}
 	}
 
-	public static Integer getCurrentTime() {
+	public Integer getCurrentTime() {
 		return time;
 	}
 
-	public static Boolean isRunning() {
+	public Boolean isRunning() {
 		return running;
 	}
 
-	public static void startRunning() {
+	public void startRunning() {
 		running = true;
 	}
 
-	public static void stopRunning() {
+	public void stopRunning() {
 		running = false;
 	}
 
-	public static void setTime(Integer time) {
-		TimerThread.time = time;
+	public void setTime(Integer time) {
+		this.time = time;
 	}
 
 }
