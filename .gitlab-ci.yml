@@ -1,6 +1,5 @@
 pages:
   script:
-  - my_commands
   artifacts:
     paths:
     - public
