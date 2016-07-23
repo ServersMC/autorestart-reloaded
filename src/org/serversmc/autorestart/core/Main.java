@@ -3,15 +3,12 @@ package org.serversmc.autorestart.core;
 import java.io.File;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.serversmc.autorestart.commands.CmdAutoRestart;
@@ -26,35 +23,17 @@ public class Main extends JavaPlugin implements Runnable {
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
 
-	public static final String TITLEAPI_V = "2.1.3";
-	public static final String PACKETLISTENERAPI_V = "3.4.4";
-	public static final String PLAYERVERSION_V = "1.2.3";
-
 	public static String VERSION;
 
 	private static Main plugin;
 	public Logger log = Bukkit.getLogger();
-	private ArrayList<String> delayMessages = new ArrayList<String>();
 
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[AutoRestart] Enabled!");
-		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-			@Override
-			public void run() {
-				for (String string : delayMessages) {
-					Bukkit.getConsoleSender().sendMessage(string);
-				}
-				delayMessages.clear();
-				Bukkit.getPluginManager().disablePlugin(plugin);
-			}
-		}, 0L);
 		// Pre-Startup Stuff
 		plugin = this;
 		setupFiles();
-		if (!checkDependencies()) {
-			return;
-		}
 		saveConfig();
 		Config.setConfig(getConfig());
 		new Thread(this).start();
@@ -91,9 +70,6 @@ public class Main extends JavaPlugin implements Runnable {
 		List<String> resources = new ArrayList<String>();
 		resources.add("config.yml");
 		resources.add("instructions.txt");
-		resources.add("PacketListenerApi.jar");
-		resources.add("PlayerVersion.jar");
-		resources.add("TitleAPI.jar");
 		if (System.getProperty("os.name").contains("Win")) {
 			resources.add("start_server.bat");
 		}
@@ -107,36 +83,6 @@ public class Main extends JavaPlugin implements Runnable {
 			}
 			saveResource(resource, b);
 		}
-	}
-
-	private boolean checkDependencies() {
-		Boolean output = true;
-		HashMap<String, String> dependies = new HashMap<String, String>();
-		dependies.put("PacketListenerApi", PACKETLISTENERAPI_V);
-		dependies.put("PlayerVersion", PLAYERVERSION_V);
-		dependies.put("TitleAPI", TITLEAPI_V);
-		Integer count = 0;
-		for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-			if (dependies.containsKey(plugin.getName())) {
-				count++;
-				if (plugin.getDescription().getVersion().trim().equals(dependies.get(plugin.getName()))) {
-					delayMessage(ChatColor.RED + plugin.getName() + " has to be updated! Stop server, and copy " + plugin.getName() + ".jar from /plugins/AutoRestart/ folder to your /plugins/ folder!");
-					output = false;
-				}
-				dependies.remove(plugin.getName());
-			}
-		}
-		for (Entry<String, String> entry : dependies.entrySet()) {
-			delayMessage(ChatColor.RED + entry.getKey() + ".jar is not installed in your plugins folder! Stop server and install dependent jars from /plugins/AutoRestart/ folder to your /plugins/ folder!");
-		}
-		if (!dependies.isEmpty()) {
-			output = false;
-		}
-		return output;
-	}
-
-	private void delayMessage(String string) {
-		delayMessages.add(string);
 	}
 
 	public void updateConfig() {
