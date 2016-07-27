@@ -128,12 +128,12 @@ public class Messenger {
     
     public static void broadcastMaxplayersCanceled() {
         String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAXPLAYERS.MESSAGES.ALERT()));
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAXPLAYERS.MESSAGES.ALERT().replaceAll("%a", Config.MAXPLAYERS.AMOUNT().toString())));
     }
     
     public static void broadcastShutdown() {
         String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAIN.SHUTDOWN()));
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAIN.SHUTDOWN().replaceAll("%d", Config.MAXPLAYERS.DELAY().toString())));
     }
     
 }

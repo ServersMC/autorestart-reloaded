@@ -1,10 +1,13 @@
-package org.serversmc.autorestart.utils;
+package org.serversmc.autorestart.threads;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
+import org.serversmc.autorestart.utils.Config;
+import org.serversmc.autorestart.utils.MemoryUtils;
+import org.serversmc.autorestart.utils.Messenger;
 
 public class TimerUtils {
 

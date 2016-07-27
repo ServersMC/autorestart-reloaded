@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 public class Console {
-
+    
     public static void info(String s) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "[AutoRestart] " + s);
     }

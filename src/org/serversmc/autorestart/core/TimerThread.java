@@ -2,10 +2,10 @@ package org.serversmc.autorestart.core;
 
 import java.util.List;
 import org.serversmc.autorestart.enums.ActionEnum;
+import org.serversmc.autorestart.threads.TimerUtils;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.MemoryUtils;
 import org.serversmc.autorestart.utils.PluginUtils;
-import org.serversmc.autorestart.utils.TimerUtils;
 
 public class TimerThread implements Runnable {
     

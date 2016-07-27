@@ -218,8 +218,8 @@ public class Config {
         public static Integer DELAY() { return Config.getConfig().getInt("config.max-players.delay", 10); }
         
         public static class MESSAGES {
-            public static String ALERT() { return Config.getConfig().getString("config.max-players.messages.alert", "&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!").replaceAll("%a", MAXPLAYERS.AMOUNT().toString()); }
-            public static String SHUTDOWN() { return Config.getConfig().getString("config.max-players.messages.shutdown", "&aServer now restarting in &f%d&a seconds!").replaceAll("%d", MAXPLAYERS.DELAY().toString()); }
+            public static String ALERT() { return Config.getConfig().getString("config.max-players.messages.alert", "&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!"); }
+            public static String SHUTDOWN() { return Config.getConfig().getString("config.max-players.messages.shutdown", "&aServer now restarting in &f%d&a seconds!"); }
         }
     }
     
