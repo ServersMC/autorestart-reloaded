@@ -2,12 +2,10 @@ package org.serversmc.autorestart.utils;
 
 import java.util.List;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.serversmc.autorestart.types.TimeDeserializer;
 
 public class Config {
     
     private static FileConfiguration config = null;
-    private static TimeDeserializer time = new TimeDeserializer(0);
     
     public static Integer VERSION;
     
@@ -18,10 +16,6 @@ public class Config {
     public static void setConfig(FileConfiguration config) {
         Config.config = config;
         VERSION = getConfig().getInt("version", 0);
-    }
-    
-    public static void setTime(Integer time) {
-        Config.time = new TimeDeserializer(time);
     }
     
     public static class MAIN {
@@ -66,16 +60,16 @@ public class Config {
         
         public static class MESSAGES {
             public static String PREFIX() { return Config.getConfig().getString("config.broadcast.messages.prefix", "&f[&7AutoRestart&f] &e"); }
-            public static String MINUTES() { return Config.getConfig().getString("config.broadcast.messages.minutes", "Server Will Restart In %m Minutes!").replaceAll("%m", time.getM().toString()); }
-            public static String SECONDS() { return Config.getConfig().getString("config.broadcast.messages.seconds", "Server is restarting in %s Seconds!").replaceAll("%s", time.getS().toString()); }
-            public static String TIME() { return Config.getConfig().getString("config.broadcast.messages.time", "&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!").replaceAll("%h", time.getH().toString()).replaceAll("%m", time.getM().toString()).replaceAll("%s", time.getS().toString()); }
+            public static String MINUTES() { return Config.getConfig().getString("config.broadcast.messages.minutes", "Server Will Restart In %m Minutes!"); }
+            public static String SECONDS() { return Config.getConfig().getString("config.broadcast.messages.seconds", "Server is restarting in %s Seconds!"); }
+            public static String TIME() { return Config.getConfig().getString("config.broadcast.messages.time", "&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!"); }
             
             public static class STATUS {
                 public static String START() { return Config.getConfig().getString("config.broadcast.messages.status.start", "&cAutoRestart timer has started!"); }
                 public static String PAUSE() { return Config.getConfig().getString("config.broadcast.messages.status.pause", "&cAutoRestart timer has been paused"); }
             }
             
-            public static String CHANGE() { return Config.getConfig().getString("config.broadcast.messages.change", "&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!").replaceAll("%h", time.getH().toString()).replaceAll("%m", time.getM().toString()).replaceAll("%s", time.getS().toString()); }
+            public static String CHANGE() { return Config.getConfig().getString("config.broadcast.messages.change", "&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!"); }
         }
     }
     
@@ -91,14 +85,14 @@ public class Config {
         public static class MESSAGES {
             public static class MINUTES {
                 public static class TITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.minutes.title.text", "&cServer Restarting In").replaceAll("%m", time.getM().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.minutes.title.text", "&cServer Restarting In"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.minutes.title.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.minutes.title.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.minutes.title.fadeout", 20); }
                     public static Integer FADEOUT() { return Config.getConfig().getInt("config.popups.messages.minutes.title.stay", 10); }
                 }
                 public static class SUBTITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.minutes.subtitle.text", "&f%m &cMinutes!").replaceAll("%m", time.getM().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.minutes.subtitle.text", "&f%m &cMinutes!"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.minutes.subtitle.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.minutes.subtitle.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.minutes.subtitle.fadeout", 20); }
@@ -108,14 +102,14 @@ public class Config {
             
             public static class SECONDS {
                 public static class TITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.seconds.title.text", "&cServer Restarting In").replaceAll("%s", time.getS().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.seconds.title.text", "&cServer Restarting In"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.seconds.title.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.seconds.title.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.seconds.title.fadeout", 20); }
                     public static Integer FADEOUT() { return Config.getConfig().getInt("config.popups.messages.seconds.title.stay", 10); }
                 }
                 public static class SUBTITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.seconds.subtitle.text", "&f%s &cSeconds!").replaceAll("%s", time.getS().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.seconds.subtitle.text", "&f%s &cSeconds!"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.seconds.subtitle.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.seconds.subtitle.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.seconds.subtitle.fadeout", 20); }
@@ -125,14 +119,14 @@ public class Config {
             
             public static class TIME {
                 public static class TITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.time.title.text", "&cServer Restarting In").replaceAll("%h", time.getH().toString()).replaceAll("%m", time.getM().toString()).replaceAll("%s", time.getS().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.time.title.text", "&cServer Restarting In"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.time.title.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.time.title.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.time.title.fadeout", 20); }
                     public static Integer FADEOUT() { return Config.getConfig().getInt("config.popups.messages.time.title.stay", 10); }
                 }
                 public static class SUBTITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.time.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!").replaceAll("%h", time.getH().toString()).replaceAll("%m", time.getM().toString()).replaceAll("%s", time.getS().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.time.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.time.subtitle.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.time.subtitle.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.time.subtitle.fadeout", 20); }
@@ -178,14 +172,14 @@ public class Config {
             
             public static class CHANGE {
                 public static class TITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.change.title.text", "&cServer Restarting In").replaceAll("%h", time.getH().toString()).replaceAll("%m", time.getM().toString()).replaceAll("%s", time.getS().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.change.title.text", "&cServer Restarting In"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.change.title.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.change.title.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.change.title.fadeout", 20); }
                     public static Integer FADEOUT() { return Config.getConfig().getInt("config.popups.messages.change.title.stay", 10); }
                 }
                 public static class SUBTITLE {
-                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.change.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!").replaceAll("%h", time.getH().toString()).replaceAll("%m", time.getM().toString()).replaceAll("%s", time.getS().toString()); }
+                    public static String TEXT() { return Config.getConfig().getString("config.popups.messages.change.subtitle.text", "&f%h&cH &f%m&cM &f%s&cS!"); }
                     public static Integer DELAY() { return Config.getConfig().getInt("config.popups.messages.change.subtitle.delay", 0); }
                     public static Integer FADEIN() { return Config.getConfig().getInt("config.popups.messages.change.subtitle.fadein", 10); }
                     public static Integer STAY() { return Config.getConfig().getInt("config.popups.messages.change.subtitle.fadeout", 20); }

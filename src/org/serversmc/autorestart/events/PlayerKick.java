@@ -1,5 +1,6 @@
 package org.serversmc.autorestart.events;
 
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerKickEvent;
@@ -15,7 +16,7 @@ public class PlayerKick implements Listener {
 				event.setCancelled(false);
 			}
 			event.setLeaveMessage(null);
-			event.setReason(Config.MAIN.SHUTDOWN());
+			event.setReason(ChatColor.translateAlternateColorCodes('&', Config.MAIN.SHUTDOWN()));
 		}
 	}
 	
