@@ -32,7 +32,7 @@ public class Config {
          * }
          */
 
-        public static Double INTERVAL() { return Config.getConfig().getDouble("config.main.inverval", 6); }
+        public static Double INTERVAL() { return Config.getConfig().getDouble("config.main.interval", 6); }
         public static Boolean MULTICRAFT() { return Config.getConfig().getBoolean("config.main.multicraft", false); }
         public static String SHUTDOWN() { return Config.getConfig().getString("config.main.shutdown", "&cServer Restarting! We will be back up any minute!"); }
     }
