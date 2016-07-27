@@ -2,6 +2,7 @@ package org.serversmc.autorestart.commands.autore;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.types.AutoCommand;
 import org.serversmc.autorestart.utils.Config;
@@ -9,7 +10,7 @@ import org.serversmc.autorestart.utils.Messenger;
 
 public class CmdStart extends AutoCommand {
 
-    private TimerThread timerThread = new TimerThread();
+    private TimerThread timerThread = Main.timerThread;
     
 	@Override
 	public void execute(CommandSender sender, String[] args) {
