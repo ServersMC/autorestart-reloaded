@@ -20,7 +20,7 @@ import me.dennis.updatecheck.core.UpdateCheck;
 
 public class Main extends JavaPlugin implements Runnable {
 
-    private static Main plugin;
+    public static Main plugin;
     
 	public static final Integer FORCED = 1;
 	public static final Integer DELAYED = 2;
@@ -164,10 +164,6 @@ public class Main extends JavaPlugin implements Runnable {
 			}
 		}
 		Bukkit.shutdown();
-	}
-
-	public static void reloadConfigStatic() {
-		plugin.reloadConfig();
 	}
 
 }

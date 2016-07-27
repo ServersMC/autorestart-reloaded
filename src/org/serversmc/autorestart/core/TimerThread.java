@@ -39,7 +39,7 @@ public class TimerThread implements Runnable {
 					// Commands Executor
 					if (Config.COMMANDS.ENABLED()) {
 						if (time == Config.COMMANDS.TIME()) {
-							Bukkit.getScheduler().scheduleSyncDelayedTask(null, new Runnable() {
+							Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
 								@Override
 								public void run() {
 									for (String command : Config.COMMANDS.COMMANDSLIST()) {
@@ -49,7 +49,7 @@ public class TimerThread implements Runnable {
 										Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
 									}
 								}
-							}, 1L);
+							}, 0L);
 						}
 					}
 					time--;
