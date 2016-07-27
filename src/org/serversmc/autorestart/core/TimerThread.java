@@ -1,7 +1,7 @@
 package org.serversmc.autorestart.core;
 
 import java.util.List;
-import org.serversmc.autorestart.enums.ShutdownAction;
+import org.serversmc.autorestart.enums.ActionEnum;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.MemoryUtils;
 import org.serversmc.autorestart.utils.PluginUtils;
@@ -35,7 +35,7 @@ public class TimerThread implements Runnable {
                 if (utils.waitingForMaxPlayers()) {
                     continue;
                 }
-                PluginUtils.shutdownServer(ShutdownAction.FORCED);
+                PluginUtils.shutdownServer(ActionEnum.FORCED);
             }
             try {
                 Thread.sleep(1000);

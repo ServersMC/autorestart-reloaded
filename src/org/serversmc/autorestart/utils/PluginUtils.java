@@ -1,8 +1,6 @@
 package org.serversmc.autorestart.utils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -10,7 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.serversmc.autorestart.commands.CmdAutoRestart;
 import org.serversmc.autorestart.core.Main;
-import org.serversmc.autorestart.enums.ShutdownAction;
+import org.serversmc.autorestart.enums.ActionEnum;
+import org.serversmc.autorestart.enums.FileEnum;
 import org.serversmc.autorestart.events.PlayerKick;
 import org.serversmc.autorestart.events.PlayerQuit;
 import me.dennis.updatecheck.core.UpdateCheck;
@@ -23,32 +22,12 @@ public class PluginUtils {
     }
     
     public static void setupFolders() {
-        List<File> folders = new ArrayList<File>();
-        folders.add(Main.plugin.getDataFolder());
-        for (File file : folders) {
-            if (!file.exists()) {
-                file.mkdirs();
-            }
-        }
+        Main.plugin.getDataFolder().mkdirs();
     }
     
     public static void setupFiles() {
-        List<String> resources = new ArrayList<String>();
-        resources.add("config.yml");
-        resources.add("instructions.txt");
-        if (System.getProperty("os.name").contains("Win")) {
-            resources.add("start_server.bat");
-        }
-        else {
-            resources.add("start_server.sh");
-        }
-        for (String resource : resources) {
-            if (resource.equals("config.yml")) {
-                if (new File(resource).exists()) {
-                    continue;
-                }
-            }
-            Main.plugin.saveResource(resource, true);
+        for (FileEnum file : FileEnum.values()) {
+            file.setup();
         }
         Config.setConfig(Main.plugin.getConfig());
     }
@@ -106,7 +85,7 @@ public class PluginUtils {
         }).start();
     }
     
-    public static void shutdownServer(ShutdownAction action) {
+    public static void shutdownServer(ActionEnum action) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -116,7 +95,7 @@ public class PluginUtils {
                 catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-                if (action == ShutdownAction.DELAYED) {
+                if (action.equals(ActionEnum.DELAYED)) {
                     try {
                         Thread.sleep(1000 * Config.MAXPLAYERS.DELAY());
                     }
