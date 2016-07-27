@@ -2,16 +2,17 @@ package org.serversmc.autorestart.commands.autore;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.serversmc.autorestart.core.Main;
+import org.serversmc.autorestart.enums.ShutdownAction;
 import org.serversmc.autorestart.types.AutoCommand;
 import org.serversmc.autorestart.utils.Config;
+import org.serversmc.autorestart.utils.PluginUtils;
 
 public class CmdNow extends AutoCommand {
 	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if (!Config.MAIN.MULTICRAFT()) {
-			Main.shutdownServer(Main.FORCED);
+            PluginUtils.shutdownServer(ShutdownAction.FORCED);
 		}
 		else {
 			sender.sendMessage(ChatColor.RED + "This feature is disabled with MutliCraft support.");

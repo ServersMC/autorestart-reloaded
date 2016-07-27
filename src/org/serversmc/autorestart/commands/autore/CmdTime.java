@@ -13,7 +13,7 @@ public class CmdTime extends AutoCommand {
 	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		Integer time = timerThread.getCurrentTime();
+		Integer time = timerThread.time;
 		TimeDeserializer td = new TimeDeserializer(time);
 		Integer h = td.getH();
 		Integer m = td.getM();

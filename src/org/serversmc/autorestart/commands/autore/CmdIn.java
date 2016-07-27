@@ -30,7 +30,7 @@ public class CmdIn extends AutoCommand {
 				Integer s = td.getS();
 				Messenger.popupChange(h, m, s);
 				Messenger.broadcastChange(h, m, s);
-                timerThread.setTime(time);
+                timerThread.time = time;
 			}
 			else {
 				sender.sendMessage(ChatColor.RED + "Invalid Arguments! /autore in <minutes>");

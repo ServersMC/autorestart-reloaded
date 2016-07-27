@@ -14,13 +14,13 @@ public class CmdStart extends AutoCommand {
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		if (!Config.MAIN.MULTICRAFT()) {
-			if (timerThread.isRunning()) {
+			if (timerThread.running) {
 				sender.sendMessage(ChatColor.RED + "Timer is already running!");
 			}
 			else {
 				Messenger.popupStatusStart();
 				Messenger.broadcastStatusStart();
-				timerThread.startRunning();
+				timerThread.running = true;
 			}
 		}
 		else {

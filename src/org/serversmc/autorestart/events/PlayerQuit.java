@@ -4,9 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.serversmc.autorestart.core.Main;
+import org.serversmc.autorestart.enums.ShutdownAction;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.MemoryUtils;
+import org.serversmc.autorestart.utils.PluginUtils;
 
 public class PlayerQuit implements Listener {
 
@@ -17,7 +18,7 @@ public class PlayerQuit implements Listener {
 		}
 		else if (MemoryUtils.isWaiting()) {
 			if (Bukkit.getOnlinePlayers().size() <= Config.MAXPLAYERS.AMOUNT()) {
-				Main.shutdownServer(Main.DELAYED);
+                PluginUtils.shutdownServer(ShutdownAction.DELAYED);
 			}
 		}
 	}
