@@ -19,19 +19,10 @@ public class Config {
     }
     
     public static class MAIN {
-        // public static TIMESTAMP TIMESTAMP = new TIMESTAMP(); }
-        
-        /*
-         * WILL BE ADDED TO A NEW UPDATE
-         * public static class TIMESTAMP {
-         * public static Boolean ENABLED =
-         * config.getBoolean("config.main.timestamp.enabled", false); }
-         * public static String TIME =
-         * config.getString("config.main.timestamp.time",
-         * "0:00"); }
-         * }
-         */
-
+    	public static class TIMESTAMP {
+    		public static Boolean ENABLED() { return Config.getConfig().getBoolean("config.main.timestamp.enabled", false); }
+    		public static String TIME() { return Config.getConfig().getString("config.main.timestamp.time", "0:00"); }
+    	}
         public static Double INTERVAL() { return Config.getConfig().getDouble("config.main.interval", 6); }
         public static Boolean MULTICRAFT() { return Config.getConfig().getBoolean("config.main.multicraft", false); }
         public static String SHUTDOWN() { return Config.getConfig().getString("config.main.shutdown", "&cServer Restarting! We will be back up any minute!"); }

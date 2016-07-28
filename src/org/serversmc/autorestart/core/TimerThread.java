@@ -8,17 +8,27 @@ import org.serversmc.autorestart.utils.MemoryUtils;
 import org.serversmc.autorestart.utils.PluginUtils;
 
 public class TimerThread implements Runnable {
-    
+
+	public Thread thread = new Thread(this);
     public Boolean running = true;
     public Integer paused = 60;
     public List<Integer> reminders;
     public Integer time = 0;
+
+    public void start() {
+    	thread.start();
+    }
     
     @Override
     public void run() {
         TimerUtils utils = new TimerUtils(this);
         reminders = Config.REMINDER.TIMER.MINUTES();
-        time = (int) (Config.MAIN.INTERVAL() * 3600);
+        if (Config.MAIN.TIMESTAMP.ENABLED()) {
+        	
+        }
+        else {
+            time = (int) (Config.MAIN.INTERVAL() * 3600);
+        }
         while (!MemoryUtils.isRestarting()) {
             if (time > 0) {
                 if (running) {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.serversmc.autorestart.commands.CmdAutoRestart;
-import org.serversmc.autorestart.types.AutoCommand;
+import org.serversmc.autorestart.objects.AutoCommand;
 
 public class CmdHelp extends AutoCommand {
 

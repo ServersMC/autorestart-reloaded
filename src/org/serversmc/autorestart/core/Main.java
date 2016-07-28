@@ -19,8 +19,6 @@ public class Main extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        Console.info("Enabled!");
-        
         PluginUtils.init(this);
         PluginUtils.setupFolders();
         PluginUtils.setupFiles();
@@ -30,13 +28,14 @@ public class Main extends JavaPlugin {
         PluginUtils.registerCommands(); 
         PluginUtils.registerEvents();
         
-        new Thread(timerThread).start();
+        timerThread.start();
+        Console.info("Enabled!");
     }
     
     @Override
     public void onDisable() {
-        Console.info("Disabled!");
         MemoryUtils.setRestarting();
+        Console.info("Disabled!");
     }
     
 }

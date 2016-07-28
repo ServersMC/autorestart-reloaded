@@ -1,4 +1,4 @@
-package org.serversmc.autorestart.types;
+package org.serversmc.autorestart.objects;
 
 import org.bukkit.command.CommandSender;
 

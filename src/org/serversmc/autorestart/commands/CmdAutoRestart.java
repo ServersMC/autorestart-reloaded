@@ -14,7 +14,7 @@ import org.serversmc.autorestart.commands.autore.CmdReload;
 import org.serversmc.autorestart.commands.autore.CmdStart;
 import org.serversmc.autorestart.commands.autore.CmdTime;
 import org.serversmc.autorestart.core.Main;
-import org.serversmc.autorestart.types.AutoCommand;
+import org.serversmc.autorestart.objects.AutoCommand;
 
 public class CmdAutoRestart implements CommandExecutor {
 

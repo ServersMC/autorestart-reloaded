@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
-import org.serversmc.autorestart.types.AutoCommand;
+import org.serversmc.autorestart.objects.AutoCommand;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Messenger;
 
