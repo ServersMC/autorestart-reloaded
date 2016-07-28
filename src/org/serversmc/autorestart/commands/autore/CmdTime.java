@@ -15,11 +15,8 @@ public class CmdTime extends AutoCommand {
 	public void execute(CommandSender sender, String[] args) {
 		Integer time = timerThread.time;
 		TimeDeserializer td = new TimeDeserializer(time);
-		Integer h = td.getH();
-		Integer m = td.getM();
-		Integer s = td.getS();
-		Messenger.popupTime(sender, h, m, s);
-		Messenger.broadcastTime(sender, h, m, s);
+		Messenger.popupTime(sender, td.h, td.m, td.s);
+		Messenger.broadcastTime(sender, td.h, td.m, td.s);
 	}
 
 	@Override

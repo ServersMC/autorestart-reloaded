@@ -14,7 +14,7 @@ public class CmdPause extends AutoCommand {
     
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!Config.MAIN.MULTICRAFT()) {
+		if (!Config.MAIN.MULTICRAFT() && !timerThread.timestamp) {
 			if (timerThread.running) {
 				Messenger.popupStatusPause();
 				Messenger.broadcastStatusPause();
@@ -23,6 +23,9 @@ public class CmdPause extends AutoCommand {
 			else {
 				sender.sendMessage(ChatColor.RED + "Timer is already paused!");
 			}
+		}
+		else if (timerThread.timestamp) {
+			sender.sendMessage(ChatColor.RED + "This feature is disabled with TimeStamp feature!");
 		}
 		else {
 			sender.sendMessage(ChatColor.RED + "This feature is disabled with MutliCraft support.");

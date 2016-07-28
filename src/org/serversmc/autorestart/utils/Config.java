@@ -33,7 +33,6 @@ public class Config {
             public static Boolean MINUTES() { return Config.getConfig().getBoolean("config.reminder.enabled.minutes", true); }
             public static Boolean SECONDS() { return Config.getConfig().getBoolean("config.reminder.enabled.seconds", true); }
         }
-        
         public static class TIMER {
             public static List<Integer> MINUTES() { return Config.getConfig().getIntegerList("config.reminder.timer.minutes"); }
             public static Integer SECONDS() { return Config.getConfig().getInt("config.reminder.timer.seconds", 5); }
@@ -48,18 +47,15 @@ public class Config {
             public static Boolean STATUS() { return Config.getConfig().getBoolean("config.broadcast.enabled.status", true); }
             public static Boolean CHANGE() { return Config.getConfig().getBoolean("config.broadcast.change", true); }
         }
-        
         public static class MESSAGES {
             public static String PREFIX() { return Config.getConfig().getString("config.broadcast.messages.prefix", "&f[&7AutoRestart&f] &e"); }
             public static String MINUTES() { return Config.getConfig().getString("config.broadcast.messages.minutes", "Server Will Restart In %m Minutes!"); }
             public static String SECONDS() { return Config.getConfig().getString("config.broadcast.messages.seconds", "Server is restarting in %s Seconds!"); }
             public static String TIME() { return Config.getConfig().getString("config.broadcast.messages.time", "&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!"); }
-            
             public static class STATUS {
                 public static String START() { return Config.getConfig().getString("config.broadcast.messages.status.start", "&cAutoRestart timer has started!"); }
                 public static String PAUSE() { return Config.getConfig().getString("config.broadcast.messages.status.pause", "&cAutoRestart timer has been paused"); }
             }
-            
             public static String CHANGE() { return Config.getConfig().getString("config.broadcast.messages.change", "&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!"); }
         }
     }
@@ -207,7 +203,6 @@ public class Config {
         public static Boolean ENABLED() { return Config.getConfig().getBoolean("config.max-players.enabled", false); }
         public static Integer AMOUNT() { return Config.getConfig().getInt("config.max-players.amount", 10); }
         public static Integer DELAY() { return Config.getConfig().getInt("config.max-players.delay", 10); }
-        
         public static class MESSAGES {
             public static String ALERT() { return Config.getConfig().getString("config.max-players.messages.alert", "&bToo many players online for restart. Max &f%a&b amount of players allowed for a restart. Waiting for people to leave!"); }
             public static String SHUTDOWN() { return Config.getConfig().getString("config.max-players.messages.shutdown", "&aServer now restarting in &f%d&a seconds!"); }

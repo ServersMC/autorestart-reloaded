@@ -15,7 +15,7 @@ public class CmdIn extends AutoCommand {
     
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!Config.MAIN.MULTICRAFT()) {
+		if (!Config.MAIN.MULTICRAFT() && !timerThread.timestamp) {
 			if (args.length == 2) {
 				Integer time = 0;
 				try {
@@ -25,9 +25,9 @@ public class CmdIn extends AutoCommand {
 					return;
 				}
 				TimeDeserializer td = new TimeDeserializer(time);
-				Integer h = td.getH();
-				Integer m = td.getM();
-				Integer s = td.getS();
+				Integer h = td.h;
+				Integer m = td.m;
+				Integer s = td.s;
 				Messenger.popupChange(h, m, s);
 				Messenger.broadcastChange(h, m, s);
                 timerThread.time = time;
@@ -35,6 +35,9 @@ public class CmdIn extends AutoCommand {
 			else {
 				sender.sendMessage(ChatColor.RED + "Invalid Arguments! /autore in <minutes>");
 			}
+		}
+		else if (timerThread.timestamp) {
+			sender.sendMessage(ChatColor.RED + "This feature is disabled with TimeStamp feature!");
 		}
 		else {
 			sender.sendMessage(ChatColor.RED + "This feature is disabled with MutliCraft support.");

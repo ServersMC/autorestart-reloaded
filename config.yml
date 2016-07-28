@@ -1,4 +1,6 @@
 ## Change Log
+## Version: 15
+##   Added "config.main.timestamp.*" for TimeStamp restart configuration.
 ## Version: 14
 ##   Fixed Type for "config.main.interval"
 ##   Merged "config.popups" and "config.timings"
@@ -10,6 +12,13 @@ config:
     main:
         ## The time is set by hours (DECIMALS ALLOWED)
         interval: 6
+        ## Now you have the ability to restart in a certain time!
+        timestamp:
+            ## Enables or Disables the Timestamp feature
+            enabled: false
+            ## Time the format for the time is 24-hour time, and hh:mm
+            ## Make sure to leave the '
+            time: '00:00'
         ## !!!! IMPORTANT !!!!
         ## If your server is running under MultiCraft, set this to true!
         ## Go into "Scheduled Tasks", and configure MultiCraft to restart the server, the same time your server will restart.
@@ -214,4 +223,4 @@ config:
             shutdown: '&aServer now restarting in &f%d&a seconds!'
         
 ## DO NOT CHANGE THIS!!!!
-version: 14
+version: 15
