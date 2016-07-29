@@ -22,8 +22,8 @@ public class Main extends JavaPlugin {
         PluginUtils.init(this);
         PluginUtils.setupFolders();
         PluginUtils.setupFiles();
-        PluginUtils.checkUpdate();
         PluginUtils.updateConfigFile();
+        PluginUtils.checkUpdate();
         
         PluginUtils.registerCommands(); 
         PluginUtils.registerEvents();
