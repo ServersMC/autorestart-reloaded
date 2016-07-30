@@ -5,7 +5,6 @@ import org.bukkit.command.CommandSender;
 import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.objects.AutoCommand;
-import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Messenger;
 
 public class CmdPause extends AutoCommand {
@@ -14,7 +13,7 @@ public class CmdPause extends AutoCommand {
     
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!Config.MAIN.MULTICRAFT() && !timerThread.timestamp) {
+		if (!timerThread.timestamp) {
 			if (timerThread.running) {
 				Messenger.popupStatusPause();
 				Messenger.broadcastStatusPause();

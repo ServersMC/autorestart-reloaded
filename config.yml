@@ -1,4 +1,7 @@
 ## Change Log
+## Version: 16
+##   Removed "config.main.multicraft"
+##   Added "config.main.restart-script"
 ## Version: 15
 ##   Added "config.main.timestamp.*" for TimeStamp restart configuration.
 ## Version: 14
@@ -21,10 +24,12 @@ config:
             time: '00:00'
         ## !!!! IMPORTANT !!!!
         ## If your server is running under MultiCraft, set this to true!
-        ## Go into "Scheduled Tasks", and configure MultiCraft to restart the server, the same time your server will restart.
-        ## /autore pause, /autore start, /autore now, /autore reload, /autore in, and max-players feature will be disabled with MultiCraft.
-        ## Since these commands, and features alters the timer in AutoRestart, MultiCraft timer is still running.
-        multicraft: false
+        ## This option will restart your server using the Spigot.yml restart script file.
+        ## You have to have Spigot for this to work, this is perfect for MultiCraft users, because it is automaticlly setup
+        ##   According to my knowledge it is.
+        ## With this enabled, you do not have to edit the startup script, this will allow you to stop the server,
+        ##   Without having it to start back up automaticlly.
+        restart-script: false
         ## The shutdown message on when the server restarts.
         ## Color codes now enabled! Use regular chat colors!
         shutdown: '&cServer Restarting! We will be back up any minute!'
@@ -223,4 +228,4 @@ config:
             shutdown: '&aServer now restarting in &f%d&a seconds!'
         
 ## DO NOT CHANGE THIS!!!!
-version: 15
+version: 16

@@ -6,7 +6,6 @@ import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.enums.ActionEnum;
 import org.serversmc.autorestart.objects.AutoCommand;
-import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.PluginUtils;
 
 public class CmdNow extends AutoCommand {
@@ -15,7 +14,7 @@ public class CmdNow extends AutoCommand {
 	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!Config.MAIN.MULTICRAFT() && !timerThread.timestamp) {
+		if (!timerThread.timestamp) {
             PluginUtils.shutdownServer(ActionEnum.FORCED);
 		}
 		else if (timerThread.timestamp) {

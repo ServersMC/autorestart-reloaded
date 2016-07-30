@@ -67,7 +67,7 @@ public class TimerUtils {
     }
 
     public boolean waitingForMaxPlayers() {
-        if (Config.MAXPLAYERS.ENABLED() && !Config.MAIN.MULTICRAFT() && !thread.timestamp) {
+        if (Config.MAXPLAYERS.ENABLED() && !thread.timestamp) {
             if (Bukkit.getOnlinePlayers().size() > Config.MAXPLAYERS.AMOUNT()) {
                 MemoryUtils.setWaiting();
                 Messenger.popupStatusPause();

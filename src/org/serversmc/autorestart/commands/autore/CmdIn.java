@@ -6,7 +6,6 @@ import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.objects.AutoCommand;
 import org.serversmc.autorestart.objects.TimeDeserializer;
-import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Messenger;
 
 public class CmdIn extends AutoCommand {
@@ -15,7 +14,7 @@ public class CmdIn extends AutoCommand {
     
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!Config.MAIN.MULTICRAFT() && !timerThread.timestamp) {
+		if (!timerThread.timestamp) {
 			if (args.length == 2) {
 				Integer time = 0;
 				try {

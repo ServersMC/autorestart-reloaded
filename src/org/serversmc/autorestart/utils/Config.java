@@ -24,7 +24,7 @@ public class Config {
     		public static String TIME() { return Config.getConfig().getString("config.main.timestamp.time", "0:00"); }
     	}
         public static Double INTERVAL() { return Config.getConfig().getDouble("config.main.interval", 6); }
-        public static Boolean MULTICRAFT() { return Config.getConfig().getBoolean("config.main.multicraft", false); }
+        public static Boolean RESTARTSCRIPT() { return Config.getConfig().getBoolean("config.main.restart-script", false); }
         public static String SHUTDOWN() { return Config.getConfig().getString("config.main.shutdown", "&cServer Restarting! We will be back up any minute!"); }
     }
     

@@ -13,7 +13,7 @@ public class CmdReload extends AutoCommand {
 	
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if (!Config.MAIN.MULTICRAFT() && !timerThread.timestamp) {
+		if (!timerThread.timestamp) {
 			Main.plugin.reloadConfig();
 	        Config.setConfig(Main.plugin.getConfig());;
 			sender.sendMessage(ChatColor.GRAY + "Config has been reloaded!");

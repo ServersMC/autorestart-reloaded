@@ -130,7 +130,12 @@ public class PluginUtils {
 						break;
 					}
 				}
-				Bukkit.shutdown();
+				if (Config.MAIN.RESTARTSCRIPT()) {
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
+				}
+				else {
+					Bukkit.shutdown();
+				}
 			}
 		}).start();
 	}
