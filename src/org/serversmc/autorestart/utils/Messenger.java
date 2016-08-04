@@ -87,53 +87,69 @@ public class Messenger {
 	public static void broadcastMinutes(Integer m) {
 		if (Config.BROADCAST.ENABLED.MINUTES()) {
 			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-			broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.MINUTES().replaceAll("%m", m.toString())));
+			for (String message : Config.BROADCAST.MESSAGES.MINUTES()) {
+				broadcastMessage(message.replaceAll("%p", prefix).replaceAll("%m", m.toString()));
+			}
 		}
 	}
 	
 	public static void broadcastSeconds(Integer s) {
 		if (Config.BROADCAST.ENABLED.SECONDS()) {
 			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-			broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.SECONDS().replaceAll("%s", s.toString())));
+			for (String message : Config.BROADCAST.MESSAGES.SECONDS()) {
+				broadcastMessage(message.replaceAll("%p", prefix).replaceAll("%s", s.toString()));
+			}
 		}
 	}
 	
 	public static void broadcastTime(CommandSender sender, Integer h, Integer m, Integer s) {
 		if (Config.BROADCAST.ENABLED.TIME()) {
 			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.TIME().replaceAll("%h", h.toString()).replaceAll("%m", m.toString()).replaceAll("%s", s.toString())));
+			for (String message : Config.BROADCAST.MESSAGES.TIME()) {
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message.replaceAll("%p", prefix).replaceAll("%h", h.toString()).replaceAll("%m", m.toString()).replaceAll("%s", s.toString())));
+			}
 		}
 	}
 	
 	public static void broadcastStatusStart() {
 		if (Config.BROADCAST.ENABLED.STATUS()) {
 			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-			broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.STATUS.START()));
+			for (String message : Config.BROADCAST.MESSAGES.STATUS.START()) {
+				broadcastMessage(message.replaceAll("%p", prefix));
+			}
 		}
 	}
 	
 	public static void broadcastStatusPause() {
 		if (Config.BROADCAST.ENABLED.STATUS()) {
 			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-			broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.STATUS.PAUSE()));
+			for (String message : Config.BROADCAST.MESSAGES.STATUS.PAUSE()) {
+				broadcastMessage(message.replaceAll("%p", prefix));
+			}
 		}
 	}
 	
 	public static void broadcastChange(Integer h, Integer m, Integer s) {
 		if (Config.BROADCAST.ENABLED.CHANGE()) {
 			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-			broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.BROADCAST.MESSAGES.CHANGE().replaceAll("%h", h.toString()).replaceAll("%m", m.toString()).replaceAll("%s", s.toString())));
+			for (String message : Config.BROADCAST.MESSAGES.CHANGE()) {
+				broadcastMessage(message.replaceAll("%p", prefix).replaceAll("%h", h.toString()).replaceAll("%m", m.toString()).replaceAll("%s", s.toString()));
+			}
 		}
 	}
 	
 	public static void broadcastMaxplayersCanceled() {
-		String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-		broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAXPLAYERS.MESSAGES.ALERT().replaceAll("%a", Config.MAXPLAYERS.AMOUNT().toString())));
+		if (Config.MAXPLAYERS.ENABLED()) {
+			String prefix = Config.BROADCAST.MESSAGES.PREFIX();
+			for (String message : Config.MAXPLAYERS.MESSAGES.ALERT()) {
+				broadcastMessage(message.replaceAll("%p", prefix).replaceAll("%a", Config.MAXPLAYERS.AMOUNT().toString()));
+			}
+		}
 	}
 	
 	public static void broadcastShutdown() {
 		String prefix = Config.BROADCAST.MESSAGES.PREFIX();
-		broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAIN.SHUTDOWN().replaceAll("%d", Config.MAXPLAYERS.DELAY().toString())));
+		broadcastMessage(ChatColor.translateAlternateColorCodes('&', prefix + Config.MAIN.SHUTDOWN()));
 	}
 	
 	private static void broadcastMessage(String msg) {

@@ -1,6 +1,8 @@
 ## Change Log
 ## Version: 17
 ##  Added mutliline support for broadcast messages.
+##  And Max-Players Alert message
+##  Control your prefix. Only in MutliLine support.
 ##  Its a list of strings.
 ## Version: 16
 ##   Removed "config.main.multicraft"
@@ -77,21 +79,27 @@ config:
             prefix: '&f[&7AutoRestart&f] &e'
             ## %m - minutes
             minutes:
+            - '%p'
             - 'Server Will Restart In %m Minutes!'
             ## %s - seconds
             seconds:
+            - '%p'
             - 'Server is restarting in %s Seconds!'
             ## %h - hours, %m - minutes, %s - seconds
             time:
+            - '%p'
             - '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
             ## There are no tags for this section.
             status:
                 start:
+                - '%p'
                 - '&cAutoRestart timer has started!'
                 pause:
+                - '%p'
                 - '&cAutoRestart timer has been paused'
             ## %h - hours, %m - minutes, %s - seconds
             change:
+            - '%p'
             - '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
 
     ## To understand ticks. 1 second is relevent to 20 ticks! So a second and a half (1.5s) is 30 ticks!
