@@ -153,6 +153,6 @@ public class Messenger {
 	}
 	
 	private static void broadcastMessage(String msg) {
-		Bukkit.broadcastMessage(msg);
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msg));
 	}
 }
