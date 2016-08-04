@@ -1,4 +1,7 @@
 ## Change Log
+## Version: 17
+##  Added mutliline support for broadcast messages.
+##  Its a list of strings.
 ## Version: 16
 ##   Removed "config.main.multicraft"
 ##   Added "config.main.restart-script"
@@ -73,17 +76,23 @@ config:
             ## Prefix for broadcast, this is applied to (minutes, seconds, time, status, and change)
             prefix: '&f[&7AutoRestart&f] &e'
             ## %m - minutes
-            minutes: 'Server Will Restart In %m Minutes!'
+            minutes:
+            - 'Server Will Restart In %m Minutes!'
             ## %s - seconds
-            seconds: 'Server is restarting in %s Seconds!'
+            seconds:
+            - 'Server is restarting in %s Seconds!'
             ## %h - hours, %m - minutes, %s - seconds
-            time: '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
+            time:
+            - '&cServer restarting in &f%h&cH &f%m&cM &f%s&cS!'
             ## There are no tags for this section.
             status:
-                start: '&cAutoRestart timer has started!'
-                pause: '&cAutoRestart timer has been paused'
+                start:
+                - '&cAutoRestart timer has started!'
+                pause:
+                - '&cAutoRestart timer has been paused'
             ## %h - hours, %m - minutes, %s - seconds
-            change: '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
+            change:
+            - '&cServer now is restarting in &f%h&cH &f%m&cM &f%s&cS!'
 
     ## To understand ticks. 1 second is relevent to 20 ticks! So a second and a half (1.5s) is 30 ticks!
     ## Fadein, stay, fadeout are the 3 arguments. You can edit how long it takes to fadein, fadeout etc.
@@ -228,4 +237,4 @@ config:
             shutdown: '&aServer now restarting in &f%d&a seconds!'
         
 ## DO NOT CHANGE THIS!!!!
-version: 16
+version: 17
