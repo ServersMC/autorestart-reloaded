@@ -1,6 +1,7 @@
 package org.serversmc.autorestart.utils;
 
 import java.lang.reflect.Constructor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
