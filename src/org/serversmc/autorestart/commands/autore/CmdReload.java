@@ -15,7 +15,7 @@ public class CmdReload extends AutoCommand {
 	public void execute(CommandSender sender, String[] args) {
 		if (!timerThread.timestamp) {
 			Main.plugin.reloadConfig();
-	        Config.setConfig(Main.plugin.getConfig());;
+	        Config.setConfig(Main.plugin.getConfig());
 			sender.sendMessage(ChatColor.GRAY + "Config has been reloaded!");
 		}
 		else if (timerThread.timestamp) {
