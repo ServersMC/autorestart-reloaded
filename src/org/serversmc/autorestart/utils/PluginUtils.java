@@ -1,6 +1,7 @@
 package org.serversmc.autorestart.utils;
 
 import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -12,6 +13,7 @@ import org.serversmc.autorestart.enums.ActionEnum;
 import org.serversmc.autorestart.enums.FileEnum;
 import org.serversmc.autorestart.events.PlayerKick;
 import org.serversmc.autorestart.events.PlayerQuit;
+
 import me.dennis.updatecheck.core.UpdateCheck;
 
 public class PluginUtils {

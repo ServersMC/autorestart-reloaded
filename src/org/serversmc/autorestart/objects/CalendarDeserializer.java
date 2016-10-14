@@ -1,6 +1,7 @@
 package org.serversmc.autorestart.objects;
 
 import java.util.Calendar;
+
 import org.bukkit.ChatColor;
 import org.serversmc.autorestart.utils.Console;
 

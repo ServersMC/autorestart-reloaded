@@ -1,6 +1,7 @@
 package org.serversmc.autorestart.core;
 
 import java.util.List;
+
 import org.serversmc.autorestart.enums.ActionEnum;
 import org.serversmc.autorestart.objects.CalendarDeserializer;
 import org.serversmc.autorestart.threads.TimerUtils;

@@ -2,6 +2,7 @@ package org.serversmc.autorestart.enums;
 
 import java.io.File;
 import java.util.concurrent.Callable;
+
 import org.serversmc.autorestart.core.Main;
 
 public enum FileEnum {

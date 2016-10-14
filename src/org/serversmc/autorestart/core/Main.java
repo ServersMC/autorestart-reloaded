@@ -1,7 +1,5 @@
 package org.serversmc.autorestart.core;
 
-import java.util.logging.Logger;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.serversmc.autorestart.utils.Console;
 import org.serversmc.autorestart.utils.MemoryUtils;
@@ -12,8 +10,6 @@ public class Main extends JavaPlugin {
     public static Main plugin;
     
     public static String VERSION;
-    
-    public Logger log = Bukkit.getLogger();
     
     public static TimerThread timerThread = new TimerThread();
     
