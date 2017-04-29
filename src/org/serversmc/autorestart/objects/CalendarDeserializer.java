@@ -17,12 +17,12 @@ public class CalendarDeserializer {
 		catch (NumberFormatException ex) { Console.err("TimeStamp HOUR is not a number! " + ChatColor.WHITE + vars[0]); return; }
 		try { timeMinute = new Integer(vars[1]); }
 		catch (NumberFormatException ex) { Console.err("TimeStamp MINUTE is not a number! " + ChatColor.WHITE + vars[0]); return; }
-		if (!(timeHour > 0 && timeHour < 25)) {
-			Console.err("TimeStamp HOUR can only be " + ChatColor.WHITE + "1" + ChatColor.RED + " or " + ChatColor.WHITE + "01" + ChatColor.RED + " to " + ChatColor.WHITE + "24" + ChatColor.RED + "!");
+		if (!(timeHour >= 0 && timeHour <= 23)) {
+			Console.err("TimeStamp HOUR can only be " + ChatColor.WHITE + "0" + ChatColor.RED + " or " + ChatColor.WHITE + "00" + ChatColor.RED + " to " + ChatColor.WHITE + "23" + ChatColor.RED + "!");
 			return;
 		}
-		if (!(timeMinute > 0 && timeMinute < 60)) {
-			Console.err("TimeStamp MINUTE can only be " + ChatColor.WHITE + "1" + ChatColor.RED + " or " + ChatColor.WHITE + "01" + ChatColor.RED + " to " + ChatColor.WHITE + "59" + ChatColor.RED + "!");
+		if (!(timeMinute >= 0 && timeMinute <= 59)) {
+			Console.err("TimeStamp MINUTE can only be " + ChatColor.WHITE + "0" + ChatColor.RED + " or " + ChatColor.WHITE + "00" + ChatColor.RED + " to " + ChatColor.WHITE + "59" + ChatColor.RED + "!");
 			return;
 		}
 		Calendar now = Calendar.getInstance();
