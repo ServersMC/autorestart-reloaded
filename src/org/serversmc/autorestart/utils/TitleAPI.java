@@ -15,8 +15,10 @@ public class TitleAPI {
 			Object packetTitle = getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TITLE").get(null);
 			Object objectTiming = getMcClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + title + "\"}");
 			Object objectTitle = getMcClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + title + "\"}");
-			Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"), Integer.class, Integer.class, Integer.class);
-			Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"));
+			//Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"), Integer.class, Integer.class, Integer.class);
+			//Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"));
+			Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructors()[0];
+			Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructors()[2];
 			sendPacket(player, cTiming.newInstance(packetTiming, objectTiming, fadeIn, stay, fadeOut));
 			sendPacket(player, cTitle.newInstance(packetTitle, objectTitle));
 		}
@@ -32,8 +34,16 @@ public class TitleAPI {
 			Object packetTitle = getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("SUBTITLE").get(null);
 			Object objectTiming = getMcClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + subtitle + "\"}");
 			Object objectTitle = getMcClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, "{\"text\":\"" + subtitle + "\"}");
-			Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"), Integer.class, Integer.class, Integer.class);
-			Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"));
+			//Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"), Integer.class, Integer.class, Integer.class);
+			//Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"));
+			Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructors()[0];
+			Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructors()[2];
+
+			for (int i = 0; i < getMcClass("PacketPlayOutTitle").getConstructors().length; i++) {
+				Constructor<?> con = getMcClass("PacketPlayOutTitle").getConstructors()[i];
+				player.sendMessage(ChatColor.RED.toString() + i + " = " + con.getParameterCount());
+			}
+			
 			sendPacket(player, cTiming.newInstance(packetTiming, objectTiming, fadeIn, stay, fadeOut));
 			sendPacket(player, cTitle.newInstance(packetTitle, objectTitle));
 		}
