@@ -38,12 +38,6 @@ public class TitleAPI {
 			//Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"));
 			Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructors()[0];
 			Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructors()[2];
-
-			for (int i = 0; i < getMcClass("PacketPlayOutTitle").getConstructors().length; i++) {
-				Constructor<?> con = getMcClass("PacketPlayOutTitle").getConstructors()[i];
-				player.sendMessage(ChatColor.RED.toString() + i + " = " + con.getParameterCount());
-			}
-			
 			sendPacket(player, cTiming.newInstance(packetTiming, objectTiming, fadeIn, stay, fadeOut));
 			sendPacket(player, cTitle.newInstance(packetTitle, objectTitle));
 		}
