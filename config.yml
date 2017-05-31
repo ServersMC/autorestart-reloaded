@@ -29,6 +29,7 @@ config:
             time: '00:00'
         ## !!!! IMPORTANT !!!!
         ## If your server is running under MultiCraft, set this to true!
+        multicraft: false
         ## This option will restart your server using the Spigot.yml restart script file.
         ## You have to have Spigot for this to work, this is perfect for MultiCraft users, because it is automaticlly setup
         ##   According to my knowledge it is.
