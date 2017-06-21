@@ -8,6 +8,8 @@ import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.MemoryUtils;
 import org.serversmc.autorestart.utils.Messenger;
+import org.serversmc.autorestart.utils.UpdateFinder;
+import org.serversmc.autorestart.utils.UpdateFinder.PluginLite;
 
 public class TimerUtils {
 
@@ -64,6 +66,33 @@ public class TimerUtils {
             }
             thread.paused = 60;
         }
+    }
+    
+    public void updateFinder() {
+    	if (Config.UPDATE_FINDER.ENABLED()) {
+    		if (thread.time == Config.UPDATE_FINDER.TIME() * 60) {
+    			UpdateFinder.checkUpdates();
+    			String prefix = ChatColor.translateAlternateColorCodes('&', Config.BROADCAST.MESSAGES.PREFIX());
+    			if (UpdateFinder.getUpdatedPlugins().size() > 0) {
+    				for (String string : Config.UPDATE_FINDER.MESSAGE()) {
+    					string = ChatColor.translateAlternateColorCodes('&', string);
+    					Bukkit.broadcastMessage(string.replace("%p", prefix).replace("%n", UpdateFinder.getUpdatedPlugins().size() + "").replace("%s", "'s"));
+    				}
+    				for (PluginLite plugin : UpdateFinder.getUpdatedPlugins()) {
+    					String string = ChatColor.translateAlternateColorCodes('&', Config.UPDATE_FINDER.PLUGIN());
+    					Bukkit.broadcastMessage(string.replace("%p", plugin.NAME));
+    				}
+    			}
+    			else {
+    				if (Config.UPDATE_FINDER.NOFIND.ENABLED()) {
+        				for (String string : Config.UPDATE_FINDER.NOFIND.MESSAGE()) {
+        					string = ChatColor.translateAlternateColorCodes('&', string);
+        					Bukkit.broadcastMessage(string.replace("%p", prefix));
+        				}
+    				}
+    			}
+    		}
+    	}
     }
 
     public boolean waitingForMaxPlayers() {

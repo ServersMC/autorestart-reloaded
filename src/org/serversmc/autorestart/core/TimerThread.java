@@ -3,12 +3,13 @@ package org.serversmc.autorestart.core;
 import java.util.List;
 
 import org.serversmc.autorestart.enums.ActionEnum;
-import org.serversmc.autorestart.objects.CalendarDeserializer;
 import org.serversmc.autorestart.threads.TimerUtils;
+import org.serversmc.autorestart.utils.CalendarDeserializer;
 import org.serversmc.autorestart.utils.Config;
 import org.serversmc.autorestart.utils.Console;
 import org.serversmc.autorestart.utils.MemoryUtils;
 import org.serversmc.autorestart.utils.PluginUtils;
+import org.serversmc.autorestart.utils.UpdateFinder;
 
 public class TimerThread implements Runnable {
 
@@ -25,6 +26,7 @@ public class TimerThread implements Runnable {
     
     @Override
     public void run() {
+    	UpdateFinder.init();
         TimerUtils utils = new TimerUtils(this);
         reminders = Config.REMINDER.TIMER.MINUTES();
         if (Config.MAIN.TIMESTAMP.ENABLED()) {
@@ -47,6 +49,7 @@ public class TimerThread implements Runnable {
                     utils.minutesReminder();
                     utils.secondsReminder();
                     utils.commandExecutor();
+                    utils.updateFinder();
                     time--;
                 }
                 else {

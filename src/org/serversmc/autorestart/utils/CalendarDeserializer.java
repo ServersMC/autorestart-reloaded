@@ -1,9 +1,8 @@
-package org.serversmc.autorestart.objects;
+package org.serversmc.autorestart.utils;
 
 import java.util.Calendar;
 
 import org.bukkit.ChatColor;
-import org.serversmc.autorestart.utils.Console;
 
 public class CalendarDeserializer {
 

@@ -1,4 +1,9 @@
 ## Change Log
+## Version: 18
+##  Added Update finder notification system.
+##  Enable or disable this feature.
+##  Control message popup.
+##  Control prefix for plugins when they popup.
 ## Version: 17
 ##  Added mutliline support for broadcast messages.
 ##  And Max-Players Alert message
@@ -29,7 +34,6 @@ config:
             time: '00:00'
         ## !!!! IMPORTANT !!!!
         ## If your server is running under MultiCraft, set this to true!
-        multicraft: false
         ## This option will restart your server using the Spigot.yml restart script file.
         ## You have to have Spigot for this to work, this is perfect for MultiCraft users, because it is automaticlly setup
         ##   According to my knowledge it is.
@@ -218,7 +222,7 @@ config:
 
     ## This section will allow you to run Console Commands before a given amount of seconds
     commands:
-        ## This will allow you to enabled, or disable the last second commands.
+        ## This will allow you to enable, or disable the last second commands.
         enabled: false
         ## This is when the commands will be executed. IN SECONDS
         time: 5
@@ -227,6 +231,32 @@ config:
         - '/place your commands'
         - '/in this fasion'
 
+    ## This section will notify your players when your plugins in your plugins folder has updated. AutoRestart will search
+    ## through all your plugins, and save their version number into memory, then compare on restart.
+    update-finder:
+        ## This will allow you to enable, or disable the update finder notification system.
+        enabled: true
+        ## This is the time the server will check for updated plugins, and broadcast the changes.
+        ## This is in minutes.
+        time: 3
+        ## This is the message that will popup when autorestart finds updated plugins.
+        ## %p is the prefix - %n is the number of plugins changed - %s is the "'s" that will be added for correct grammer.
+        message:
+        - '%p'
+        - '&cAutoRestart has found &f%n &cplugin%s that will be updated during the restart!'
+        ## This is the message that will broadcast every plugin that was found.
+        ## %p is the plugin name.
+        plugin: '&f- &c%p'
+        ## This will allow a message to popup when there is no plugins found in the update.
+        nofind:
+            ## Enable or Disable this feature.
+            enabled: true
+            ## The message that popups
+            ## %p is the prefix
+            message:
+            - '%p'
+            - '&cThere is no updates found during this restart'
+    
      ## This will stop your server from shutting down if you have more than X amount of players configured in "amount".
     max-players:
         ## Enable or Disable this feature
@@ -246,4 +276,4 @@ config:
             shutdown: '&aServer now restarting in &f%d&a seconds!'
         
 ## DO NOT CHANGE THIS!!!!
-version: 17
+version: 18

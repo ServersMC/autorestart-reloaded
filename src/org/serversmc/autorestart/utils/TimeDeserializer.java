@@ -1,4 +1,4 @@
-package org.serversmc.autorestart.objects;
+package org.serversmc.autorestart.utils;
 
 public class TimeDeserializer {
 

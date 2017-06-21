@@ -200,6 +200,17 @@ public class Config {
         public static List<String> COMMANDSLIST() { return Config.getConfig().getStringList("config.commands.commands-list"); }
     }
     
+    public static class UPDATE_FINDER {
+    	public static Boolean ENABLED() { return Config.getConfig().getBoolean("config.update-finder.enabled", true); }
+    	public static Integer TIME() { return Config.getConfig().getInt("config.update-finder.time", 3); }
+    	public static List<String> MESSAGE() { return Config.getConfig().getStringList("config.update-finder.message"); }
+    	public static String PLUGIN() { return Config.getConfig().getString("config.update-finder.plugin", "&f- &c%p"); }
+    	public static class NOFIND {
+    		public static Boolean ENABLED() { return Config.getConfig().getBoolean("config.update-finder.nofind.enabled", true); }
+    		public static List<String> MESSAGE() { return Config.getConfig().getStringList("config.update-finder.nofind.message"); }
+    	}
+    }
+    
     public static class MAXPLAYERS {
         public static Boolean ENABLED() { return Config.getConfig().getBoolean("config.max-players.enabled", false); }
         public static Integer AMOUNT() { return Config.getConfig().getInt("config.max-players.amount", 10); }

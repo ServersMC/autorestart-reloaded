@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.serversmc.autorestart.core.Main;
 import org.serversmc.autorestart.core.TimerThread;
 import org.serversmc.autorestart.objects.AutoCommand;
-import org.serversmc.autorestart.objects.TimeDeserializer;
 import org.serversmc.autorestart.utils.Messenger;
+import org.serversmc.autorestart.utils.TimeDeserializer;
 
 public class CmdIn extends AutoCommand {
 
