@@ -37,7 +37,9 @@ public class TitleAPI {
 			//Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"), Integer.class, Integer.class, Integer.class);
 			//Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructor(getMcClass("PacketPlayOutTitle").getDeclaredClasses()[0], getMcClass("IChatBaseComponent"));
 			Constructor<?> cTiming = getMcClass("PacketPlayOutTitle").getConstructors()[0];
+			Console.err(cTiming.toString());
 			Constructor<?> cTitle = getMcClass("PacketPlayOutTitle").getConstructors()[2];
+			Console.err(cTiming.newInstance(packetTiming, objectTiming, fadeIn, stay, fadeOut).toString());
 			sendPacket(player, cTiming.newInstance(packetTiming, objectTiming, fadeIn, stay, fadeOut));
 			sendPacket(player, cTitle.newInstance(packetTitle, objectTitle));
 		}
