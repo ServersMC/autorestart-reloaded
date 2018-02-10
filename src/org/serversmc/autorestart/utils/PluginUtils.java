@@ -65,7 +65,7 @@ public class PluginUtils {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				UpdateCheck update = new UpdateCheck("https://gitlab.com/dennislysenko/AutoRestart-Reloaded/tags");
+				UpdateCheck update = new UpdateCheck("https://gitlab.com/dennislysenko/AutoRestart-Reloaded/raw/master/plugin.yml");
 				String version = Main.plugin.getDescription().getVersion();
 				Console.info("Checking for update!");
 				Boolean b = update.needsUpdate(version);

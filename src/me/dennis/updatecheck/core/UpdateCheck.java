@@ -19,8 +19,8 @@ public class UpdateCheck {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				if (line.contains("item-title")) {
-					latestVersion = line.split(">")[1].split("<")[0];
+				if (line.startsWith("version:")) {
+					latestVersion = line.split("version:")[1].trim();
 					break;
 				}
 			}
